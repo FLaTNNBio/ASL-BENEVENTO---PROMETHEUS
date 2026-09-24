@@ -1,0 +1,520 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Population Health · ASL Benevento
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-shell">
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <p class="page-eyebrow">Population Health</p>
+        <h1> Stratificazione DM77</h1>
+
+        <p class="page-subtitle">
+            Analisi del bisogno assistenziale,
+            raccomandazione causale e gestione delle risorse
+            attraverso PROMETHEUS.
+        </p>
+
+    </div>
+
+
+        <!--RUN CONFIGURATION-->
+        <section id="phConfigurationCard" class="ph-card">
+            <div class="ph-card-header">
+                <div>
+                    <h3>Nuova stratificazione</h3>
+                    <p>Seleziona la sorgente dei dati e avvia la pipeline interattiva PROMETHEUS.</p>
+                </div>
+            </div>
+
+            <div class="ph-config-grid">
+
+                <!-- COLONNA SINISTRA: CSV -->
+                <section class="ph-config-panel ph-config-panel--csv">
+
+                    <div class="ph-config-panel-header">
+                        <h4>Dataset pazienti</h4>
+                        <p>Carica e valida un CSV patient-level reale.La validazione non avvia PROMETHEUS.</p>
+                    </div>
+
+                    <label class="ph-field">
+                        <span>File CSV</span>
+                        <input id="phCsvFile" type="file" accept=".csv,text/csv">
+                        <small>Da 100 a 5000 pazienti. Comune e CAP sono opzionali.Le colonne identificative non vengono utilizzate da PROMETHEUS.</small>
+                    </label>
+
+                    <div class="ph-config-panel-action">
+                        <button id="phCsvValidateButton" type="button"class="ph-primary-button"> Valida CSV</button>
+                    </div>
+
+                    <section id="phCsvReport" class="ph-status" hidden aria-live="polite">
+                        <strong id="phCsvReportTitle"></strong>
+                        <div id="phCsvReportBody"></div>
+                    </section>
+
+                    <div class="ph-template-download">
+                        <span>Hai bisogno del tracciato CSV?</span>
+                        <a href="/api/stratification/csv/template" class="ph-template-link">Scarica template CSV</a>
+                    </div>
+                </section>
+
+
+                <!-- COLONNA DESTRA: CONFIGURAZIONE -->
+                <form id="phRunForm" class="ph-config-panel ph-config-panel--run">
+                    <div class="ph-config-panel-header">
+                        <h4>Configurazione PROMETHEUS</h4>
+                        <p> Definisci la sorgente della coorte e lo scenario da utilizzare.</p>
+                    </div>
+
+                    <label class="ph-field">
+                        <span>Origine dati</span>
+                        <select id="phDataSource" name="data_source">
+                            <option value="synthetic" selected>Popolazione sintetica</option>
+                            <option id="phDataSourceCsvOption" value="real_csv" disabled> Dataset CSV validato</option>
+                        </select>
+                        <small id="phDataSourceHint"> Verrà generata una popolazione sintetica usando il numero di pazienti indicato.</small>
+                    </label>
+
+                    <label class="ph-field">
+                        <span>Numero pazienti</span>
+                        <input id="phPatients" name="patients" type="number" min="100" max="5000" step="1" value="1000" required>
+                        <small> Range tecnico: 100–5000.Popolazioni piccole possono avere supporto causale insufficiente.</small>
+                    </label>
+
+                    <input id="phSeed" name="seed" type="number" min="0" step="1" value="55" required hidden>
+                    <label class="ph-field">
+                        <span>Scenario PROMETHEUS</span>
+                        <input id="phScenario" name="scenario" type="text" list="phScenarioOptions" value="baseline_identifiable" required >
+
+                        <datalist id="phScenarioOptions">
+                            <option value="baseline_identifiable"></option>
+                            <option value="need_current_alignment"></option>
+                            <option value="unmet_need"></option>
+                            <option value="over_intensive_care"></option>
+                            <option value="heterogeneous_profile_costs"></option>
+                        </datalist>
+                        <small> Il backend applica la validazione definitiva dello scenario.</small>
+                    </label>
+                </form>
+            </div>
+
+            <!-- AZIONE COMUNE SOTTO LE DUE COLONNE -->
+            <div class="ph-run-submit">
+                <button id="phRunButton" type="submit" form="phRunForm" class="ph-primary-button"> Avvia stratificazione</button>
+            </div>
+        </section>
+
+
+    <!-- STATUS-->
+    <section id="phStatus" class="ph-status" hidden aria-live="polite">
+        <strong id="phStatusTitle"></strong>
+        <span id="phStatusMessage"></span>
+    </section>
+
+    <!--RESULTS-->
+    <div id="phResults" hidden>
+        <!-- RUN INFORMATION -->
+        <section class="ph-result-header">
+            <div>
+                <span class="ph-result-label">Run</span>
+                <code id="phRunId"></code>
+            </div>
+            <div>
+                <span class="ph-result-label">Origine dati</span>
+                <strong id="phRunDataSource">—</strong>
+            </div>
+            <div class="ph-score-warning"> Punteggio di priorità =<strong>priorità relativa</strong>, non rischio clinico.</div>
+            <div> <button id="phNewStratificationButton" type="button" class="ph-primary-button"> Configura nuova stratificazione</button>
+            </div>
+        </section>
+
+
+        <!--KPI -->
+
+        <section class="ph-kpi-grid">
+            <article class="ph-kpi">
+                <span>Pazienti</span>
+                <strong id="phKpiPatients">—</strong>
+            </article>
+
+            <article class="ph-kpi">
+                <span>Raccomandati</span>
+                <strong id="phKpiRecommended">—</strong>
+            </article>
+
+
+            <article class="ph-kpi">
+                <span>Nessuna raccomandazione</span>
+                <strong id="phKpiAbstained">—</strong>
+            </article>
+
+            <article class="ph-kpi">
+                <span>Raccomandazioni attivate</span>
+                <strong id="phKpiAllocated">—</strong>
+            </article>
+
+            <article class="ph-kpi">
+                <span>Raccomandazioni rinviate</span>
+                <strong id="phKpiDeferred">—</strong>
+            </article>
+        </section>
+
+
+        <!--DISTRIBUTIONS-->
+        <section class="ph-distribution-grid">
+            <!-- BASELINE -->
+            <article class="ph-card">
+                <h3>Bisogno assistenziale iniziale</h3>
+                <p class="ph-chart-description"> Distribuzione dei pazienti per livello di complessità e bisogno assistenziale.</p>
+
+                <div id="phBaselineDistribution" class="ph-distribution"></div>
+
+            </article>
+
+            <!-- RECOMMENDATION -->
+            <article class="ph-card">
+                <h3>Profilo raccomandato</h3>
+                <p class="ph-chart-description">
+                    Livello assistenziale associato alla
+                    raccomandazione PROMETHEUS considerando
+                    esclusivamente i pazienti per cui è
+                    stata formulata una nuova indicazione.
+                </p>
+
+                <div id="phRecommendedDistribution" class="ph-distribution"></div>
+            </article>
+
+            <!-- ALLOCATION -->
+            <article class="ph-card">
+                <h3>Assistenza operativa</h3>
+                <p class="ph-chart-description">
+                    Livello assistenziale effettivamente
+                    attivo dopo aver considerato capacità
+                    disponibili e budget.
+                </p>
+                <div id="phAllocatedDistribution" class="ph-distribution"></div>
+            </article>
+
+            <!-- OPERATIONAL OUTCOME -->
+            <article class="ph-card">
+                <h3>Esito delle raccomandazioni</h3>
+                <p class="ph-chart-description">
+                    Raccomandazioni effettivamente attivate,
+                    rinviate per vincoli operativi oppure
+                    non formulate.
+                </p>
+
+                <div id="phOperationalOutcome" class="ph-distribution"></div>
+            </article>
+        </section>
+
+        <!------TERRITORIAL ANALYSIS----->
+        <section class="ph-card ph-map-card">
+
+            <div class="ph-card-header ph-map-header">
+                <div class="ph-map-heading">
+                    <h3>Distribuzione territoriale</h3>
+                    <p id="phMapDescription">Distribuzione territoriale dei pazienti utilizzata esclusivamente per l'analisi post-hoc. La geografia non entra nel causal ranker.</p>
+                </div>
+
+                <div class="ph-map-provenance-block">
+                    <span class="ph-map-meta-label">Geografia</span>
+                    <div
+                        id="phMapGeographyProvenance"
+                        class="ph-status ph-map-provenance"
+                        hidden
+                    ></div>
+                </div>
+
+                <label class="ph-map-metric">
+                    <span>Indicatore visualizzato</span>
+                    <select id="phMapMetric">
+                        <option value="patient_count">Numero di pazienti</option>
+                        <option value="mean_baseline_need">Bisogno assistenziale medio</option>
+                        <option value="recommendation_rate">Tasso di raccomandazione</option>
+                        <option value="deferred_count">Raccomandazioni rinviate </option>
+                        <option value="deferred_rate_among_recommended"> Pressione operativa · tasso di rinvio </option>
+                    </select>
+                </label>
+            </div>
+
+            <div id="phMapStatus" class="ph-map-status">
+                La mappa sarà disponibile dopo l'esecuzione
+                della stratificazione.
+            </div>
+
+
+            <div class="ph-map-layout">
+                <div class="ph-map-column">
+                    <div id="phMap" class="ph-map" aria-label="Mappa territoriale Population Health"></div>
+                    <div id="phMapLegend" class="ph-map-legend"></div>
+                </div>
+
+                <aside id="phMunicipalityDetail" class="ph-municipality-detail">
+                    <div class="ph-municipality-placeholder">
+                        <strong>Dettaglio territoriale</strong>
+                        <p>
+                            Seleziona un comune sulla mappa
+                            per visualizzarne gli indicatori.
+                        </p>
+                    </div>
+                </aside>
+            </div>
+
+        </section>
+
+        <section class="ph-card ph-territorial-card">
+    <div class="ph-card-header">
+        <div>
+            <h3>Confronto territoriale</h3>
+            <p>Confronta i comuni rispetto agli indicatori complessivi della popolazione analizzata.</p>
+        </div>
+
+        <span id="phTerritorialMetricLabel" class="ph-territorial-metric-label">
+            Numero di pazienti
+        </span>
+    </div>
+
+    <div class="ph-territorial-kpi-grid">
+        <article class="ph-territorial-kpi">
+            <span>Pazienti localizzati</span>
+            <strong id="phTerritorialPatients">—</strong>
+        </article>
+
+        <article class="ph-territorial-kpi">
+            <span>Bisogno medio provinciale</span>
+            <strong id="phTerritorialMeanNeed">—</strong>
+        </article>
+
+        <article class="ph-territorial-kpi">
+            <span>Tasso di raccomandazione</span>
+            <strong id="phTerritorialRecommendationRate">—</strong>
+        </article>
+
+        <article class="ph-territorial-kpi">
+            <span>Tasso di rinvio tra raccomandati</span>
+            <strong id="phTerritorialDeferralRate">—</strong>
+        </article>
+    </div>
+
+    <div class="ph-territorial-ranking-header">
+        <div>
+            <strong>Comuni con i valori più elevati</strong>
+            <p id="phTerritorialRankingDescription">
+                Classifica costruita sull'indicatore selezionato nella mappa.
+            </p>
+        </div>
+    </div>
+
+    <div class="ph-table-wrapper">
+        <table class="ph-table ph-territorial-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Comune</th>
+                    <th>Valore</th>
+                    <th>Pazienti</th>
+                </tr>
+            </thead>
+
+            <tbody id="phMunicipalityRankingBody"></tbody>
+        </table>
+    </div>
+
+    <p class="ph-territorial-note">
+        Il tasso di rinvio è un indicatore operativo descrittivo e non rappresenta rischio,
+        priorità clinica o beneficio causale.
+    </p>
+</section>
+
+        <!-- POPULATION HEALTH -> 118 -->
+        <section class="ph-card" id="ph118SeverityCard">
+            <div class="ph-card-header">
+                <div>
+                    <h3>Severità territoriale per Pianificazione 118</h3>
+                    <p>
+                        Trasforma la stratificazione Population Health in un segnale territoriale per il modello 118. I codici ROSSO, GIALLO,
+                        VERDE e BIANCO e il numero originale di missioni restano invariati.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ph118-controls">
+                <label class="ph118-metric-field">
+                    <span>Indicatore territoriale</span>
+                    <select id="ph118Metric">
+                        <option value="patient_count">Pazienti per 1000 residenti</option>
+                        <option value="mean_baseline_need">Bisogno medio baseline</option>
+                    </select>
+                </label>
+                <div class="ph118-action">
+                    <button id="ph118PreviewButton" type="button" class="ph-primary-button">Genera anteprima severità 118</button>
+                </div>
+            </div>
+
+            <div id="ph118PreviewStatus"  class="ph-map-status"style="margin-top: 14px;">
+                Seleziona un indicatore e genera l'anteprima.
+            </div>
+
+            <div id="ph118PreviewResults" hidden>
+                <div id="ph118PreviewSummary" style="margin:14px 0;"></div>
+
+                <div style=" position:relative; width:100%; border:1px solid #e2e8f0; border-radius:14px; overflow:hidden;">
+                    <div id="ph118SeverityMap" style=" width:100%; height:520px; min-height:420px;"></div>
+                    <div id="ph118SeverityLegend"
+                         style="
+                            position:absolute;
+                            right:14px;
+                            bottom:14px;
+                            z-index:500;
+                            background:white;
+                            padding:12px 14px;
+                            border-radius:10px;
+                            box-shadow:0 2px 12px rgba(0,0,0,.15);
+                            font-size:13px;
+                        "
+                    ></div>
+                </div>
+
+                <div id="ph118MunicipalityDetail" style=" margin-top:14px; padding:14px; border:1px solid #e2e8f0; border-radius:12px;">
+                    Seleziona un comune sulla mappa per visualizzare il dettaglio.
+                </div>
+
+                <p class="ph-territorial-note">
+                    L'anteprima non modifica ancora la Pianificazione 118.
+                    Lo scenario verrà applicato soltanto dopo conferma esplicita.
+                </p>
+
+                <div style="margin-top:16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                    <button id="ph118UsePlanningButton" type="button" class="ph-primary-button" disabled> Usa nella Pianificazione 118</button>
+                    <span id="ph118MaterializeStatus"></span>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!--PATIENTS-->
+        <section class="ph-card">
+            <div class="ph-card-header ph-patients-header">
+                <div>
+                    <h3>Pazienti</h3>
+                    <p>
+                        Cerca e filtra la popolazione del run.
+                        Seleziona una riga per visualizzare il dettaglio assistenziale.
+                    </p>
+                </div>
+            </div>
+
+
+            <!--PATIENT FILTERS-->
+            <form id="phPatientFilters" class="ph-filter-bar">
+                <label class="ph-filter-field">
+                    <span>Cerca paziente</span>
+                    <input id="phFilterSearch" type="search" placeholder="ID paziente..." autocomplete="off">
+                </label>
+
+                <label class="ph-filter-field">
+                    <span>Livello di bisogno</span>
+                    <select id="phFilterBaseline">
+                        <option value="">Tutti i livelli</option>
+                        <option value="1">Livello 1</option>
+                        <option value="2">Livello 2</option>
+                        <option value="3">Livello 3</option>
+                        <option value="4">Livello 4</option>
+                        <option value="5">Livello 5</option>
+                        <option value="6">Livello 6</option>
+                    </select>
+                </label>
+
+                <label class="ph-filter-field">
+                    <span>Indicazione PROMETHEUS</span>
+                    <select id="phFilterRecommendation">
+                        <option value="">Tutte</option>
+                        <option value="recommended">Raccomandazione formulata</option>
+                        <option value="abstained">Nessuna raccomandazione</option>
+                    </select>
+                </label>
+
+                <label class="ph-filter-field">
+                    <span>Esito operativo</span>
+                    <select id="phFilterAllocation">
+                        <option value="">Tutti</option>
+                        <option value="allocated_recommended_profile">Raccomandazione attivata</option>
+                        <option value="deferred_recommended_profile">Raccomandazione rinviata</option>
+                        <option value="no_actionable_recommendation">Nessun cambiamento proposto</option>
+                    </select>
+                </label>
+
+                <div class="ph-filter-actions">
+                    <button type="submit" class="ph-filter-apply">Applica filtri</button>
+                    <button id="phFilterReset" type="button" class="ph-filter-reset">Azzera</button>
+                </div>
+            </form>
+
+            <div class="ph-table-meta">
+
+    <div id="phFilterSummary" class="ph-filter-summary">Tutti i pazienti</div>
+        <label class="ph-page-size">
+            <span>Righe per pagina</span>
+            <select id="phPageSize">
+                <option value="25" selected>25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </label>
+    </div>
+
+            <div class="ph-table-wrapper">
+                <table class="ph-table">
+                    <thead>
+                        <tr>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="patient_id">Paziente<span class="ph-sort-indicator"></span></button></th>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="residence_municipality">Comune <span class="ph-sort-indicator"></span></button></th>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="age">Età<span class="ph-sort-indicator"></span></button></th>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="baseline_need_level">Bisogno<span class="ph-sort-indicator"></span></button></th>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="current_care_profile_level">Assistenza attuale<span class="ph-sort-indicator"></span></button></th>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="recommended_actionable_level">Raccomandazione<span class="ph-sort-indicator"></span></button></th>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="calibrated_incremental_benefit">Beneficio stimato<span class="ph-sort-indicator"></span></button></th>
+                            <th>Esito PROMETHEUS</th>
+                            <th><button type="button" class="ph-sort-button" data-ph-sort="allocated_care_level">Livello operativo<span class="ph-sort-indicator"></span></button></th>
+                            <th>Esito operativo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="phPatientsTableBody"></tbody>
+                </table>
+            </div>
+
+            <footer class="ph-pagination">
+                <button id="phPrevPage" type="button">← Precedente</button>
+                <span id="phPageLabel">Pagina —</span>
+                <button id="phNextPage" type="button">Successiva →</button>
+            </footer>
+        </section>
+
+
+        <!--PATIENT DETAIL-->
+        <aside id="phPatientDetail" class="ph-detail" hidden>
+            <div class="ph-detail-header">
+                <h3 id="phPatientDetailTitle">Dettaglio paziente</h3>
+                <button id="phPatientDetailClose" type="button" aria-label="Chiudi dettaglio">×</button>
+            </div>
+            <div id="phPatientDetailBody" class="ph-detail-body"></div>
+        </aside>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+<script src="/assets/js/stratification.js" defer></script>
+{% endblock %}

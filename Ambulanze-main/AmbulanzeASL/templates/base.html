@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}  ASL Benevento · AI Operations {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="/assets/css/inline.css">
+    <link rel="icon" href="/favicon.png" sizes="any">
+    {% block head %}{% endblock %}
+</head>
+
+
+<body>
+
+    <!-------HEADER GLOBALE DELLA PIATTAFORMA-->
+
+    <div class="app-header" role="banner">
+        <div class="app-header__inner">
+            <a href="/" class="app-brand" aria-label="ASL Benevento AI Operations">
+
+                <span class="app-brand__mark">AI</span>
+                <span class="app-brand__text">
+                    <strong>ASL Benevento</strong>
+                    <small>AI Operations</small>
+                </span>
+            </a>
+
+            <nav class="app-nav" aria-label="Navigazione principale">
+                <a href="/" class="app-nav__link
+                    {% if active_page == 'planning' %}
+                    is-active
+                    {% endif %}"
+                    {% if active_page == 'planning' %}
+                    aria-current="page"
+                    {% endif %} >
+                    Pianificazione 118
+                </a>
+
+
+                <a
+                    href="/population-health"
+                    class="app-nav__link
+                    {% if active_page == 'population_health' %}
+                    is-active
+                    {% endif %}"
+                    {% if active_page == 'population_health' %}
+                    aria-current="page"
+                    {% endif %} >
+                    Population Health
+                </a>
+
+            </nav>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENUTO SPECIFICO DELLA PAGINA -->
+
+    <main class="app-main">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+
+</html>

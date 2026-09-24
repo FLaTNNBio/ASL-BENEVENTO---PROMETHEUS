@@ -1,0 +1,91 @@
+site_id,tipo,is_fixed,fixed_commune
+FIX_001,AMB_ALS,1,Airola
+FIX_002,AMB_ALS,1,Limatola
+FIX_003,AMB_ALS,1,San Giorgio Del Sannio
+FIX_004,AMB_ALS,1,San Salvatore Telesino
+FIX_005,AMB_ILS,1,Benevento
+FIX_006,AMB_ILS,1,Cerreto Sannita
+FIX_007,AMB_ILS,1,Ginestra Degli Schiavoni
+FIX_008,AMB_ILS,1,Morcone
+FIX_009,AMB_ILS,1,San Bartolomeo In Galdo
+FIX_010,AMB_ILS,1,Vitulano
+FIX_011,AUTO_MED,1,Benevento
+FIX_012,AUTO_MED,1,San Marco Dei Cavoti
+FIX_013,AUTO_MED,1,Torrecuso
+MOB_014,AMB_ILS,0,Airola
+MOB_015,AMB_ILS,0,Amorosi
+MOB_016,AMB_ILS,0,Apice
+MOB_017,AMB_ILS,0,Apollosa
+MOB_018,AMB_ILS,0,Arpaia
+MOB_019,AMB_ILS,0,Arpaise
+MOB_020,AMB_ILS,0,Baselice
+MOB_021,AMB_ILS,0,Benevento
+MOB_022,AMB_ILS,0,Bonea
+MOB_023,AMB_ILS,0,Bucciano
+MOB_024,AMB_ILS,0,Buonalbergo
+MOB_025,AMB_ILS,0,Calvi
+MOB_026,AMB_ILS,0,Campolattaro
+MOB_027,AMB_ILS,0,Campoli Del Monte Taburno
+MOB_028,AMB_ILS,0,Casalduni
+MOB_029,AMB_ILS,0,Castelfranco In Miscano
+MOB_030,AMB_ILS,0,Castelpagano
+MOB_031,AMB_ILS,0,Castelpoto
+MOB_032,AMB_ILS,0,Castelvenere
+MOB_033,AMB_ILS,0,Castelvetere In Val Fortore
+MOB_034,AMB_ILS,0,Cautano
+MOB_035,AMB_ILS,0,Ceppaloni
+MOB_036,AMB_ILS,0,Circello
+MOB_037,AMB_ILS,0,Colle Sannita
+MOB_038,AMB_ILS,0,Cusano Mutri
+MOB_039,AMB_ILS,0,Dugenta
+MOB_040,AMB_ILS,0,Durazzano
+MOB_041,AMB_ILS,0,Faicchio
+MOB_042,AMB_ILS,0,Foglianise
+MOB_043,AMB_ILS,0,Foiano Di Val Fortore
+MOB_044,AMB_ILS,0,Forchia
+MOB_045,AMB_ILS,0,Fragneto Monforte
+MOB_046,AMB_ILS,0,Fragneto L'Abate
+MOB_047,AMB_ILS,0,Frasso Telesino
+MOB_048,AMB_ILS,0,Ginestra Degli Schiavoni
+MOB_049,AMB_ILS,0,Guardia Sanframondi
+MOB_050,AMB_ILS,0,Limatola
+MOB_051,AMB_ILS,0,Melizzano
+MOB_052,AMB_ILS,0,Moiano
+MOB_053,AMB_ILS,0,Molinara
+MOB_054,AMB_ILS,0,Montefalcone Di Val Fortore
+MOB_055,AMB_ILS,0,Montesarchio
+MOB_056,AMB_ILS,0,Morcone
+MOB_057,AMB_ILS,0,Paduli
+MOB_058,AMB_ILS,0,Pago Veiano
+MOB_059,AMB_ILS,0,Pannarano
+MOB_060,AMB_ILS,0,Paolisi
+MOB_061,AMB_ILS,0,Paupisi
+MOB_062,AMB_ILS,0,Pesco Sannita
+MOB_063,AMB_ILS,0,Pietraroja
+MOB_064,AMB_ILS,0,Pietrelcina
+MOB_065,AMB_ILS,0,Ponte
+MOB_066,AMB_ILS,0,Pontelandolfo
+MOB_067,AMB_ILS,0,Puglianello
+MOB_068,AMB_ILS,0,Reino
+MOB_069,AMB_ILS,0,San Bartolomeo In Galdo
+MOB_070,AMB_ILS,0,San Giorgio La Molara
+MOB_071,AMB_ILS,0,San Giorgio Del Sannio
+MOB_072,AMB_ILS,0,San Leucio Del Sannio
+MOB_073,AMB_ILS,0,San Lorenzello
+MOB_074,AMB_ILS,0,San Lorenzo Maggiore
+MOB_075,AMB_ILS,0,San Lupo
+MOB_076,AMB_ILS,0,San Marco Dei Cavoti
+MOB_077,AMB_ILS,0,San Martino Sannita
+MOB_078,AMB_ILS,0,San Nazzaro
+MOB_079,AMB_ILS,0,San Nicola Manfredi
+MOB_080,AMB_ILS,0,San Salvatore Telesino
+MOB_081,AMB_ILS,0,Sant'Agata De' Goti
+MOB_082,AMB_ILS,0,Sant'Angelo A Cupolo
+MOB_083,AMB_ILS,0,Sant'Arcangelo Trimonte
+MOB_084,AMB_ILS,0,Santa Croce Del Sannio
+MOB_085,AMB_ILS,0,Sassinoro
+MOB_086,AMB_ILS,0,Solopaca
+MOB_087,AMB_ILS,0,Telese Terme
+MOB_088,AMB_ILS,0,Tocco Caudio
+MOB_089,AMB_ILS,0,Torrecuso
+MOB_090,AMB_ILS,0,Vitulano

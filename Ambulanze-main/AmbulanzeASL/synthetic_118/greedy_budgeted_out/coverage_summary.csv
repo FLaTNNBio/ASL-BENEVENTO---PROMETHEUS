@@ -1,0 +1,11 @@
+soluzione,codice,coperti,totale,coverage_%
+Dopo collocazione,ROSSO,13667,19902,68.67
+Dopo collocazione,GIALLO,52821,54683,96.59
+Dopo collocazione,VERDE,79739,82521,96.63
+Dopo collocazione,BIANCO,8024,8342,96.19
+Dopo collocazione,PESATO,515554,648781,79.47
+Dopo acquisti (budget),ROSSO,13667,19902,68.67
+Dopo acquisti (budget),GIALLO,54362,54683,99.41
+Dopo acquisti (budget),VERDE,82059,82521,99.44
+Dopo acquisti (budget),BIANCO,8294,8342,99.42
+Dopo acquisti (budget),PESATO,522632,648781,80.56

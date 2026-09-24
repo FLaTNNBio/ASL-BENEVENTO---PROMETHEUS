@@ -1,0 +1,3 @@
+Budget totale: 800000.00
+Speso: 800000.00
+Residuo: 0.00

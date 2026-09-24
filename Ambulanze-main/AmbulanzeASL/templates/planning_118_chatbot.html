@@ -1,0 +1,644 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Assistente AI · Pianificazione 118 · ASL Benevento
+{% endblock %}
+
+
+{% block content %}
+
+<section class="planning-ai-page">
+
+    <!-- ==================================================
+         SECONDARY NAVIGATION
+         ================================================== -->
+
+    <nav
+        class="planning-mode-nav"
+        aria-label="Modalità Pianificazione 118"
+    >
+
+        <a
+            href="/"
+            class="planning-mode-nav__link"
+        >
+            Configurazione manuale
+        </a>
+
+        <a
+            href="/planning-118/chatbot"
+            class="planning-mode-nav__link is-active"
+            aria-current="page"
+        >
+            Assistente AI
+        </a>
+
+    </nav>
+
+
+    <!-- ==================================================
+         PAGE HEADER
+         ================================================== -->
+
+    <div class="page-header">
+
+        <p class="page-eyebrow">
+            Pianificazione territoriale
+        </p>
+
+        <h1>
+            Assistente AI per Pianificazione 118
+        </h1>
+
+        <p class="page-subtitle">
+            Descrivi in linguaggio naturale la configurazione
+            operativa desiderata. L'assistente potrà proporre
+            esclusivamente modifiche ai parametri della
+            Pianificazione 118.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         METHODOLOGICAL NOTICE
+         ================================================== -->
+
+    <section class="planning-ai-notice">
+
+        <strong>
+            Ambito dell'assistente
+        </strong>
+
+        <p>
+            L'assistente può configurare esclusivamente
+            parametri operativi relativi al servizio 118.
+            Non può modificare parametri PROMETHEUS,
+            Population Health, ranking causale,
+            calibrazione o allocation.
+        </p>
+
+    </section>
+
+
+    <!-- ==================================================
+         WORKSPACE
+         ================================================== -->
+
+    <div class="planning-ai-layout">
+
+
+        <!-- ==================================================
+             CHAT
+             ================================================== -->
+
+        <section class="planning-ai-chat">
+
+            <div class="planning-ai-panel-header">
+
+                <div>
+
+                    <h2>
+                        Conversazione
+                    </h2>
+
+                    <p>
+                        Spiega all'assistente come vuoi
+                        configurare la pianificazione.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Conversation placeholder -->
+
+            <div
+                id="aslChatMessages"
+                class="planning-ai-messages"
+                aria-live="polite"
+            >
+
+                <article class="planning-ai-message planning-ai-message--assistant">
+
+                    <div class="planning-ai-message__role">
+                        Assistente AI
+                    </div>
+
+                    <p>
+                        Posso aiutarti a configurare
+                        i parametri operativi della
+                        Pianificazione 118.
+                    </p>
+
+                    <p>
+                        Ad esempio, puoi indicarmi
+                        personale disponibile, budget,
+                        tempi massimi di risposta o
+                        obiettivi della pianificazione.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- Composer -->
+
+            <form
+                id="aslChatForm"
+                class="planning-ai-composer"
+            >
+
+                <label for="aslChatInput">
+
+                    Descrivi la configurazione desiderata
+
+                </label>
+
+                <textarea
+                    id="aslChatInput"
+                    rows="5"
+                    placeholder="Esempio: disponiamo di 24 medici e 40 infermieri, con un budget massimo di 3 milioni. Vorrei i codici rossi entro 8 minuti e i gialli entro 18."
+                ></textarea>
+
+
+                <div class="planning-ai-composer__actions">
+                    <span id="aslChatStatus" class="planning-ai-coming-soon">Descrivi la configurazione operativa desiderata</span>
+                    <button id="aslChatSend" type="submit" class="ph-primary-button">Invia</button>
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- ==================================================
+             CONFIGURATION PREVIEW
+             ================================================== -->
+
+        <aside class="planning-ai-preview">
+
+            <div class="planning-ai-panel-header">
+
+                <div>
+
+                    <h2>
+                        Configurazione proposta
+                    </h2>
+
+                    <p>
+                        Le modifiche suggerite
+                        compariranno qui prima
+                        dell'applicazione.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="aslConfigurationPreview"
+                class="planning-ai-preview__empty"
+            >
+
+                <strong>
+                    Nessuna configurazione proposta
+                </strong>
+
+                <p>
+                    Quando l'assistente interpreterà
+                    una richiesta valida, qui verranno
+                    mostrati i parametri ASL modificati.
+                </p>
+
+            </div>
+
+
+            <div class="planning-ai-preview__actions">
+
+                <button
+                    id="aslApplyConfiguration"
+                    type="button"
+                    class="planning-ai-secondary-button"
+                    disabled
+                >
+                    Applica configurazione
+                </button>
+
+                <button
+                    id="aslRunOptimization"
+                    type="button"
+                    class="ph-primary-button"
+                    disabled
+                >
+                    Avvia ottimizzazione
+                </button>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const chatForm = document.getElementById("aslChatForm");
+    const chatInput = document.getElementById("aslChatInput");
+    const chatSend = document.getElementById("aslChatSend");
+    const chatStatus = document.getElementById("aslChatStatus");
+    const messages = document.getElementById("aslChatMessages");
+
+    const preview = document.getElementById("aslConfigurationPreview");
+
+    const applyButton = document.getElementById("aslApplyConfiguration");
+    const runButton = document.getElementById("aslRunOptimization");
+
+
+    const state = {
+        proposedPatch: null,
+        approvedConfiguration: {},
+    };
+
+
+    function escapeHtml(value) {
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+
+    function appendMessage(role, title, content) {
+
+        const article = document.createElement("article");
+
+        article.className =
+            `planning-ai-message planning-ai-message--${role}`;
+
+        article.innerHTML = `
+            <div class="planning-ai-message__role">
+                ${escapeHtml(title)}
+            </div>
+
+            <div class="planning-ai-message__body">
+                ${escapeHtml(content)}
+            </div>
+        `;
+
+        messages.appendChild(article);
+
+        messages.scrollTop =
+            messages.scrollHeight;
+    }
+
+
+    function formatValue(key, value) {
+
+        if (value === null || value === undefined) {
+            return "—";
+        }
+
+        if (key === "budget_total") {
+            return new Intl.NumberFormat(
+                "it-IT",
+                {
+                    style: "currency",
+                    currency: "EUR",
+                    maximumFractionDigits: 0,
+                }
+            ).format(Number(value));
+        }
+
+        if (typeof value === "object") {
+            return JSON.stringify(
+                value,
+                null,
+                2
+            );
+        }
+
+        return String(value);
+    }
+
+
+    function mergeConfiguration(base, patch) {
+
+        const merged = {
+            ...base,
+            ...patch,
+        };
+
+        if (patch.T) {
+            merged.T = {
+                ...(base.T || {}),
+                ...patch.T,
+            };
+        }
+
+        return merged;
+    }
+
+
+    function renderPreview(result) {
+
+        state.proposedPatch =
+            result.configuration;
+
+        const rows = (result.preview || [])
+            .map(item => `
+
+                <div class="planning-ai-preview-row">
+
+                    <div class="planning-ai-preview-row__text">
+
+                        <strong>
+                            ${escapeHtml(item.label)}
+                        </strong>
+
+                        <span>
+                            ${escapeHtml(item.description)}
+                        </span>
+
+                    </div>
+
+                    <div class="planning-ai-preview-row__value">
+                        <pre>${escapeHtml(
+                            formatValue(
+                                item.key,
+                                item.value
+                            )
+                        )}</pre>
+                    </div>
+
+                </div>
+
+            `)
+            .join("");
+
+
+        preview.className =
+            "planning-ai-preview__content";
+
+
+        preview.innerHTML = `
+
+            <div class="planning-ai-validation-title planning-ai-validation-title--success">
+                Modifiche proposte
+            </div>
+
+            <div class="planning-ai-preview-list">
+                ${rows}
+            </div>
+
+        `;
+
+
+        applyButton.disabled = false;
+        runButton.disabled = true;
+    }
+
+
+    function renderErrors(errors) {
+
+        const rows = (errors || [])
+            .map(error => `
+
+                <li>
+                    <strong>
+                        ${escapeHtml(error.field)}
+                    </strong>
+
+                    <span>
+                        ${escapeHtml(error.message)}
+                    </span>
+                </li>
+
+            `)
+            .join("");
+
+
+        preview.className =
+            "planning-ai-preview__errors";
+
+
+        preview.innerHTML = `
+
+            <div class="planning-ai-validation-title planning-ai-validation-title--error">
+                Richiesta non applicabile
+            </div>
+
+            <ul class="planning-ai-error-list">
+                ${rows}
+            </ul>
+
+        `;
+
+
+        state.proposedPatch = null;
+
+        applyButton.disabled = true;
+        runButton.disabled = true;
+    }
+
+
+    async function interpretMessage(message) {
+
+        const response = await fetch(
+            "/api/asl-assistant/interpret",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+                },
+
+                body: JSON.stringify({
+                    message,
+
+                    current_configuration:
+                        state.approvedConfiguration,
+                }),
+            }
+        );
+
+
+        let data;
+
+        try {
+            data = await response.json();
+        }
+        catch {
+            throw new Error(
+                "Risposta server non valida."
+            );
+        }
+
+
+        if (response.status >= 500) {
+            throw new Error(
+                data.message
+                || "Assistente non disponibile."
+            );
+        }
+
+
+        return data;
+    }
+
+
+    chatForm.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+
+            const message =
+                chatInput.value.trim();
+
+
+            if (!message) {
+                return;
+            }
+
+
+            appendMessage(
+                "user",
+                "Tu",
+                message
+            );
+
+
+            chatInput.value = "";
+
+            chatInput.disabled = true;
+            chatSend.disabled = true;
+
+            chatStatus.textContent =
+                "Interpretazione in corso...";
+
+
+            try {
+
+                const result =
+                    await interpretMessage(
+                        message
+                    );
+
+
+                appendMessage(
+                    "assistant",
+                    "Assistente AI",
+                    result.assistant_message
+                    || result.message
+                    || "Richiesta elaborata."
+                );
+
+
+                if (result.status === "clarification") {
+
+                    chatStatus.textContent =
+                        "Sono necessarie ulteriori informazioni.";
+
+                    return;
+                }
+
+
+                if (!result.valid) {
+
+                    if (result.errors?.length) {
+                        renderErrors(
+                            result.errors
+                        );
+                    }
+
+                    chatStatus.textContent =
+                        "Richiesta non applicabile.";
+
+                    return;
+                }
+
+
+                renderPreview(
+                    result
+                );
+
+
+                chatStatus.textContent =
+                    "Configurazione pronta per la conferma.";
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+
+                appendMessage(
+                    "assistant",
+                    "Errore",
+                    error.message
+                );
+
+
+                chatStatus.textContent =
+                    "Assistente non disponibile.";
+            }
+            finally {
+
+                chatInput.disabled = false;
+                chatSend.disabled = false;
+
+                chatInput.focus();
+            }
+        }
+    );
+
+
+   applyButton.addEventListener("click", () => {
+        if (!state.proposedPatch) {return;}
+
+        /*
+         * La PATCH appena approvata viene unita
+         * alla configurazione già approvata
+         * nella conversazione.
+         */
+        state.approvedConfiguration = mergeConfiguration(state.approvedConfiguration,state.proposedPatch);
+
+        /*
+         * sessionStorage:
+         *
+         * - rimane soltanto nella scheda browser corrente;
+         * - sopravvive al cambio pagina;
+         * - non modifica direttamente l'ottimizzatore.
+         */
+
+        sessionStorage.setItem("aslAssistantConfiguration",JSON.stringify(state.approvedConfiguration));
+        sessionStorage.setItem("aslAssistantConfigurationPending","1");
+
+        appendMessage(
+            "assistant", "Configurazione", "Configurazione approvata: verificala prima dell'ottimizzazione.");
+
+        state.proposedPatch = null;
+        applyButton.disabled = true;
+        runButton.disabled = true;
+
+        //Passiamo alla configurazione manuale.
+
+
+        window.location.href ="/?source=assistant";}
+    );
+
+});
+</script>
+
+{% endblock %}

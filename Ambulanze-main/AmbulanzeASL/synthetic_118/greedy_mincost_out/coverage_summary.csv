@@ -1,0 +1,11 @@
+soluzione,codice,coperti,totale,coverage_%
+Prima acquisti,ROSSO,13667,19902,68.67
+Prima acquisti,GIALLO,52821,54683,96.59
+Prima acquisti,VERDE,79739,82521,96.63
+Prima acquisti,BIANCO,8024,8342,96.19
+Prima acquisti,PESATO,515554,648781,79.47
+Dopo acquisti (min-cost),ROSSO,19902,19902,100.0
+Dopo acquisti (min-cost),GIALLO,54683,54683,100.0
+Dopo acquisti (min-cost),VERDE,82521,82521,100.0
+Dopo acquisti (min-cost),BIANCO,8342,8342,100.0
+Dopo acquisti (min-cost),PESATO,648781,648781,100.0

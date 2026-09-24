@@ -1,0 +1,52 @@
+# ============================================================
+# PROMETHEUS Interactive Application
+# ============================================================
+#
+# Configurazione della modalità interattiva sviluppata
+# nell'integration layer.
+#
+# NON rappresenta il Full Experimental Protocol di PROMETHEUS.
+# NON modifica configs/pipeline.yaml di PROMETHEUS.
+# ============================================================
+
+mode: interactive_demo
+
+data_source:
+  type: synthetic
+
+population:
+  size: 1000
+  min_size: 100
+  max_size: 5000
+
+  history_months: 24
+  reference_date: "2025-01-01"
+
+  profile: methodological_adult_population_v1
+
+  # Scenario del generatore demografico di base.
+  # È distinto dallo scenario causale PROMETHEUS.
+  population_scenario: baseline
+
+experiment:
+  # Seed unico esposto all'utente.
+  # Il runner deriverà da questo seed i seed interni
+  # necessari ai diversi componenti PROMETHEUS.
+  seed: 42
+
+  # Scenario del Profile DGP PROMETHEUS.
+  scenario: baseline_identifiable
+
+baseline_need:
+  mode: rules
+
+geography:
+  simulate_residence_municipality: true
+  municipality_catalog: "Ambulanze-main/AmbulanzeASL/dataset/data/comuni_geocoded.csv"
+  assignment:
+      type: deterministic_posthoc
+      weighting: population_if_available_otherwise_uniform
+
+metadata:
+  dm77_status: synthetic_research_operationalization_not_official_dm77
+  application_status: preclinical_methodological_demo

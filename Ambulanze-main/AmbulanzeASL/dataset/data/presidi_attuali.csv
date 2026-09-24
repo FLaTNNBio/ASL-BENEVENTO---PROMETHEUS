@@ -1,0 +1,18 @@
+comune,tipo_presidio
+Airola,AMB_ALS
+Limatola,AMB_ALS
+San Giorgio Del Sannio,AMB_ALS
+San Salvatore Telesino,AMB_ALS
+Benevento,AMB_ILS
+Cerreto Sannita,AMB_ILS
+Ginestra Degli Schiavoni,AMB_ILS
+Morcone,AMB_ILS
+San Bartolomeo In Galdo,AMB_ILS
+Vitulano,AMB_ILS
+Benevento,AUTO_MED
+San Marco Dei Cavoti,AUTO_MED
+Torrecuso,AUTO_MED
+Cerreto Sannita,PSAUT
+San Bartolomeo In Galdo,PSAUT
+Torrecuso,CMR
+Benevento,CMR

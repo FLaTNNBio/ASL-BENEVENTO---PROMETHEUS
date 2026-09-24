@@ -1,0 +1,2 @@
+100% coverage achieved for ['ROSSO', 'GIALLO', 'VERDE', 'BIANCO'].
+Total cost: 5600000.00

@@ -1,0 +1,16 @@
+slot_idx,site_id,tipo,base_comune,is_fixed,is_existing,reloc_family,purchase_cost,opex_cost
+25,FIX_001@Cusano Mutri,AMB_ALS,Cusano Mutri,0,1,FIX_001,0.0,0.0
+119,FIX_002@Montefalcone Di Val Fortore,AMB_ALS,Montefalcone Di Val Fortore,0,1,FIX_002,0.0,0.0
+186,FIX_003@Foiano Di Val Fortore,AMB_ALS,Foiano Di Val Fortore,0,1,FIX_003,0.0,0.0
+302,FIX_004@Sant'Agata De' Goti,AMB_ALS,Sant'Agata De' Goti,0,1,FIX_004,0.0,0.0
+356,FIX_005@Paduli,AMB_ILS,Paduli,0,1,FIX_005,0.0,0.0
+443,FIX_006@Pontelandolfo,AMB_ILS,Pontelandolfo,0,1,FIX_006,0.0,0.0
+487,FIX_007@Castelvetere In Val Fortore,AMB_ILS,Castelvetere In Val Fortore,0,1,FIX_007,0.0,0.0
+591,FIX_008@Pago Veiano,AMB_ILS,Pago Veiano,0,1,FIX_008,0.0,0.0
+672,FIX_009@Paupisi,AMB_ILS,Paupisi,0,1,FIX_009,0.0,0.0
+744,FIX_010@Montesarchio,AMB_ILS,Montesarchio,0,1,FIX_010,0.0,0.0
+781,FIX_011@Amorosi,AUTO_MED,Amorosi,0,1,FIX_011,0.0,0.0
+861,FIX_012@Apollosa,AUTO_MED,Apollosa,0,1,FIX_012,0.0,0.0
+952,FIX_013@Castelpagano,AUTO_MED,Castelpagano,0,1,FIX_013,0.0,0.0
+1069,FIX_014@Reino,PSAUT,Reino,0,1,FIX_014,0.0,0.0
+1149,FIX_015@San Giorgio Del Sannio,PSAUT,San Giorgio Del Sannio,0,1,FIX_015,0.0,0.0

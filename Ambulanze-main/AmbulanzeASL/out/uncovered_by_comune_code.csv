@@ -1,0 +1,312 @@
+comune,codice,chiamate,covered,uncovered
+Airola,ROSSO,14.0,True,0.0
+Airola,GIALLO,16.0,True,0.0
+Airola,VERDE,63.0,True,0.0
+Airola,BIANCO,23.0,True,0.0
+Limatola,ROSSO,14.0,True,0.0
+Limatola,GIALLO,52.0,True,0.0
+Limatola,VERDE,98.0,True,0.0
+Limatola,BIANCO,34.0,True,0.0
+San Giorgio Del Sannio,ROSSO,24.0,True,0.0
+San Giorgio Del Sannio,GIALLO,44.0,True,0.0
+San Giorgio Del Sannio,VERDE,133.0,True,0.0
+San Giorgio Del Sannio,BIANCO,37.0,True,0.0
+San Salvatore Telesino,ROSSO,33.8,True,0.0
+San Salvatore Telesino,GIALLO,61.1,True,0.0
+San Salvatore Telesino,VERDE,53.3,True,0.0
+San Salvatore Telesino,BIANCO,5.2,True,0.0
+Benevento,ROSSO,29.0,True,0.0
+Benevento,GIALLO,84.0,True,0.0
+Benevento,VERDE,163.0,True,0.0
+Benevento,BIANCO,46.0,True,0.0
+Cerreto Sannita,ROSSO,15.6,True,0.0
+Cerreto Sannita,GIALLO,23.4,True,0.0
+Cerreto Sannita,VERDE,19.5,True,0.0
+Cerreto Sannita,BIANCO,2.6,True,0.0
+Ginestra Degli Schiavoni,ROSSO,28.6,True,0.0
+Ginestra Degli Schiavoni,GIALLO,102.3,True,0.0
+Ginestra Degli Schiavoni,VERDE,112.2,True,0.0
+Ginestra Degli Schiavoni,BIANCO,27.5,True,0.0
+Morcone,ROSSO,23.4,True,0.0
+Morcone,GIALLO,42.9,True,0.0
+Morcone,VERDE,31.2,True,0.0
+Morcone,BIANCO,5.2,True,0.0
+San Bartolomeo In Galdo,ROSSO,34.1,True,0.0
+San Bartolomeo In Galdo,GIALLO,61.6,True,0.0
+San Bartolomeo In Galdo,VERDE,74.8,True,0.0
+San Bartolomeo In Galdo,BIANCO,20.9,True,0.0
+Vitulano,ROSSO,37.0,True,0.0
+Vitulano,GIALLO,122.0,True,0.0
+Vitulano,VERDE,275.0,True,0.0
+Vitulano,BIANCO,80.0,True,0.0
+San Marco Dei Cavoti,ROSSO,10.4,True,0.0
+San Marco Dei Cavoti,GIALLO,14.3,True,0.0
+San Marco Dei Cavoti,VERDE,13.0,True,0.0
+San Marco Dei Cavoti,BIANCO,2.6,True,0.0
+Torrecuso,ROSSO,31.0,True,0.0
+Torrecuso,GIALLO,84.0,True,0.0
+Torrecuso,VERDE,181.0,True,0.0
+Torrecuso,BIANCO,64.0,True,0.0
+Amorosi,ROSSO,24.7,True,0.0
+Amorosi,GIALLO,39.0,True,0.0
+Amorosi,VERDE,31.2,True,0.0
+Amorosi,BIANCO,2.6,True,0.0
+Apice,ROSSO,73.7,True,0.0
+Apice,GIALLO,146.3,True,0.0
+Apice,VERDE,149.6,True,0.0
+Apice,BIANCO,62.7,True,0.0
+Apollosa,ROSSO,42.9,True,0.0
+Apollosa,GIALLO,85.8,True,0.0
+Apollosa,VERDE,95.7,True,0.0
+Apollosa,BIANCO,13.2,True,0.0
+Arpaia,ROSSO,11.0,True,0.0
+Arpaia,GIALLO,26.4,True,0.0
+Arpaia,VERDE,25.3,True,0.0
+Arpaia,BIANCO,8.8,True,0.0
+Arpaise,ROSSO,55.9,True,0.0
+Arpaise,GIALLO,76.7,True,0.0
+Arpaise,VERDE,62.4,True,0.0
+Arpaise,BIANCO,9.1,True,0.0
+Baselice,ROSSO,105.3,True,0.0
+Baselice,GIALLO,189.8,True,0.0
+Baselice,VERDE,126.1,True,0.0
+Baselice,BIANCO,14.3,True,0.0
+Bonea,ROSSO,106.6,True,0.0
+Bonea,GIALLO,167.7,True,0.0
+Bonea,VERDE,119.6,True,0.0
+Bonea,BIANCO,20.8,True,0.0
+Bucciano,ROSSO,19.0,True,0.0
+Bucciano,GIALLO,67.0,True,0.0
+Bucciano,VERDE,101.0,True,0.0
+Bucciano,BIANCO,40.0,True,0.0
+Buonalbergo,ROSSO,13.2,True,0.0
+Buonalbergo,GIALLO,19.8,True,0.0
+Buonalbergo,VERDE,27.5,True,0.0
+Buonalbergo,BIANCO,3.3,True,0.0
+Calvi,ROSSO,44.2,True,0.0
+Calvi,GIALLO,85.8,True,0.0
+Calvi,VERDE,58.5,True,0.0
+Calvi,BIANCO,14.3,True,0.0
+Campolattaro,ROSSO,140.8,True,0.0
+Campolattaro,GIALLO,330.0,True,0.0
+Campolattaro,VERDE,400.4,True,0.0
+Campolattaro,BIANCO,113.3,True,0.0
+Campoli Del Monte Taburno,ROSSO,52.0,True,0.0
+Campoli Del Monte Taburno,GIALLO,123.5,True,0.0
+Campoli Del Monte Taburno,VERDE,89.7,True,0.0
+Campoli Del Monte Taburno,BIANCO,27.3,True,0.0
+Casalduni,ROSSO,30.0,True,0.0
+Casalduni,GIALLO,58.0,True,0.0
+Casalduni,VERDE,170.0,True,0.0
+Casalduni,BIANCO,43.0,True,0.0
+Castelfranco In Miscano,ROSSO,19.0,True,0.0
+Castelfranco In Miscano,GIALLO,56.0,True,0.0
+Castelfranco In Miscano,VERDE,96.0,True,0.0
+Castelfranco In Miscano,BIANCO,34.0,True,0.0
+Castelpagano,ROSSO,1.1,True,0.0
+Castelpagano,VERDE,4.4,True,0.0
+Castelpagano,BIANCO,2.2,True,0.0
+Castelpoto,ROSSO,29.7,True,0.0
+Castelpoto,GIALLO,95.7,True,0.0
+Castelpoto,VERDE,86.9,True,0.0
+Castelpoto,BIANCO,18.7,True,0.0
+Castelvenere,ROSSO,17.0,True,0.0
+Castelvenere,GIALLO,53.0,True,0.0
+Castelvenere,VERDE,97.0,True,0.0
+Castelvenere,BIANCO,35.0,True,0.0
+Castelvetere In Val Fortore,ROSSO,23.0,True,0.0
+Castelvetere In Val Fortore,GIALLO,59.0,True,0.0
+Castelvetere In Val Fortore,VERDE,120.0,True,0.0
+Castelvetere In Val Fortore,BIANCO,49.0,True,0.0
+Cautano,ROSSO,76.7,True,0.0
+Cautano,GIALLO,130.0,True,0.0
+Cautano,VERDE,97.5,True,0.0
+Cautano,BIANCO,20.8,True,0.0
+Ceppaloni,ROSSO,41.6,True,0.0
+Ceppaloni,GIALLO,50.7,True,0.0
+Ceppaloni,VERDE,35.1,True,0.0
+Ceppaloni,BIANCO,10.4,True,0.0
+Circello,ROSSO,63.8,True,0.0
+Circello,GIALLO,181.5,True,0.0
+Circello,VERDE,220.0,True,0.0
+Circello,BIANCO,40.7,True,0.0
+Colle Sannita,ROSSO,25.3,True,0.0
+Colle Sannita,GIALLO,84.7,True,0.0
+Colle Sannita,VERDE,96.8,True,0.0
+Colle Sannita,BIANCO,17.6,True,0.0
+Cusano Mutri,ROSSO,158.6,True,0.0
+Cusano Mutri,GIALLO,266.5,True,0.0
+Cusano Mutri,VERDE,205.4,True,0.0
+Cusano Mutri,BIANCO,19.5,True,0.0
+Dugenta,ROSSO,43.0,True,0.0
+Dugenta,GIALLO,172.0,True,0.0
+Dugenta,VERDE,341.0,True,0.0
+Dugenta,BIANCO,109.0,True,0.0
+Durazzano,ROSSO,19.0,True,0.0
+Durazzano,GIALLO,50.0,True,0.0
+Durazzano,VERDE,103.0,True,0.0
+Durazzano,BIANCO,38.0,True,0.0
+Faicchio,ROSSO,14.3,True,0.0
+Faicchio,GIALLO,52.8,True,0.0
+Faicchio,VERDE,69.3,True,0.0
+Faicchio,BIANCO,15.4,True,0.0
+Foglianise,ROSSO,38.5,True,0.0
+Foglianise,GIALLO,97.9,True,0.0
+Foglianise,VERDE,118.8,True,0.0
+Foglianise,BIANCO,42.9,True,0.0
+Foiano Di Val Fortore,ROSSO,23.1,True,0.0
+Foiano Di Val Fortore,GIALLO,44.0,True,0.0
+Foiano Di Val Fortore,VERDE,58.3,True,0.0
+Foiano Di Val Fortore,BIANCO,17.6,True,0.0
+Forchia,ROSSO,62.7,True,0.0
+Forchia,GIALLO,130.9,True,0.0
+Forchia,VERDE,168.3,True,0.0
+Forchia,BIANCO,35.2,True,0.0
+Fragneto Monforte,ROSSO,22.0,True,0.0
+Fragneto Monforte,GIALLO,39.6,True,0.0
+Fragneto Monforte,VERDE,49.5,True,0.0
+Fragneto Monforte,BIANCO,9.9,True,0.0
+Fragneto L'Abate,ROSSO,100.1,True,0.0
+Fragneto L'Abate,GIALLO,180.7,True,0.0
+Fragneto L'Abate,VERDE,136.5,True,0.0
+Fragneto L'Abate,BIANCO,20.8,True,0.0
+Frasso Telesino,ROSSO,34.1,True,0.0
+Frasso Telesino,GIALLO,73.7,True,0.0
+Frasso Telesino,VERDE,90.2,True,0.0
+Frasso Telesino,BIANCO,18.7,True,0.0
+Guardia Sanframondi,ROSSO,103.4,True,0.0
+Guardia Sanframondi,GIALLO,229.9,True,0.0
+Guardia Sanframondi,VERDE,200.2,True,0.0
+Guardia Sanframondi,BIANCO,64.9,True,0.0
+Melizzano,ROSSO,13.0,True,0.0
+Melizzano,GIALLO,18.2,True,0.0
+Melizzano,VERDE,22.1,True,0.0
+Melizzano,BIANCO,3.9,True,0.0
+Moiano,ROSSO,7.0,True,0.0
+Moiano,GIALLO,14.0,True,0.0
+Moiano,VERDE,26.0,True,0.0
+Moiano,BIANCO,14.0,True,0.0
+Molinara,ROSSO,33.8,True,0.0
+Molinara,GIALLO,61.1,True,0.0
+Molinara,VERDE,37.7,True,0.0
+Molinara,BIANCO,6.5,True,0.0
+Montefalcone Di Val Fortore,ROSSO,92.4,True,0.0
+Montefalcone Di Val Fortore,GIALLO,170.5,True,0.0
+Montefalcone Di Val Fortore,VERDE,200.2,True,0.0
+Montefalcone Di Val Fortore,BIANCO,58.3,True,0.0
+Montesarchio,ROSSO,124.8,True,0.0
+Montesarchio,GIALLO,211.9,True,0.0
+Montesarchio,VERDE,137.8,True,0.0
+Montesarchio,BIANCO,20.8,True,0.0
+Paduli,ROSSO,94.6,True,0.0
+Paduli,GIALLO,226.6,True,0.0
+Paduli,VERDE,264.0,True,0.0
+Paduli,BIANCO,70.4,True,0.0
+Pago Veiano,ROSSO,76.7,True,0.0
+Pago Veiano,GIALLO,110.5,True,0.0
+Pago Veiano,VERDE,92.3,True,0.0
+Pago Veiano,BIANCO,16.9,True,0.0
+Pannarano,ROSSO,9.0,True,0.0
+Pannarano,GIALLO,42.0,True,0.0
+Pannarano,VERDE,114.0,True,0.0
+Pannarano,BIANCO,41.0,True,0.0
+Paolisi,ROSSO,49.4,True,0.0
+Paolisi,GIALLO,98.8,True,0.0
+Paolisi,VERDE,68.9,True,0.0
+Paolisi,BIANCO,10.4,True,0.0
+Paupisi,ROSSO,139.1,True,0.0
+Paupisi,GIALLO,223.6,True,0.0
+Paupisi,VERDE,154.7,True,0.0
+Paupisi,BIANCO,29.9,True,0.0
+Pesco Sannita,ROSSO,25.0,True,0.0
+Pesco Sannita,GIALLO,77.0,True,0.0
+Pesco Sannita,VERDE,146.0,True,0.0
+Pesco Sannita,BIANCO,44.0,True,0.0
+Pietraroja,ROSSO,10.0,True,0.0
+Pietraroja,GIALLO,15.0,True,0.0
+Pietraroja,VERDE,48.0,True,0.0
+Pietraroja,BIANCO,17.0,True,0.0
+Pietrelcina,ROSSO,66.0,True,0.0
+Pietrelcina,GIALLO,117.7,True,0.0
+Pietrelcina,VERDE,155.1,True,0.0
+Pietrelcina,BIANCO,36.3,True,0.0
+Ponte,ROSSO,49.5,True,0.0
+Ponte,GIALLO,123.2,True,0.0
+Ponte,VERDE,123.2,True,0.0
+Ponte,BIANCO,35.2,True,0.0
+Pontelandolfo,ROSSO,11.0,True,0.0
+Pontelandolfo,GIALLO,35.0,True,0.0
+Pontelandolfo,VERDE,63.0,True,0.0
+Pontelandolfo,BIANCO,21.0,True,0.0
+Puglianello,ROSSO,6.6,True,0.0
+Puglianello,GIALLO,18.7,True,0.0
+Puglianello,VERDE,16.5,True,0.0
+Puglianello,BIANCO,4.4,True,0.0
+Reino,ROSSO,13.2,True,0.0
+Reino,GIALLO,29.7,True,0.0
+Reino,VERDE,29.7,True,0.0
+Reino,BIANCO,7.7,True,0.0
+San Giorgio La Molara,ROSSO,64.9,True,0.0
+San Giorgio La Molara,GIALLO,178.2,True,0.0
+San Giorgio La Molara,VERDE,165.0,True,0.0
+San Giorgio La Molara,BIANCO,52.8,True,0.0
+San Leucio Del Sannio,ROSSO,5.5,True,0.0
+San Leucio Del Sannio,GIALLO,9.9,True,0.0
+San Leucio Del Sannio,VERDE,12.1,True,0.0
+San Leucio Del Sannio,BIANCO,2.2,True,0.0
+San Lorenzello,ROSSO,38.5,True,0.0
+San Lorenzello,GIALLO,112.2,True,0.0
+San Lorenzello,VERDE,122.1,True,0.0
+San Lorenzello,BIANCO,26.4,True,0.0
+San Lorenzo Maggiore,ROSSO,62.7,True,0.0
+San Lorenzo Maggiore,GIALLO,163.9,True,0.0
+San Lorenzo Maggiore,VERDE,170.5,True,0.0
+San Lorenzo Maggiore,BIANCO,34.1,True,0.0
+San Lupo,ROSSO,26.0,True,0.0
+San Lupo,GIALLO,83.0,True,0.0
+San Lupo,VERDE,174.0,True,0.0
+San Lupo,BIANCO,46.0,True,0.0
+San Martino Sannita,ROSSO,73.7,True,0.0
+San Martino Sannita,GIALLO,160.6,True,0.0
+San Martino Sannita,VERDE,199.1,True,0.0
+San Martino Sannita,BIANCO,55.0,True,0.0
+San Nazzaro,ROSSO,16.5,True,0.0
+San Nazzaro,GIALLO,49.5,True,0.0
+San Nazzaro,VERDE,48.4,True,0.0
+San Nazzaro,BIANCO,19.8,True,0.0
+San Nicola Manfredi,ROSSO,140.4,True,0.0
+San Nicola Manfredi,GIALLO,198.9,True,0.0
+San Nicola Manfredi,VERDE,146.9,True,0.0
+San Nicola Manfredi,BIANCO,32.5,True,0.0
+Sant'Agata De' Goti,ROSSO,50.0,True,0.0
+Sant'Agata De' Goti,GIALLO,193.0,True,0.0
+Sant'Agata De' Goti,VERDE,385.0,True,0.0
+Sant'Agata De' Goti,BIANCO,139.0,True,0.0
+Sant'Angelo A Cupolo,ROSSO,7.0,True,0.0
+Sant'Angelo A Cupolo,GIALLO,17.0,True,0.0
+Sant'Angelo A Cupolo,VERDE,56.0,True,0.0
+Sant'Angelo A Cupolo,BIANCO,17.0,True,0.0
+Sant'Arcangelo Trimonte,ROSSO,56.1,True,0.0
+Sant'Arcangelo Trimonte,GIALLO,123.2,True,0.0
+Sant'Arcangelo Trimonte,VERDE,141.9,True,0.0
+Sant'Arcangelo Trimonte,BIANCO,36.3,True,0.0
+Santa Croce Del Sannio,ROSSO,59.8,True,0.0
+Santa Croce Del Sannio,GIALLO,101.4,True,0.0
+Santa Croce Del Sannio,VERDE,84.5,True,0.0
+Santa Croce Del Sannio,BIANCO,14.3,True,0.0
+Sassinoro,ROSSO,48.1,True,0.0
+Sassinoro,GIALLO,80.6,True,0.0
+Sassinoro,VERDE,70.2,True,0.0
+Sassinoro,BIANCO,14.3,True,0.0
+Solopaca,ROSSO,22.0,True,0.0
+Solopaca,GIALLO,71.5,True,0.0
+Solopaca,VERDE,75.9,True,0.0
+Solopaca,BIANCO,17.6,True,0.0
+Telese Terme,ROSSO,29.7,True,0.0
+Telese Terme,GIALLO,94.6,True,0.0
+Telese Terme,VERDE,108.9,True,0.0
+Telese Terme,BIANCO,25.3,True,0.0
+Tocco Caudio,ROSSO,80.3,True,0.0
+Tocco Caudio,GIALLO,181.5,True,0.0
+Tocco Caudio,VERDE,183.7,True,0.0
+Tocco Caudio,BIANCO,52.8,True,0.0

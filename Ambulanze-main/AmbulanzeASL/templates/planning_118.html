@@ -1,0 +1,1067 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pianificazione 118 · ASL Benevento
+{% endblock %}
+
+{% block head %}
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+{% endblock %}
+{% block content %}
+
+<nav class="planning-mode-nav" aria-label="Modalità Pianificazione 118">
+    <a href="/" class="planning-mode-nav__link is-active" aria-current="page">Configurazione manuale</a>
+    <a href="/planning-118/chatbot" class="planning-mode-nav__link">Assistente AI</a>
+</nav>
+
+<section class="planning-page">
+    <!--PAGE HEADER-->
+    <div class="planning-page__intro">
+        <div class="page-header">
+            <p class="page-eyebrow">Pianificazione territoriale</p>
+            <h1>Pianificazione 118</h1>
+            <p class="page-subtitle">
+                Ottimizzazione e valutazione della
+                distribuzione territoriale delle risorse
+                di emergenza.
+            </p>
+        </div>
+
+        <!-- KPI SPECIFICI DEL 118 -->
+        <div class="planning-kpi-bar" id="kpi">
+            <span class="pill" id="kpi-any">Copertura ANY: –</span>
+            <span class="pill" id="kpi-doc">Copertura con Medico (R+G): –</span>
+            <span class="pill" id="kpi-staff">Medici richiesti da slot attivi: –</span>
+            <span class="pill" id="kpi-nurses">Infermieri usati: –</span>
+        </div>
+    </div>
+
+
+    <!-- APPLICAZIONE 118 -->
+
+    <div class="container planning-layout">
+    <aside class="panel left">
+        <!-- Testata + Switch modalità -->
+        <div class="sidehead"
+             style="position:sticky;top:0;background:linear-gradient(180deg,#fbfbfe,#fbfbfe 70%,transparent);padding-bottom:8px;z-index:5">
+            <h2 style="margin:6px 0 8px 0;font-size:16px">Pannello operazioni</h2>
+            <div class="mode-switch" role="tablist" aria-label="Modalità pannello"
+                 style="display:flex;gap:6px;padding:4px;background:#f4f6ff;border:1px solid #e6e9ff;border-radius:12px">
+                <button class="tab" id="tab-algo" role="tab" aria-selected="true" aria-controls="mode-algo">
+                    <i class="fa-solid fa-sliders"></i> Ottimizza
+                </button>
+                <button class="tab" id="tab-editor" role="tab" aria-selected="false" aria-controls="mode-editor">
+                    <i class="fa-solid fa-map-location-dot"></i> Valuta
+                </button>
+                <button class="tab" id="tab-config" role="tab" aria-selected="false" aria-controls="mode-config">
+                    <i class="fa-solid fa-upload"></i> Config
+                </button>
+            </div>
+
+
+
+        </div>
+
+        <!-- ============ MODALITÀ 1: Parametri algoritmo ============ -->
+        <section id="mode-algo" class="mode-pane" role="tabpanel" aria-labelledby="tab-algo">
+            <div class="runbox">
+                <!-- ====== Hidden per backend: logica invariata ====== -->
+                <!-- Hidden per vincolo economico -->
+                <input id="budgetTotal" class="hidden-prop" value=""/>
+                <input id="budgetMode" class="hidden-prop" value=""/>
+                <!-- Pesi relax (default) -->
+                <input id="relaxWeights" class="hidden-prop"
+                       value="COV=1e9,DOC=8e8,PSAUT=8e8,DOCTORS=8e8,BUDGET=8e8"/>
+
+                <!-- hidden usati dal backend -->
+                <input id="docCodes" class="hidden-prop" value="ROSSO,GIALLO"/>
+                <input id="docCover" class="hidden-prop" value="strict"/>
+                <input id="staff" class="hidden-prop"
+                       value="PSAUT=6,AUTO_MED=6,AMB_ALS=6,AMB_ILS=6,CMR=6">
+                <input id="objective" class="hidden-prop" value="max_cover_budget"/>
+
+
+                <input id="dataDir" type="hidden" value="data"/>
+                <input id="outDir" type="hidden" value=""/>
+                <input id="paramT" class="hidden-prop" value="ROSSO=8,GIALLO=20,VERDE=30,BIANCO=45"/>
+                <input id="typeSpeed" class="hidden-prop"
+                       value="AUTO_MED=0.90,AMB_ALS=0.98,AMB_ILS=1.00,CMR=0.95">
+
+                <input id="capex" class="hidden-prop"
+                       value="AUTO_MED=500000,AMB_ALS=350000,AMB_ILS=250000,PSAUT=0,CMR=450000">
+
+                <input id="opex" class="hidden-prop"
+                       value="AUTO_MED=250000,AMB_ALS=200000,AMB_ILS=150000,PSAUT=0,CMR=220000">
+
+
+                <!-- ========== INFERMIERI (hidden per POST) ========== -->
+                <input type="hidden" id="nursesTotal" value="120">
+                <input type="hidden" id="nurseOpexUnit" value="45000">
+                <input type="hidden" id="autoMedTransport" value="off">
+                <input type="hidden" id="nurseStaff" value="PSAUT=1,AUTO_MED=1,AMB_ALS=2,AMB_ILS=2,CMR=2">
+
+
+                <!-- select nascosti collegati a switch -->
+                <select id="verbose" class="hidden-prop" hidden>
+                    <option value="--verbose" selected>on</option>
+                    <option value="">off</option>
+                </select>
+                <select id="reloc" class="hidden-prop" hidden>
+                    <option value="off" selected>off</option>
+                    <option value="on">on</option>
+                </select>
+
+                <!-- Tacchette riusabili -->
+                <datalist id="marks0_60">
+                    <option value="0">
+                    <option value="10">
+                    <option value="20">
+                    <option value="30">
+                    <option value="45">
+                    <option value="60">
+                </datalist>
+
+                <!-- Fonte della severità territoriale -->
+                <div class="group" id="groupSeveritySource">
+                    <h3>
+                        Fonte severità territoriale
+                        <span class="help" tabindex="0">?
+                            <span class="tip"> Seleziona la sorgente utilizzata per pesare territorialmente la domanda 118. </span>
+                        </span>
+                    </h3>
+
+                    <div class="control">
+                        <label for="severitySource">Fonte</label>
+
+                        <select id="severitySource">
+                            <option value="original" selected> Dataset originale 118 </option>
+                            <option value="population_health">  Population Health </option>
+                        </select>
+                    </div>
+
+                    <!-- Provenienza dello scenario PH. -->
+                    <div id="severityPhDetails"
+                         hidden
+                         style="margin-top:10px;padding:10px;border:1px solid #e6e9ff;border-radius:10px;background:#f8f9ff">
+
+                        <div>
+                            <strong>Run PROMETHEUS:</strong>
+                            <span id="severityPhRun">—</span>
+                        </div>
+
+                        <div>
+                            <strong>Indicatore:</strong>
+                            <span id="severityPhMetric">—</span>
+                        </div>
+
+                        <div>
+                            <strong>Scenario:</strong>
+                            <span id="severityPhScenario">—</span>
+                        </div>
+                    </div>
+
+                    <!-- Stato tecnico utilizzato successivamente da app.js -->
+                    <input type="hidden" id="severityScenarioId" value="">
+                    <input type="hidden" id="severitySourceRunId" value="">
+                    <input type="hidden" id="severityMetric" value="">
+                </div>
+
+                <!-- Soglie T -->
+                <div class="group" id="groupT">
+                    <h3>
+                        Soglie T (minuti)
+                        <span class="help" tabindex="0">?
+            <span class="tip">Tempo massimo di arrivo per codice. Il modello massimizza la copertura entro queste soglie.</span>
+          </span>
+                    </h3>
+                    <div class="control">
+                        <label for="tROSSO">Rosso</label>
+                        <input id="tROSSO" type="range" min="0" max="60" step="1" list="marks0_60" value="8"/>
+                        <output id="tROSSO_val" aria-live="polite">8</output>
+                    </div>
+                    <div class="control">
+                        <label for="tGIALLO">Giallo</label>
+                        <input id="tGIALLO" type="range" min="0" max="60" step="1" list="marks0_60" value="20"/>
+                        <output id="tGIALLO_val" aria-live="polite">20</output>
+                    </div>
+                    <div class="control">
+                        <label for="tVERDE">Verde</label>
+                        <input id="tVERDE" type="range" min="0" max="60" step="1" list="marks0_60" value="30"/>
+                        <output id="tVERDE_val" aria-live="polite">30</output>
+                    </div>
+                    <div class="control">
+                        <label for="tBIANCO">Bianco</label>
+                        <input id="tBIANCO" type="range" min="0" max="60" step="1" list="marks0_60" value="45"/>
+                        <output id="tBIANCO_val" aria-live="polite">45</output>
+                    </div>
+                </div>
+
+                <!-- Type-speed -->
+                <div class="group" id="groupTypeSpeed">
+                    <h3>
+                        Type-speed (fattori)
+                        <span class="help" tabindex="0">?
+            <span class="tip">Fattore moltiplicativo sui tempi (1.00 = baseline, &lt;1 più veloce, &gt;1 più lento).</span>
+          </span>
+                    </h3>
+                    <div class="control">
+                        <label for="spAUTO_MED">Automedica</label>
+                        <input id="spAUTO_MED" type="range" min="0.5" max="1.5" step="0.01" value="0.90"/>
+                        <output id="spAUTO_MED_val" aria-live="polite">0.90×</output>
+                    </div>
+                    <div class="control">
+                        <label for="spAMB_ALS">Amb. ALS</label>
+                        <input id="spAMB_ALS" type="range" min="0.5" max="1.5" step="0.01" value="0.98"/>
+                        <output id="spAMB_ALS_val" aria-live="polite">0.98×</output>
+                    </div>
+                    <div class="control">
+                        <label for="spAMB_ILS">Amb. ILS</label>
+                        <input id="spAMB_ILS" type="range" min="0.5" max="1.5" step="0.01" value="1.00"/>
+                        <output id="spAMB_ILS_val" aria-live="polite">1.00×</output>
+                    </div>
+                    <input id="psautMin" type="hidden" value="2"/>
+                    <input id="psautExact" type="hidden" value="2"/>
+                </div>
+
+                <!-- CAPEX / OPEX -->
+                <div class="row">
+                    <div class="group">
+                        <h3>
+                            CAPEX (€/anno)
+                            <span class="help" tabindex="0">?
+              <span class="tip">Costo d’investimento annuo equivalente per tipo mezzo.</span>
+            </span>
+                        </h3>
+                        <div class="control"><label for="cxAUTO_MED">Automedica</label><input id="cxAUTO_MED"
+                                                                                              type="number" min="0"
+                                                                                              step="1000"
+                                                                                              value="500000"></div>
+                        <div class="control"><label for="cxAMB_ALS">Amb. ALS</label><input id="cxAMB_ALS" type="number"
+                                                                                           min="0" step="1000"
+                                                                                           value="350000"></div>
+                        <div class="control"><label for="cxAMB_ILS">Amb. ILS</label><input id="cxAMB_ILS" type="number"
+                                                                                           min="0" step="1000"
+                                                                                           value="250000"></div>
+                        <div class="control"><label for="cxPSAUT">PSAUT</label><input id="cxPSAUT" type="number" min="0"
+                                                                                      step="1000" value="0"></div>
+                        <div class="control"><label for="cxCMR">CMR</label>
+                            <input id="cxCMR" type="number" min="0" step="1000" value="450000">
+                        </div>
+
+                    </div>
+                    <div class="group">
+                        <h3>
+                            OPEX (€/anno)
+                            <span class="help" tabindex="0">?
+              <span class="tip">Costo operativo annuo per tipo mezzo.</span>
+            </span>
+                        </h3>
+                        <div class="control"><label for="oxAUTO_MED">Automedica</label><input id="oxAUTO_MED"
+                                                                                              type="number" min="0"
+                                                                                              step="1000"
+                                                                                              value="250000"></div>
+                        <div class="control"><label for="oxAMB_ALS">Amb. ALS</label><input id="oxAMB_ALS" type="number"
+                                                                                           min="0" step="1000"
+                                                                                           value="200000"></div>
+                        <div class="control"><label for="oxAMB_ILS">Amb. ILS</label><input id="oxAMB_ILS" type="number"
+                                                                                           min="0" step="1000"
+                                                                                           value="150000"></div>
+                        <div class="control"><label for="oxPSAUT">PSAUT</label><input id="oxPSAUT" type="number" min="0"
+                                                                                      step="1000" value="0"></div>
+                        <div class="control"><label for="oxCMR">CMR</label>
+                            <input id="oxCMR" type="number" min="0" step="1000" value="220000">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Doctor codes -->
+                <div class="group">
+                    <h3>
+                        Codici dottori
+                        <span class="help" tabindex="0">?
+            <span class="tip">Codici che richiedono copertura con medico secondo la modalità scelta.</span>
+          </span>
+                    </h3>
+                    <div class="row" id="docCodesRow" style="gap:12px">
+                        <label class="iconcheck" title="ROSSO">
+                            <input type="checkbox" id="dcROSSO" checked>
+                            <span class="chip" aria-label="ROSSO" style="--c:var(--bad)"></span>
+                        </label>
+
+                        <label class="iconcheck" title="GIALLO">
+                            <input type="checkbox" id="dcGIALLO" checked>
+                            <span class="chip" aria-label="GIALLO" style="--c:var(--warn)"></span>
+                        </label>
+
+                        <label class="iconcheck" title="VERDE">
+                            <input type="checkbox" id="dcVERDE">
+                            <span class="chip" aria-label="VERDE" style="--c:#28a745"></span>
+                        </label>
+
+                        <label class="iconcheck" title="BIANCO">
+                            <input type="checkbox" id="dcBIANCO">
+                            <span class="chip chip-white" aria-label="BIANCO"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Staff -->
+                <div class="group">
+                    <h3>
+                        Staff medico per tipo (n. persone / unità)
+                        <span class="help" tabindex="0">?
+            <span class="tip">FTE necessari per mantenere operativo un mezzo 24/7 (valori tipici: PSAUT&gt;AUTO_MED≈ALS).</span>
+          </span>
+                    </h3>
+                    <div class="control"><label for="stPSAUT">PSAUT</label><input id="stPSAUT" type="number" min="0"
+                                                                                  step="1" value="6"></div>
+                    <div class="control"><label for="stAUTO_MED">Automedica</label><input id="stAUTO_MED" type="number"
+                                                                                          min="0" step="1" value="6">
+                    </div>
+                    <div class="control"><label for="stAMB_ALS">Amb. ALS</label><input id="stAMB_ALS" type="number"
+                                                                                       min="0" step="1" value="6"></div>
+                    <div class="control"><label for="stCMR">CMR</label>
+                        <input id="stCMR" type="number" min="0" step="1" value="6">
+                    </div>
+
+                </div>
+                <!-- ========== INFERMIERI (UI) ========== -->
+                <div class="group">
+                    <h3>Infermieri per tipo (FTE / unità 24/7)</h3>
+                    <div class="row">
+                        <label>PSAUT <input id="nuPSAUT" type="number" min="0" step="1" value="1"></label>
+                        <label>Automedica <input id="nuAUTO_MED" type="number" min="0" step="1" value="1"></label>
+                        <label>Amb. ALS <input id="nuAMB_ALS" type="number" min="0" step="1" value="2"></label>
+                        <label>Amb. ILS <input id="nuAMB_ILS" type="number" min="0" step="1" value="2"></label>
+                        <label>CMR <input id="nuCMR" type="number" min="0" step="1" value="2"></label>
+                    </div>
+                </div>
+
+                <!-- ===== Budget infermieri & regole (look come i pannelli in basso) ===== -->
+                <div class="group nurses-card">
+                    <h3 class="group-title">
+                        Budget infermieri & regole
+                        <span class="help" tabindex="0">?
+      <span class="tip">
+        Imposta il budget infermieri e le regole di trasporto per l’automedica.
+        Se lasci vuoto, il budget infermieri è illimitato.
+      </span>
+    </span>
+                    </h3>
+
+                    <div class="row row-grid-3">
+                        <label class="field">
+      <span class="field-title">
+        Numero di infermieri (FTE 24/7)
+        <span class="help" tabindex="0">?
+          <span class="tip">
+            Totale FTE infermieri richiesti dal sistema 24/7.
+            Lascia vuoto per non vincolare.
+          </span>
+        </span>
+      </span>
+                            <input id="nurTotal" type="number" min="0" step="1"
+                                   placeholder="es. 120" value="120" class="ctrl">
+                        </label>
+
+                        <label class="field">
+      <span class="field-title">
+        Costo annuo per FTE infermiere (€)
+        <span class="help" tabindex="0">?
+          <span class="tip">
+            Costo medio lordo per FTE. Viene sommato all’OPEX degli slot
+            in base agli FTE infermieri per tipo. Lascia 0 per ignorarlo.
+          </span>
+        </span>
+      </span>
+                            <input id="nurOpex" type="number" min="0" step="1000"
+                                   placeholder="es. 45_000" value="45000" class="ctrl">
+                        </label>
+
+                        <label class="field">
+      <span class="field-title">
+        Trasporto con automedica
+        <span class="help" tabindex="0">?
+          <span class="tip">
+            Ogni AUTO_MED richiede almeno un’ambulanza (ALS o ILS).<br>
+            • <b>base</b>: vincolo per singola base<br>
+            • <b>global</b>: vincolo su tutto il sistema
+          </span>
+        </span>
+      </span>
+                            <select id="autoMedCoupling" class="ctrl">
+                                <option value="off" selected>off</option>
+                                <option value="base">vincolo per base</option>
+                                <option value="global">vincolo globale</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <!-- ... nella card/fieldset dove c'è il select #autoMedCoupling ... -->
+                <div class="form-row">
+                    <label for="autoTransportDelay">Ritardo trasporto (min)</label>
+                    <input id="autoTransportDelay" type="number" min="0" step="1" value="5"/>
+                    <small>Minuti extra concessi all’ambulanza ILS rispetto a T[k].</small>
+                </div>
+
+
+                <!-- Budget & coperture -->
+                <div class="row" id="budgetRow">
+                    <label><b>Numero di medici</b>
+                        <span class="help" tabindex="0">?<span class="tip">Numero di medici totali</span></span>
+                        <input id="docTotal" type="number" min="0" step="1" value="120"/>
+                    </label>
+
+                    <label><b>Budget mode</b>
+                        <span class="help" tabindex="0">?<span class="tip">absolute/incremental…</span></span>
+                        <select id="docMode">
+                            <option value="absolute" selected>absolute</option>
+                            <option value="incremental">incremental</option>
+                        </select>
+                    </label>
+                </div>
+
+                <!-- Basi (avanzate) -->
+                <div class="row advanced">
+                    <label><b>Bases</b>
+                        <select id="bases">
+                            <option value="ATT_POT" selected>ATT_POT</option>
+                            <option value="ALL">ALL</option>
+                        </select>
+                    </label>
+                    <label><b>Limit-bases</b><input id="limitBases" type="number" min="0" step="1" value="0"/></label>
+                </div>
+
+                <!-- Copertura / Threads (avanzate) -->
+                <div class="row advanced">
+                    <label><b>Full-coverage</b>
+                        <select id="fullcov">
+                            <option value="strict" selected>strict</option>
+                            <option value="feasible-only">feasible-only</option>
+                            <option value="off">off</option>
+                        </select>
+                    </label>
+                    <label><b>Threads</b><input id="threads" type="number" min="1" step="1" value="8"/></label>
+                </div>
+
+                <!-- Time limit & Verbose (avanzate) -->
+                <div class="row advanced">
+                    <label><b>Time limit sec</b><input id="tl" type="number" min="0" step="1"
+                                                       placeholder="(vuoto)"/></label>
+                    <label class="switch" style="align-items:end">
+                        <input type="checkbox" id="verboseSwitch" checked>
+                        <span>Verbose</span>
+                    </label>
+                </div>
+
+                <!-- Toggle opzioni avanzate -->
+                <div class="row" style="justify-content:flex-end">
+                    <label class="switch">
+                        <input type="checkbox" id="advToggle">
+                        <span>Mostra opzioni avanzate</span>
+                    </label>
+                </div>
+                <div class="group" style="margin-top:8px">
+                    <h3>
+                        Vincoli di budget
+                        <span class="help" tabindex="0">?
+      <span class="tip">
+        Applica un tetto economico al piano generato dall’algoritmo.
+        Scegli cosa contare nel vincolo (solo CAPEX o CAPEX+OPEX).
+        Il vincolo viene rispettato durante l’ottimizzazione.
+      </span>
+    </span>
+                    </h3>
+
+                    <div class="row" style="margin-top:8px">
+                        <label>
+                            <b>Budget totale (€)</b>
+                            <span class="help" tabindex="0">?
+        <span class="tip">
+          Importo massimo annuo che il modello non deve superare.
+          <br><br>
+          • In modalità <b>CAPEX soltanto</b> → somma i costi d’acquisto (solo unità nuove).<br>
+          • In modalità <b>CAPEX + OPEX</b> → somma CAPEX (nuove) + OPEX (tutte) delle unità attive.
+          <br><br>
+          Lascia vuoto per non imporre alcun vincolo economico.
+        </span>
+      </span>
+                            <input id="uiBudgetTotal" type="number" min="0" step="1000" placeholder="es. 2_000_000">
+                        </label>
+
+                        <label>
+                            <b>Modalità budget</b>
+                            <span class="help" tabindex="0">?
+        <span class="tip">
+          Come calcolare la spesa a cui applicare il tetto:
+          <br><br>
+          • <b>(default)</b>: nessun vincolo economico.<br>
+          • <b>CAPEX soltanto</b>: considera solo i <i>costi d’acquisto</i> (unità nuove).<br>
+          • <b>CAPEX + OPEX</b>: considera acquisti (nuove) <b>più</b> costi operativi annui (tutte).
+        </span>
+      </span>
+                            <select id="uiBudgetMode">
+                                <option value="">(default)</option>
+                                <option value="capex">CAPEX soltanto</option>
+                                <option value="capex_opex">CAPEX + OPEX</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="hint">
+                        Se valorizzati, questi campi inviano al backend anche un tetto economico. I valori unitari sono
+                        presi da
+                        <code>CAPEX/OPEX</code> nella colonna di sinistra.
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- Azioni -->
+            <div class="row run-actions">
+                <button class="btn" id="btnRun" type="button">
+                    <i class="fa-solid fa-play"></i> <span>Esegui algoritmo</span>
+                </button>
+                <button class="btn explain118-reset-button" id="btnReset118" type="button" hidden>
+                    <i class="fa-solid fa-rotate-left"></i> <span>Nuova pianificazione</span>
+                </button>
+            </div>
+            <div id="runAlgorithmStatus" class="run-algorithm-status" role="status" aria-live="polite" hidden></div>
+        </section>
+
+
+        <!-- ============ MODALITÀ 2: Editor su mappa ============ -->
+        <section id="mode-editor" class="mode-pane" role="tabpanel" aria-labelledby="tab-editor" hidden>
+            <div class="runbox">
+                <div class="group" id="map-plan-editor" style="margin-bottom:10px">
+                    <h3>
+                        Editor su mappa
+                        <span class="help" tabindex="0">?
+          <span class="tip">
+            1) Scegli tipo/quantità<br/>
+            2) Attiva “Seleziona su mappa”<br/>
+            3) Clicca un presidio o la mappa (snap al comune)<br/>
+            4) Premi “Valuta su mappa”
+          </span>
+        </span>
+                    </h3>
+                    <div class="param-card" id="paramBox">
+                        <div class="param-head">
+                            <strong>Parametri </strong>
+                            <div class="actions">
+                                <button class="btn-s" id="btnShowAll"><i class="fa-solid fa-list"></i> Mostra tutto
+                                </button>
+                                <button class="btn-s" id="btnOpenParams"><i class="fa-solid fa-sliders"></i> Apri
+                                    parametri
+                                </button>
+                                <button class="btn-s" id="btnCopyConfig"><i class="fa-solid fa-copy"></i> Copia config
+                                </button>
+                            </div>
+                        </div>
+
+                        <dl class="param-grid small" id="param-summary">
+                            <!-- Verrà popolato da renderParamSummary() -->
+                        </dl>
+
+                        <div class="sep"></div>
+                        <div class="small" id="param-footnote">Riepilogo sintetico di come stai valutando il piano.
+                        </div>
+                    </div>
+
+
+                    <div class="controls-inline" id="mp-top-controls">
+                        <label class="ctrl">
+                            <span>Tipo</span>
+                            <select id="mp-type">
+                                <option value="AMB_ILS">AMB_ILS</option>
+                                <option value="AMB_ALS" selected>AMB_ALS</option>
+                                <option value="AUTO_MED">AUTO_MED</option>
+                                <option value="PSAUT">PSAUT</option>
+                                <option value="CMR">CMR</option>
+                            </select>
+                        </label>
+
+                        <label class="ctrl qty">
+                            <span>Quantità</span>
+                            <div class="qtywrap">
+                                <button type="button" class="step" data-delta="-1" aria-label="Diminuisci">−</button>
+                                <input id="mp-qty" type="number" min="1" step="1" value="1" inputmode="numeric">
+                                <button type="button" class="step" data-delta="+1" aria-label="Aumenta">+</button>
+                            </div>
+                        </label>
+
+                        <label class="ctrl">
+                            <span>Sorgente</span>
+                            <select id="mp-source">
+                                <option value="any">any</option>
+                                <option value="purchase">purchase</option>
+                                <option value="existing">existing</option>
+                            </select>
+                        </label>
+                    </div>
+
+
+                    <!-- Comune: selezione da lista -->
+                    <div class="row commune-row">
+                        <label>Comune</label>
+                        <input id="mp-comune" list="mp-comuni-list"
+                               placeholder="Digita o scegli un comune…"
+                               autocomplete="off" autocapitalize="off" spellcheck="false"/>
+                        <datalist id="mp-comuni-list"></datalist>
+                    </div>
+
+                    <div class="btn-row" style="margin-top:8px">
+                        <button class="btn ghost block" onclick="mp_addFromDropdown(false)">
+                            <i class="fa-solid fa-crosshairs"></i> Mostra
+                        </button>
+                        <button class="btn block" onclick="mp_addFromDropdown(true)">
+                            <i class="fa-solid fa-plus"></i> Aggiungi al piano
+                        </button>
+                    </div>
+
+                    <div class="btn-row" style="margin-top:8px">
+                        <button class="btn secondary block" id="mp-clear">
+                            <i class="fa-regular fa-trash-can"></i> Svuota piano
+                        </button>
+                        <button class="btn secondary block" id="mp-export">
+                            <i class="fa-solid fa-file-export"></i> Esporta
+                        </button>
+                    </div>
+
+                    <div style="margin-top:10px">
+                        <button class="btn block" id="btnEvalFromMap">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i> Valuta su mappa
+                        </button>
+                    </div>
+
+                    <!-- Tabella piano -->
+                    <div id="mp-table" class="plan-table" aria-live="polite"
+                         style="margin-top:8px;font-size:12px"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============ MODALITÀ 3:  ============ -->
+        <section id="mode-config" class="mode-pane" role="tabpanel" aria-labelledby="tab-config" hidden>
+            <div class="runbox">
+                <div class="card" style="margin-top:8px">
+                    <div class="btn-row" style="margin-top:.5rem">
+
+                    </div>
+
+                    <div class="dropzone" id="configDrop">
+                        <p class="muted"><strong>Carica una configurazione (.json)</strong></p>
+                        <p class="muted">Trascina il file qui oppure usa il pulsante:</p>
+
+                        <label class="btn secondary" for="upConfig" id="upConfigLabel"
+                               style="position:relative; overflow:hidden">
+                            <i class="fa-solid fa-upload"></i> Carica config
+                            <input type="file" id="upConfig" accept="application/json" hidden>
+                        </label>
+                    </div>
+                    <p class="muted" style="margin-top:.5rem">
+                        La configurazione ripristina parametri, budget, codici medico, staff e l’editor del piano.
+                    </p>
+                </div>
+                <div class="card" id="cfgLoadRecap" hidden>
+                    <div class="val-head">
+                        <h3 id="cfgRecapTitle">Configurazione caricata</h3>
+                        <div class="muted" id="cfgRecapSubtitle"></div>
+                    </div>
+
+                    <div id="cfgRecapPills" class="pillbar"></div>
+                    <div class="sep"></div>
+
+                    <dl id="cfgRecapKV" class="val-kv"></dl>
+                </div>
+            </div>
+        </section>
+    </aside>
+
+    <!-- Pannello mappa -->
+    <section class="panel map-wrap sticky-map">
+        <div class="map-area">
+            <div id="map"></div>
+            <div class="legend">
+                <div class="row"><span class="swatch" style="background:var(--psaut)"></span> PSAUT</div>
+                <div class="row"><span class="swatch" style="background:var(--auto)"></span> AUTO_MED</div>
+                <div class="row"><span class="swatch" style="background:var(--als)"></span> AMB_ALS</div>
+                <div class="row"><span class="swatch" style="background:var(--ils)"></span> AMB_ILS</div>
+                <div class="row"><span class="swatch" style="background:var(--cmr)"></span> CMR</div>
+            </div>
+        </div>
+        <div class="units-panel">
+            <div class="units-head">
+                <h2>Unità attive</h2>
+
+                <div class="units-actions">
+                    <input id="unitSearch" placeholder="Cerca per tipo, site o comune…"/>
+                    <span class="muted" id="unitCount">0 unità</span>
+
+                    <!-- ⬇️ Download report -->
+
+                    <div class="dl-buttons" id="dlBox" hidden>
+                        <!-- ...altri bottoni... -->
+                        <button class="btn ghost" id="dlPDF">
+                            <i class="fa-solid fa-file-pdf"></i> Report (PDF)
+                        </button>
+                        <button class="btn ghost" id="dlConfig">
+                            <i class="fa-solid fa-download"></i> Scarica config
+                        </button>
+                        <a class="btn ghost" id="dlChosen" download><i class="fa-solid fa-table"></i> Slot (CSV)</a>
+                        <a class="btn ghost" id="dlAny" download><i class="fa-solid fa-table"></i> Copertura ANY</a>
+                        <a class="btn ghost" id="dlDoc" download><i class="fa-solid fa-user-doctor"></i> Copertura
+                            Medico</a>
+                        <a class="btn ghost" id="dlDoctors" download><i class="fa-solid fa-file-lines"></i> Medici (TXT)</a>
+                        <button class="btn secondary" id="dlAll"><i class="fa-solid fa-file-zipper"></i> Tutto (ZIP)
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <label><input type="checkbox" class="flt" value="AUTO_MED" checked> <i class="fa-solid fa-car"
+                                                                                       style="color:var(--auto)"></i>
+                    Automediche</label>
+                <label><input type="checkbox" class="flt" value="AMB_ALS" checked> <i class="fa-solid fa-truck-medical"
+                                                                                      style="color:var(--als)"></i> ALS</label>
+                <label><input type="checkbox" class="flt" value="AMB_ILS" checked> <i class="fa-solid fa-truck-medical"
+                                                                                      style="color:var(--ils)"></i> ILS</label>
+                <label><input type="checkbox" class="flt" value="PSAUT" checked> <i class="fa-solid fa-building"
+                                                                                    style="color:var(--psaut)"></i>
+                    PSAUT</label>
+                <label><input type="checkbox" class="flt" value="CMR" checked>
+                    <i class="fa-solid fa-truck-medical" style="color:var(--cmr)"></i> CMR
+                </label>
+
+            </div>
+
+            <div class="group" id="costsBox" hidden>
+                <h3>Riepilogo costi</h3>
+                <div id="costs"></div>
+                <div class="hint">
+                    I CAPEX sono conteggiati come investimento annuo equivalente per unità;
+                    gli OPEX come costo operativo annuo. Se il CSV indica unità <i>nuove</i>,
+                    il CAPEX “Acquisti” mostra solo quelle.
+                </div>
+            </div>
+
+            <div class="list" id="unit-list">
+                <div class="muted" style="padding:10px">La mappa è vuota finché non esegui o apri un run.</div>
+            </div>
+        </div>
+
+    </section>
+    </div>
+</section>
+
+<!--------------EXPLAIN RESULTS 118 -------------- -->
+<button type="button" id="explain118Button" class="explain118-floating-button" hidden aria-controls="explain118Panel" aria-expanded="false">
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+    <span>Spiega risultati</span>
+</button>
+
+<div
+    id="explain118Backdrop"
+    class="explain118-backdrop"
+    hidden
+></div>
+
+<aside id="explain118Panel" class="explain118-panel" aria-hidden="true" aria-labelledby="explain118Title">
+    <div class="explain118-panel__header">
+        <div>
+            <p class="explain118-eyebrow">
+                Explain Results 118
+            </p>
+            <h2 id="explain118Title">
+                Spiegazione dei risultati
+            </h2>
+            <p id="explain118RunLabel" class="explain118-run-label">
+                —
+            </p>
+        </div>
+
+        <button type="button" id="explain118Close" class="explain118-close" aria-label="Chiudi spiegazione">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div id="explain118Loading" class="explain118-loading" hidden>
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+        <div>
+            <strong> Sto preparando la spiegazione</strong>
+            <span>
+                I risultati vengono sintetizzati in modo semplice a partire dai dati del run.
+            </span>
+        </div>
+    </div>
+
+    <div id="explain118Error" class="explain118-error" hidden></div>
+
+    <div id="explain118Content" class="explain118-content" hidden>
+        <section class="explain118-summary-card">
+            <h3 id="explain118ExplanationTitle"></h3>
+            <p id="explain118Summary" class="explain118-summary"></p>
+        </section>
+
+        <section id="explain118ChangesSection" class="explain118-section" hidden>
+            <h3> <i class="fa-solid fa-arrow-right-arrow-left"></i> Cosa emerge dai risultati </h3>
+            <ul id="explain118Changes" class="explain118-list"></ul>
+        </section>
+        <section id="explain118ResourcesSection" class="explain118-section" hidden>
+            <h3>
+                <i class="fa-solid fa-truck-medical"></i>
+                Dove sono state assegnate le risorse
+            </h3>
+            <p class="explain118-section-description">
+                L'algoritmo ha distribuito le risorse nelle seguenti basi territoriali.
+            </p>
+            <div id="explain118Resources" class="explain118-resource-list"></div>
+        </section>
+        <section
+            id="explain118TerritorySection" class="explain118-section" hidden>
+            <h3>
+                <i class="fa-solid fa-location-dot"></i>
+                Principali criticità territoriali
+            </h3>
+            <ul id="explain118Territory" class="explain118-list"></ul>
+        </section>
+
+        <section class="explain118-note">
+            <div class="explain118-note__icon">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div>
+                <strong>Come interpretare il risultato</strong>
+                <p id="explain118ImportantNote"></p>
+            </div>
+        </section>
+    </div>
+</aside>
+
+{% endblock %}
+{% block scripts %}
+
+<!-- CSV -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<!-- ZIP -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<!-- PDF -->
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+<!-- Applicazione 118 -->
+<script type="module" src="/assets/js/app.js"></script>
+
+<script>
+window.addEventListener("load",() => {
+
+        //-------LOAD ASSISTANT CONFIGURATION
+        const pending =sessionStorage.getItem("aslAssistantConfigurationPending");
+
+        if (pending !== "1") {return;}
+        const raw = sessionStorage.getItem("aslAssistantConfiguration");
+        if (!raw) {return;}
+        let configuration;
+
+        try {
+            configuration =JSON.parse(raw);
+
+        } catch (error) {
+            console.error("Configurazione chatbot non valida:",error);
+            return;
+        }
+
+        //-----------HELPERS
+
+        function get(id) {
+            return document.getElementById(id);
+        }
+
+        function setValue(id,value,{input = true,change = true,} = {}){
+            const element =get(id);
+            if (!element) {
+                console.warn(`Campo ASL non trovato: ${id}`);
+                return;
+            }
+
+            element.value =value;
+            if (input) {
+                element.dispatchEvent(new Event("input",{bubbles: true,}));
+            }
+
+            if (change) {
+                element.dispatchEvent(new Event("change",{bubbles: true,}));
+            }
+        }
+
+       //-----------RESPONSE THRESHOLDS
+        if (configuration.T && typeof configuration.T === "object") {
+            const thresholdIds = {
+                ROSSO: "tROSSO",
+                GIALLO: "tGIALLO",
+                VERDE: "tVERDE",
+                BIANCO: "tBIANCO",
+            };
+
+
+            Object.entries(configuration.T).forEach(
+                ([code, minutes]) => {
+                    const id =thresholdIds[code];
+                    if (!id) {return;}
+
+                    setValue(id, minutes);
+
+                    //Modifica output slider
+                    const output =get(`${id}_val`);
+
+                    if (output) {
+                        output.textContent =String(minutes);
+                    }
+                }
+            );
+        }
+
+
+        //DOCTORS
+        if (configuration.doctors_total !== undefined) {
+            setValue("docTotal",configuration.doctors_total);
+        }
+
+        //NURSES
+        if (configuration.nurses_total !== undefined) {
+            // Campo visibile.
+            setValue("nurTotal", configuration.nurses_total);
+
+            // Campo hidden utilizzato dalla logica esistente.
+            setValue("nursesTotal",configuration.nurses_total,{input: false,change: false,});
+        }
+
+
+        //BUDGET TOTAL
+        if (configuration.budget_total !== undefined) {
+            setValue("uiBudgetTotal",configuration.budget_total);
+            setValue("budgetTotal",configuration.budget_total,{input: false,change: false,});
+        }
+
+        //BUDGET MODE
+        if (configuration.budget_mode!== undefined) {
+
+            // Lo schema chatbot usa: purchase,all. La UI manuale usa: capex; capex_opex
+            const uiBudgetModeMap = {purchase: "capex", all: "capex_opex",};
+            const uiValue = uiBudgetModeMap[ configuration.budget_mode];
+
+            if (uiValue) {
+                setValue("uiBudgetMode",uiValue);
+            }
+
+            // Il campo hidden conserva il valore previsto dal backend.
+            setValue("budgetMode", configuration.budget_mode,{input: false,change: false,});
+        }
+
+        //DOCTOR CODES
+        if (Array.isArray(configuration.doctor_codes)) {
+            const codes = [
+                "ROSSO",
+                "GIALLO",
+                "VERDE",
+                "BIANCO",
+            ];
+
+            codes.forEach(code => {
+                    const checkbox =get(`dc${code}`);
+                    if (!checkbox) {return;}
+
+                    checkbox.checked =configuration.doctor_codes.includes(code);
+                    checkbox.dispatchEvent( new Event( "change",{bubbles: true, }));
+                }
+            );
+
+
+            setValue("docCodes",configuration.doctor_codes.join(","),{ input: false, change: false,});
+        }
+
+
+        //DOCTOR COVER
+        if (configuration.doctor_cover !== undefined) {
+            setValue("docCover",configuration.doctor_cover);
+        }
+
+
+        //PSAUT
+        if (configuration.psaut_min !== undefined) {
+            setValue("psautMin", configuration.psaut_min);
+        }
+
+        if (configuration.psaut_exact !== undefined) {
+            setValue("psautExact", configuration.psaut_exact);
+        }
+
+        if (configuration.reloc_psaut!== undefined) {
+            setValue("reloc",configuration.reloc_psaut);
+        }
+
+        //AUTOMEDICA
+        if (configuration.auto_med_transport !== undefined) {
+            setValue("autoMedCoupling",configuration.auto_med_transport);
+            setValue("autoMedTransport",configuration.auto_med_transport,{input: false,change: false,});
+        }
+
+        //FULL COVERAGE
+        if (configuration.full_coverage !== undefined) {
+            setValue("fullcov",configuration.full_coverage);
+        }
+
+        //T HIDDEN REPRESENTATION
+        const currentThresholds = {
+            ROSSO:get("tROSSO")?.value,
+            GIALLO:get("tGIALLO")?.value,
+            VERDE:get("tVERDE")?.value,
+            BIANCO:get("tBIANCO")?.value,
+        };
+
+        const thresholdString =Object.entries(currentThresholds).filter(([, value]) =>value !== undefined).map(([code, value]) =>`${code}=${value}`).join(",");
+
+        if (thresholdString) {
+            setValue("paramT",thresholdString,{input: false,change: false,});
+        }
+
+        //OBJECTIVE
+        if (configuration.objective!== undefined) {
+            setValue("objective", configuration.objective,{input: false,change: false,});
+        }
+
+        //CONFIRMATION BANNER
+        const banner =document.createElement("div");
+        banner.className ="planning-assistant-applied";
+
+        banner.innerHTML = `
+            <strong>Configurazione Assistente AI applicata</strong>
+            <span>I parametri proposti dal chatbot sono stati riportati nei controlli della Pianificazione 118. Verificali prima di avviare l'ottimizzazione. </span>
+            <button type="button" aria-label="Chiudi">×</button>
+        `;
+        banner.querySelector("button").addEventListener("click",() =>banner.remove());
+        const target =document.querySelector(".planning-page__intro")|| document.querySelector(".planning-page");
+        if (target) {
+            target.appendChild(banner);
+        }
+
+        // La configurazione non deve essere riapplicata a ogni refresh.
+
+        sessionStorage.removeItem("aslAssistantConfigurationPending");
+        console.info("Configurazione ASL applicata dal chatbot:",configuration);
+    }
+);
+</script>
+
+{% endblock %}

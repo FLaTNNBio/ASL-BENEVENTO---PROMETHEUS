@@ -1,0 +1,312 @@
+comune,codice_invio,chiamate
+Airola,BIANCO,23.0
+Airola,GIALLO,16.0
+Airola,ROSSO,14.0
+Airola,VERDE,63.0
+Amorosi,BIANCO,2.6
+Amorosi,GIALLO,39.0
+Amorosi,ROSSO,24.7
+Amorosi,VERDE,31.2
+Apice,BIANCO,62.7
+Apice,GIALLO,146.3
+Apice,ROSSO,73.7
+Apice,VERDE,149.6
+Apollosa,BIANCO,13.2
+Apollosa,GIALLO,85.8
+Apollosa,ROSSO,42.9
+Apollosa,VERDE,95.7
+Arpaia,BIANCO,8.8
+Arpaia,GIALLO,26.4
+Arpaia,ROSSO,11.0
+Arpaia,VERDE,25.3
+Arpaise,BIANCO,9.1
+Arpaise,GIALLO,76.7
+Arpaise,ROSSO,55.9
+Arpaise,VERDE,62.4
+Baselice,BIANCO,14.3
+Baselice,GIALLO,189.8
+Baselice,ROSSO,105.3
+Baselice,VERDE,126.1
+Benevento,BIANCO,46.0
+Benevento,GIALLO,84.0
+Benevento,ROSSO,29.0
+Benevento,VERDE,163.0
+Bonea,BIANCO,20.8
+Bonea,GIALLO,167.7
+Bonea,ROSSO,106.6
+Bonea,VERDE,119.6
+Bucciano,BIANCO,40.0
+Bucciano,GIALLO,67.0
+Bucciano,ROSSO,19.0
+Bucciano,VERDE,101.0
+Buonalbergo,BIANCO,3.3
+Buonalbergo,GIALLO,19.8
+Buonalbergo,ROSSO,13.2
+Buonalbergo,VERDE,27.5
+Calvi,BIANCO,14.3
+Calvi,GIALLO,85.8
+Calvi,ROSSO,44.2
+Calvi,VERDE,58.5
+Campolattaro,BIANCO,113.3
+Campolattaro,GIALLO,330.0
+Campolattaro,ROSSO,140.8
+Campolattaro,VERDE,400.4
+Campoli Del Monte Taburno,BIANCO,27.3
+Campoli Del Monte Taburno,GIALLO,123.5
+Campoli Del Monte Taburno,ROSSO,52.0
+Campoli Del Monte Taburno,VERDE,89.7
+Casalduni,BIANCO,43.0
+Casalduni,GIALLO,58.0
+Casalduni,ROSSO,30.0
+Casalduni,VERDE,170.0
+Castelfranco In Miscano,BIANCO,34.0
+Castelfranco In Miscano,GIALLO,56.0
+Castelfranco In Miscano,ROSSO,19.0
+Castelfranco In Miscano,VERDE,96.0
+Castelpagano,BIANCO,2.2
+Castelpagano,ROSSO,1.1
+Castelpagano,VERDE,4.4
+Castelpoto,BIANCO,18.7
+Castelpoto,GIALLO,95.7
+Castelpoto,ROSSO,29.7
+Castelpoto,VERDE,86.9
+Castelvenere,BIANCO,35.0
+Castelvenere,GIALLO,53.0
+Castelvenere,ROSSO,17.0
+Castelvenere,VERDE,97.0
+Castelvetere In Val Fortore,BIANCO,49.0
+Castelvetere In Val Fortore,GIALLO,59.0
+Castelvetere In Val Fortore,ROSSO,23.0
+Castelvetere In Val Fortore,VERDE,120.0
+Cautano,BIANCO,20.8
+Cautano,GIALLO,130.0
+Cautano,ROSSO,76.7
+Cautano,VERDE,97.5
+Ceppaloni,BIANCO,10.4
+Ceppaloni,GIALLO,50.7
+Ceppaloni,ROSSO,41.6
+Ceppaloni,VERDE,35.1
+Cerreto Sannita,BIANCO,2.6
+Cerreto Sannita,GIALLO,23.4
+Cerreto Sannita,ROSSO,15.6
+Cerreto Sannita,VERDE,19.5
+Circello,BIANCO,40.7
+Circello,GIALLO,181.5
+Circello,ROSSO,63.8
+Circello,VERDE,220.0
+Colle Sannita,BIANCO,17.6
+Colle Sannita,GIALLO,84.7
+Colle Sannita,ROSSO,25.3
+Colle Sannita,VERDE,96.8
+Cusano Mutri,BIANCO,19.5
+Cusano Mutri,GIALLO,266.5
+Cusano Mutri,ROSSO,158.6
+Cusano Mutri,VERDE,205.4
+Dugenta,BIANCO,109.0
+Dugenta,GIALLO,172.0
+Dugenta,ROSSO,43.0
+Dugenta,VERDE,341.0
+Durazzano,BIANCO,38.0
+Durazzano,GIALLO,50.0
+Durazzano,ROSSO,19.0
+Durazzano,VERDE,103.0
+Faicchio,BIANCO,15.4
+Faicchio,GIALLO,52.8
+Faicchio,ROSSO,14.3
+Faicchio,VERDE,69.3
+Foglianise,BIANCO,42.9
+Foglianise,GIALLO,97.9
+Foglianise,ROSSO,38.5
+Foglianise,VERDE,118.8
+Foiano Di Val Fortore,BIANCO,17.6
+Foiano Di Val Fortore,GIALLO,44.0
+Foiano Di Val Fortore,ROSSO,23.1
+Foiano Di Val Fortore,VERDE,58.3
+Forchia,BIANCO,35.2
+Forchia,GIALLO,130.9
+Forchia,ROSSO,62.7
+Forchia,VERDE,168.3
+Fragneto L'Abate,BIANCO,20.8
+Fragneto L'Abate,GIALLO,180.7
+Fragneto L'Abate,ROSSO,100.1
+Fragneto L'Abate,VERDE,136.5
+Fragneto Monforte,BIANCO,9.9
+Fragneto Monforte,GIALLO,39.6
+Fragneto Monforte,ROSSO,22.0
+Fragneto Monforte,VERDE,49.5
+Frasso Telesino,BIANCO,18.7
+Frasso Telesino,GIALLO,73.7
+Frasso Telesino,ROSSO,34.1
+Frasso Telesino,VERDE,90.2
+Ginestra Degli Schiavoni,BIANCO,27.5
+Ginestra Degli Schiavoni,GIALLO,102.3
+Ginestra Degli Schiavoni,ROSSO,28.6
+Ginestra Degli Schiavoni,VERDE,112.2
+Guardia Sanframondi,BIANCO,64.9
+Guardia Sanframondi,GIALLO,229.9
+Guardia Sanframondi,ROSSO,103.4
+Guardia Sanframondi,VERDE,200.2
+Limatola,BIANCO,34.0
+Limatola,GIALLO,52.0
+Limatola,ROSSO,14.0
+Limatola,VERDE,98.0
+Melizzano,BIANCO,3.9
+Melizzano,GIALLO,18.2
+Melizzano,ROSSO,13.0
+Melizzano,VERDE,22.1
+Moiano,BIANCO,14.0
+Moiano,GIALLO,14.0
+Moiano,ROSSO,7.0
+Moiano,VERDE,26.0
+Molinara,BIANCO,6.5
+Molinara,GIALLO,61.1
+Molinara,ROSSO,33.8
+Molinara,VERDE,37.7
+Montefalcone Di Val Fortore,BIANCO,58.3
+Montefalcone Di Val Fortore,GIALLO,170.5
+Montefalcone Di Val Fortore,ROSSO,92.4
+Montefalcone Di Val Fortore,VERDE,200.2
+Montesarchio,BIANCO,20.8
+Montesarchio,GIALLO,211.9
+Montesarchio,ROSSO,124.8
+Montesarchio,VERDE,137.8
+Morcone,BIANCO,5.2
+Morcone,GIALLO,42.9
+Morcone,ROSSO,23.4
+Morcone,VERDE,31.2
+Paduli,BIANCO,70.4
+Paduli,GIALLO,226.6
+Paduli,ROSSO,94.6
+Paduli,VERDE,264.0
+Pago Veiano,BIANCO,16.9
+Pago Veiano,GIALLO,110.5
+Pago Veiano,ROSSO,76.7
+Pago Veiano,VERDE,92.3
+Pannarano,BIANCO,41.0
+Pannarano,GIALLO,42.0
+Pannarano,ROSSO,9.0
+Pannarano,VERDE,114.0
+Paolisi,BIANCO,10.4
+Paolisi,GIALLO,98.8
+Paolisi,ROSSO,49.4
+Paolisi,VERDE,68.9
+Paupisi,BIANCO,29.9
+Paupisi,GIALLO,223.6
+Paupisi,ROSSO,139.1
+Paupisi,VERDE,154.7
+Pesco Sannita,BIANCO,44.0
+Pesco Sannita,GIALLO,77.0
+Pesco Sannita,ROSSO,25.0
+Pesco Sannita,VERDE,146.0
+Pietraroja,BIANCO,17.0
+Pietraroja,GIALLO,15.0
+Pietraroja,ROSSO,10.0
+Pietraroja,VERDE,48.0
+Pietrelcina,BIANCO,36.3
+Pietrelcina,GIALLO,117.7
+Pietrelcina,ROSSO,66.0
+Pietrelcina,VERDE,155.1
+Ponte,BIANCO,35.2
+Ponte,GIALLO,123.2
+Ponte,ROSSO,49.5
+Ponte,VERDE,123.2
+Pontelandolfo,BIANCO,21.0
+Pontelandolfo,GIALLO,35.0
+Pontelandolfo,ROSSO,11.0
+Pontelandolfo,VERDE,63.0
+Puglianello,BIANCO,4.4
+Puglianello,GIALLO,18.7
+Puglianello,ROSSO,6.6
+Puglianello,VERDE,16.5
+Reino,BIANCO,7.7
+Reino,GIALLO,29.7
+Reino,ROSSO,13.2
+Reino,VERDE,29.7
+San Bartolomeo In Galdo,BIANCO,20.9
+San Bartolomeo In Galdo,GIALLO,61.6
+San Bartolomeo In Galdo,ROSSO,34.1
+San Bartolomeo In Galdo,VERDE,74.8
+San Giorgio Del Sannio,BIANCO,37.0
+San Giorgio Del Sannio,GIALLO,44.0
+San Giorgio Del Sannio,ROSSO,24.0
+San Giorgio Del Sannio,VERDE,133.0
+San Giorgio La Molara,BIANCO,52.8
+San Giorgio La Molara,GIALLO,178.2
+San Giorgio La Molara,ROSSO,64.9
+San Giorgio La Molara,VERDE,165.0
+San Leucio Del Sannio,BIANCO,2.2
+San Leucio Del Sannio,GIALLO,9.9
+San Leucio Del Sannio,ROSSO,5.5
+San Leucio Del Sannio,VERDE,12.1
+San Lorenzello,BIANCO,26.4
+San Lorenzello,GIALLO,112.2
+San Lorenzello,ROSSO,38.5
+San Lorenzello,VERDE,122.1
+San Lorenzo Maggiore,BIANCO,34.1
+San Lorenzo Maggiore,GIALLO,163.9
+San Lorenzo Maggiore,ROSSO,62.7
+San Lorenzo Maggiore,VERDE,170.5
+San Lupo,BIANCO,46.0
+San Lupo,GIALLO,83.0
+San Lupo,ROSSO,26.0
+San Lupo,VERDE,174.0
+San Marco Dei Cavoti,BIANCO,2.6
+San Marco Dei Cavoti,GIALLO,14.3
+San Marco Dei Cavoti,ROSSO,10.4
+San Marco Dei Cavoti,VERDE,13.0
+San Martino Sannita,BIANCO,55.0
+San Martino Sannita,GIALLO,160.6
+San Martino Sannita,ROSSO,73.7
+San Martino Sannita,VERDE,199.1
+San Nazzaro,BIANCO,19.8
+San Nazzaro,GIALLO,49.5
+San Nazzaro,ROSSO,16.5
+San Nazzaro,VERDE,48.4
+San Nicola Manfredi,BIANCO,32.5
+San Nicola Manfredi,GIALLO,198.9
+San Nicola Manfredi,ROSSO,140.4
+San Nicola Manfredi,VERDE,146.9
+San Salvatore Telesino,BIANCO,5.2
+San Salvatore Telesino,GIALLO,61.1
+San Salvatore Telesino,ROSSO,33.8
+San Salvatore Telesino,VERDE,53.3
+Sant'Agata De' Goti,BIANCO,139.0
+Sant'Agata De' Goti,GIALLO,193.0
+Sant'Agata De' Goti,ROSSO,50.0
+Sant'Agata De' Goti,VERDE,385.0
+Sant'Angelo A Cupolo,BIANCO,17.0
+Sant'Angelo A Cupolo,GIALLO,17.0
+Sant'Angelo A Cupolo,ROSSO,7.0
+Sant'Angelo A Cupolo,VERDE,56.0
+Sant'Arcangelo Trimonte,BIANCO,36.3
+Sant'Arcangelo Trimonte,GIALLO,123.2
+Sant'Arcangelo Trimonte,ROSSO,56.1
+Sant'Arcangelo Trimonte,VERDE,141.9
+Santa Croce Del Sannio,BIANCO,14.3
+Santa Croce Del Sannio,GIALLO,101.4
+Santa Croce Del Sannio,ROSSO,59.8
+Santa Croce Del Sannio,VERDE,84.5
+Sassinoro,BIANCO,14.3
+Sassinoro,GIALLO,80.6
+Sassinoro,ROSSO,48.1
+Sassinoro,VERDE,70.2
+Solopaca,BIANCO,17.6
+Solopaca,GIALLO,71.5
+Solopaca,ROSSO,22.0
+Solopaca,VERDE,75.9
+Telese Terme,BIANCO,25.3
+Telese Terme,GIALLO,94.6
+Telese Terme,ROSSO,29.7
+Telese Terme,VERDE,108.9
+Tocco Caudio,BIANCO,52.8
+Tocco Caudio,GIALLO,181.5
+Tocco Caudio,ROSSO,80.3
+Tocco Caudio,VERDE,183.7
+Torrecuso,BIANCO,64.0
+Torrecuso,GIALLO,84.0
+Torrecuso,ROSSO,31.0
+Torrecuso,VERDE,181.0
+Vitulano,BIANCO,80.0
+Vitulano,GIALLO,122.0
+Vitulano,ROSSO,37.0
+Vitulano,VERDE,275.0

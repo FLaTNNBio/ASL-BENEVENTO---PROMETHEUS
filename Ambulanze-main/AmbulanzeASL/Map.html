@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard AI ASL Benevento 118</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5; /* Sfondo leggero per la dashboard */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Stile per l'header del titolo */
+    .header {
+      background-color: #007bff; /* Blu vivace per l'header */
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-bottom-left-radius: 15px; /* Bordi arrotondati in basso */
+      border-bottom-right-radius: 15px;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      letter-spacing: 1px;
+    }
+    .header p {
+      margin: 5px 0 0;
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    /* Contenitore principale della dashboard */
+    .dashboard-container {
+      display: flex;
+      flex-grow: 1; /* Permette al container di espandersi */
+      padding: 0 20px 20px; /* Spazio ai lati e in basso */
+      gap: 20px; /* Spazio tra le due colonne */
+    }
+
+    /* Stile generico per i riquadri della dashboard */
+    .dashboard-panel {
+      background-color: white;
+      border-radius: 15px; /* Bordi arrotondati per tutti i pannelli */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      flex-shrink: 0; /* Impedisce che si rimpiccioliscano troppo */
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Pannello di sinistra per le ambulanze */
+    .ambulances-panel {
+      width: 320px; /* Larghezza fissa per il pannello delle ambulanze */
+      max-height: calc(100vh - 150px); /* Limita altezza per scroll */
+      overflow-y: auto; /* Abilita scroll se troppe ambulanze */
+    }
+    .ambulances-panel h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.4em;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    .ambulance-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .ambulance-item:last-child {
+      border-bottom: none;
+    }
+    .ambulance-item i { /* Icona ambulanza */
+      font-size: 1.8em;
+      color: #dc3545; /* Rosso per l'ambulanza */
+      margin-right: 15px;
+      width: 30px; /* Larghezza fissa per allineamento */
+      text-align: center;
+    }
+    .ambulance-info {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .ambulance-info strong {
+      font-size: 1.1em;
+      color: #333;
+    }
+    .ambulance-info span {
+      font-size: 0.9em;
+      color: #666;
+    }
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-left: 15px;
+      border: 1px solid #ccc; /* Bordo per visibilità del bianco */
+    }
+    /* Colori dei pallini */
+    .status-green { background-color: #28a745; } /* Verde */
+    .status-yellow { background-color: #ffc107; } /* Giallo */
+    .status-red { background-color: #dc3545; }   /* Rosso */
+    .status-white { background-color: #f8f9fa; }  /* Bianco */
+
+    /* Pannello di destra per la mappa */
+    .map-panel {
+      flex-grow: 1; /* La mappa occupa lo spazio rimanente */
+      position: relative; /* Per posizionamento assoluto se necessario in futuro */
+    }
+    #map {
+      height: 100%; /* La mappa occupa tutto il pannello */
+      width: 100%;
+      border-radius: 10px; /* Bordi arrotondati anche per la mappa */
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>Dashboard Operativa AI | ASL Benevento 118</h1>
+    <p>Monitoraggio Avanzato Flotta Ambulanze</p>
+  </header>
+
+  <div class="dashboard-container">
+
+    <div class="ambulances-panel dashboard-panel">
+      <h2>Stato Flotta Ambulanze</h2>
+
+      <div class="ambulance-item">
+        <i class="fa-solid fa-truck-medical"></i>
+        <div class="ambulance-info">
+          <strong>Ambulanza BN-01 (Misericordia)</strong>
+          <span>Stato: In servizio</span>
+        </div>
+        <div class="status-indicator status-green"></div>
+      </div>
+
+      <div class="ambulance-item">
+        <i class="fa-solid fa-truck-medical"></i>
+        <div class="ambulance-info">
+          <strong>Ambulanza BN-02 (Croce Rossa)</strong>
+          <span>Stato: In viaggio verso intervento</span>
+        </div>
+        <div class="status-indicator status-red"></div>
+      </div>
+
+      <div class="ambulance-item">
+        <i class="fa-solid fa-truck-medical"></i>
+        <div class="ambulance-info">
+          <strong>Ambulanza BN-03 (Anpas)</strong>
+          <span>Stato: In attesa presso ospedale</span>
+        </div>
+        <div class="status-indicator status-yellow"></div>
+      </div>
+
+      <div class="ambulance-item">
+        <i class="fa-solid fa-truck-medical"></i>
+        <div class="ambulance-info">
+          <strong>Ambulanza BN-04 (Volontari)</strong>
+          <span>Stato: In manutenzione</span>
+        </div>
+        <div class="status-indicator status-white"></div>
+      </div>
+
+      <div class="ambulance-item">
+        <i class="fa-solid fa-truck-medical"></i>
+        <div class="ambulance-info">
+          <strong>Ambulanza BN-05 (Emergenza)</strong>
+          <span>Stato: Libera</span>
+        </div>
+        <div class="status-indicator status-green"></div>
+      </div>
+      </div>
+
+    <div class="map-panel dashboard-panel">
+      <div id="map"></div>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <script>
+    //Inizializzazione mappa corxidinate Benevento
+    var map = L.map('map').setView([41.1278, 14.7801], 12);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Esempio: aggiungi un marker per un'ambulanza
+    L.marker([41.13, 14.77]).addTo(map)
+      .bindPopup('<b>Ambulanza BN-01</b><br>In servizio')
+      .openPopup();
+
+    // Puoi aggiungere più marker per le altre ambulanze
+    L.marker([41.11, 14.79]).addTo(map)
+      .bindPopup('<b>Ambulanza BN-02</b><br>In viaggio');
+
+    // Definisci la classe CSS per l'icona del marker
+var AmbulancePin = L.divIcon({
+    className: 'custom-ambulance-pin', // Assegna una classe CSS unica (opzionale)
+
+    // Contenuto HTML: Icona Font Awesome (fa-truck-medical) con colore rosso
+    html: '<i class="fa-solid fa-truck-medical fa-2x" style="color: #FF0000; text-shadow: 0 0 5px #000;"></i>',
+
+    // Dimensioni del contenitore div [larghezza, altezza]
+    iconSize: [40, 40],
+
+    // Punto di ancoraggio: l'icona è centrata (20) e ancorata in basso (40)
+    iconAnchor: [20, 40],
+
+    // Punto da cui si apre il popup rispetto all'icona
+    popupAnchor: [0, -40]
+});
+
+  </script>
+
+</body>
+</html>

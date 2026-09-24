@@ -1,0 +1,4 @@
+Uncovered target calls: 0
+Total purchase cost   : 5150000.00
+Target coverage %%     : 100.00
+Buys  ILS=8 ALS=9 AM=0

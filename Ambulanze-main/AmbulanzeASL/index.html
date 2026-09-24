@@ -1,0 +1,4656 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard AI | ASL Benevento 118</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- PapaParse per leggere CSV lato client -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <!-- JSZip per "Scarica tutto (ZIP)" -->
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+    <!-- PDF: jsPDF + AutoTable + (opzionale) html2canvas -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+
+    <!-- Favicon base -->
+    <link rel="icon" href="favicon.png" sizes="any">
+
+
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --bg: #f0f2f5;
+            --card: #fff;
+            --muted: #000000;
+            --ok: #28a745;
+            --warn: #ffc107;
+            --bad: #dc3545;
+            --als: #2f6fff;
+            --auto: #e63946;
+            --ils: #6c757d;
+            --psaut: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column
+        }
+
+        /* niente bordo di focus su poligoni/marker Leaflet */
+        .leaflet-container .leaflet-interactive:focus,
+        .leaflet-container .leaflet-interactive:focus-visible,
+        .leaflet-container .leaflet-marker-icon:focus,
+        .leaflet-container .leaflet-marker-icon:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d6efd 0%, #2f6fff 60%, #6aa2ff 100%);
+            color: #fff;
+            padding: 18px 24px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            box-shadow: 0 6px 18px rgba(13, 110, 253, .25)
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: .3px
+        }
+
+        header .kpi {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, .18);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px
+        }
+
+
+        .container {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            flex: 1 1 auto;
+            min-height: 0
+        }
+
+        .panel {
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0
+        }
+
+        .left {
+            width: 380px;
+            min-width: 300px;
+            max-width: 520px
+        }
+
+        .left h2 {
+            margin: 6px 0 8px 0;
+            font-size: 16px
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px
+        }
+
+        .toolbar label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f7f7f9;
+            border: 1px solid #eee;
+            padding: 6px 8px;
+            border-radius: 10px;
+            font-size: 12px
+        }
+
+        .list {
+            overflow: auto;
+            border-top: 1px solid #eee;
+            min-height: 100px
+        }
+
+        .item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 10px 4px;
+            border-bottom: 1px solid #f1f1f1
+        }
+
+
+        .crit-label .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: -1px;
+        }
+
+
+        .crit-label .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: -1px;
+        }
+
+        .item .icon {
+            width: 28px;
+            text-align: center
+        }
+
+        .item .title {
+            font-weight: 600
+        }
+
+        .item .sub {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .map-wrap {
+            flex: 1 1 auto;
+            min-height: 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .map-area {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 360px
+        }
+
+        #map {
+            height: 100%;
+            border-radius: 10px
+        }
+
+        .legend {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+            padding: 10px 12px;
+            font-size: 12px;
+            line-height: 1.4
+        }
+
+        .legend .row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0
+        }
+
+        .swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%
+        }
+
+        .footer b {
+            color: #333
+        }
+
+        .runbox {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        .row > * {
+            flex: 1
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+
+        /* Nuovi controlli */
+        .group {
+            background: #f7f7f9;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 10px
+        }
+
+        .group h3 {
+            margin: 0 0 8px 0;
+            font-size: 13px
+        }
+
+        .control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 6px 0
+        }
+
+        .control label {
+            min-width: 70px;
+            font-size: 12px;
+            color: #333
+        }
+
+        .control output {
+            min-width: 42px;
+            text-align: right;
+            font-variant-numeric: tabular-nums
+        }
+
+        input[type=range] {
+            width: 100%
+        }
+
+        input[type=number], select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #fafafa;
+            font-size: 12px
+        }
+
+        .switch {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0d6efd;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 12px;
+            cursor: pointer
+        }
+
+        .btn.secondary {
+            background: #6c757d
+        }
+
+        .btn.ghost {
+            background: #eef2ff;
+            color: #0d6efd
+        }
+
+        pre.log {
+            background: #0b1020;
+            color: #d1e7ff;
+            border-radius: 10px;
+            padding: 10px;
+            overflow: auto;
+            font-size: 12px;
+            line-height: 1.45
+        }
+
+        /* Nasconde i vecchi input testuali sostituiti dai controlli nuovi */
+        .hidden-prop {
+            display: none
+        }
+
+        /* --- extra look & feel --- */
+        header .kpi .pill {
+            background: rgba(255, 255, 255, .22);
+            border: 1px solid rgba(255, 255, 255, .25);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .12)
+        }
+
+        #map {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e6e9ef
+        }
+
+        .units-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .units-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .units-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .units-actions input {
+            padding: 8px 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #fafafa;
+            font-size: 12px;
+            min-width: 260px
+        }
+
+        .toolbar label {
+            background: #f4f6ff;
+            border-color: #e6e9ff
+        }
+
+        .toolbar input[type=checkbox] {
+            accent-color: #0d6efd
+        }
+
+        .list {
+            border-top: none
+        }
+
+        .item {
+            background: #fff;
+            border: 1px solid #eef0f4;
+            border-radius: 12px;
+            margin: 6px 0;
+            padding: 10px 8px;
+            box-shadow: 0 1px 4px rgba(16, 24, 40, .06)
+        }
+
+        .item:hover {
+            box-shadow: 0 4px 14px rgba(16, 24, 40, .10);
+            transform: translateY(-1px);
+            transition: all .15s ease
+        }
+
+        .group {
+            background: #fbfbfe;
+            border-color: #eef0f4
+        }
+
+        input[type=range] {
+            height: 6px;
+            border-radius: 999px
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #0d6efd;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .25)
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #dbe7ff, #eef2ff)
+        }
+
+        .btn {
+            box-shadow: 0 2px 6px rgba(13, 110, 253, .25)
+        }
+
+        .btn:hover {
+            filter: brightness(1.05)
+        }
+
+        .legend {
+            border: 1px solid #e6e9ef
+        }
+
+        /* Tooltip "?" */
+        .help {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            margin-left: 6px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #0d6efd;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: help
+        }
+
+        .help:focus {
+            outline: 2px solid #bfd3ff;
+            outline-offset: 2px
+        }
+
+        .help .tip {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            z-index: 50;
+            max-width: 280px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #0b1020;
+            color: #d1e7ff;
+            border: 1px solid #1b2a4a;
+            box-shadow: 0 8px 20px rgba(2, 6, 23, .35);
+            font-size: 12px;
+            line-height: 1.35;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity .15s ease, transform .15s ease
+        }
+
+        .help:hover .tip, .help:focus .tip {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* Avanzate nascoste di default */
+        .advanced {
+            display: none
+        }
+
+        .runbox.show-adv .advanced {
+            display: flex
+        }
+
+        /* Output accanto agli slider */
+        .control output {
+            min-width: 3.5ch;
+            display: inline-block;
+            text-align: right;
+            margin-left: 8px;
+            font-variant-numeric: tabular-nums
+        }
+
+        /* --- Tooltip "?" e Avanzate --- */
+        .help {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            margin-left: 6px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #0d6efd;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: help;
+        }
+
+        .help:focus {
+            outline: 2px solid #bfd3ff;
+            outline-offset: 2px;
+        }
+
+        .help .tip {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            z-index: 50;
+            max-width: 260px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #0b1020;
+            color: #d1e7ff;
+            border: 1px solid #1b2a4a;
+            box-shadow: 0 8px 20px rgba(2, 6, 23, .35);
+            font-size: 12px;
+            line-height: 1.3;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity .15s ease, transform .15s ease;
+        }
+
+        .help:hover .tip, .help:focus .tip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .advanced {
+            display: none;
+        }
+
+        /* righe avanzate nascoste di default */
+        .runbox.show-adv .advanced {
+            display: flex;
+        }
+
+        /* mostrale quando attivo il toggle */
+        /* Tabella costi */
+        .costs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px
+        }
+
+        .costs-table th, .costs-table td {
+            padding: 6px 8px;
+            border-top: 1px solid #eee;
+            text-align: right
+        }
+
+        .costs-table th:first-child, .costs-table td:first-child {
+            text-align: left
+        }
+
+        .costs-table tfoot td {
+            font-weight: 700;
+            border-top: 2px solid #ddd
+        }
+
+        .costs-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #0d6efd;
+            font-weight: 600;
+            font-size: 11px;
+            margin-left: 6px
+        }
+
+        /* --- Riepilogo costi: look pro --- */
+        #costsBox {
+            background: #fff;
+            border: 1px solid #eef0f4;
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(16, 24, 40, .06);
+            padding: 12px
+        }
+
+        .costs-kpis {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 6px 0 10px
+        }
+
+        .kchip {
+            background: #f4f6ff;
+            border: 1px solid #e3e8ff;
+            color: #0d46bd;
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 12px
+        }
+
+        .kchip b {
+            margin-left: 6px;
+            color: #0d6efd
+        }
+
+        .costs-table-wrap {
+            overflow: auto;
+            border: 1px solid #e9edff;
+            border-radius: 12px;
+            background: #fff
+        }
+
+        .costs-table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .costs-table thead th {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(0deg, #fafbff, #fff);
+            border-bottom: 1px solid #e8ecf8;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 10px;
+            text-align: right;
+            white-space: nowrap
+        }
+
+        .costs-table thead th:first-child {
+            text-align: left
+        }
+
+        .costs-table tbody td {
+            padding: 10px;
+            border-top: 1px solid #f1f3fa;
+            font-size: 12px;
+            text-align: right;
+            vertical-align: middle
+        }
+
+        .costs-table tbody td:first-child {
+            text-align: left
+        }
+
+        .costs-table tbody tr:nth-child(even) {
+            background: #fafbff
+        }
+
+        .costs-table tbody tr:hover {
+            background: #f1f4ff
+        }
+
+        .costs-table tfoot td {
+            padding: 12px 10px;
+            border-top: 2px solid #dfe6ff;
+            font-weight: 700;
+            text-align: right
+        }
+
+        .num {
+            font-variant-numeric: tabular-nums
+        }
+
+        .costs-bar {
+            height: 8px;
+            background: #eef2ff;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 4px
+        }
+
+        .costs-bar > span {
+            display: block;
+            height: 100%;
+            width: var(--w, 0%);
+            background: #0d6efd
+        }
+
+        @media (max-width: 900px) {
+            .costs-table thead th, .costs-table tbody td {
+                padding: 8px 6px;
+                font-size: 11px
+            }
+        }
+
+        /* Doctor-codes: usa tutto lo spazio e non deborda */
+        #docCodesRow {
+            display: grid; /* niente flex, niente overflow */
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        #docCodesRow > label.switch {
+            min-width: 0
+        }
+
+        /* evita larghezze minime strane */
+        #docCodesRow .switch span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Su schermi stretti il gruppo va a 2 colonne */
+        @media (max-width: 560px) {
+            #docCodesRow {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Il tooltip “?” non esce dal pannello */
+        .group .help .tip {
+            right: 0;
+            left: auto;
+        }
+
+        /* Griglia che usa tutto lo spazio disponibile */
+        #docCodesRow {
+            display: grid;
+            grid-template-columns:repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        @media (max-width: 560px) {
+            #docCodesRow {
+                grid-template-columns:repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Toggle icona */
+        .iconcheck {
+            display: block;
+            position: relative;
+        }
+
+        .iconcheck input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* “Chip” con pallino colorato */
+        .chip {
+            --c: #0d6efd; /* colore del codice (inline via style) */
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 1px solid #e6e9ef;
+            box-shadow: 0 1px 3px rgba(16, 24, 40, .06);
+            transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+        }
+
+        .chip::before {
+            content: "";
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            background: var(--c);
+            box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .06);
+        }
+
+        /* Stato attivo (checked) */
+        .iconcheck input:checked + .chip {
+            border-color: var(--c);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 28%, transparent);
+            transform: translateY(-1px);
+        }
+
+        /* Hover/focus */
+        .iconcheck:hover .chip {
+            box-shadow: 0 3px 10px rgba(16, 24, 40, .12);
+        }
+
+        .iconcheck:focus-within .chip {
+            outline: 2px solid color-mix(in srgb, var(--c) 45%, transparent);
+            outline-offset: 2px;
+        }
+
+        /* Variante “BIANCO”: pallino bianco con bordo visibile */
+        .chip-white::before {
+            background: #fff;
+            box-shadow: 0 0 0 2px #cfd4dc inset;
+        }
+
+        /* Evita che i tooltip "?" escano dal pannello */
+        .group .help .tip {
+            right: 0;
+            left: auto;
+        }
+
+        /* La sidebar riempie l'altezza e scorre */
+        .left {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .runbox {
+            flex: 1;
+            min-height: 0;
+            overflow: auto;
+            padding-bottom: 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Barra azioni sempre visibile in basso */
+        .run-actions {
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(251, 251, 254, 0), #fbfbfe 65%);
+            padding-top: 8px;
+            margin-top: auto;
+            border-top: 1px solid #eef0f4;
+        }
+
+        .run-actions .btn {
+            width: 100%;
+        }
+
+        /* Sidebar: niente scroll orizzontale, solo verticale */
+        .left {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .runbox {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto; /* scroll solo verticale */
+            overflow-x: hidden; /* niente barra in basso */
+            -webkit-overflow-scrolling: touch;
+            scrollbar-gutter: auto; /* evita micro-shift */
+        }
+
+        /* Budget: non “stirare” il bottone in fondo */
+        #mode-budget .run-actions {
+            position: sticky; /* resta appiccicato se si scorre */
+            bottom: 0;
+            margin-top: 8px; /* ← invece di margin-top:auto */
+            border-top: 1px solid #eef0f4;
+            background: linear-gradient(180deg, rgba(251, 251, 254, 0), #fbfbfe 65%);
+        }
+
+        /* (già dal messaggio prima) niente riserva fissa della scrollbar */
+        #mode-budget .runbox {
+            scrollbar-gutter: auto;
+        }
+
+        /* Evita che i figli “spingano” oltre il contenitore */
+        .left .group,
+        .left .row,
+        .left .control,
+        #docCodesRow,
+        #docCodesRow .iconcheck {
+            min-width: 0;
+        }
+
+        .left input[type=number],
+        .left select,
+        .left input[type=range] {
+            max-width: 100%;
+        }
+
+        /* Barra azioni sempre in basso (già fatto) */
+        .run-actions {
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(251, 251, 254, 0), #fbfbfe 65%);
+            padding-top: 8px;
+            margin-top: auto;
+            border-top: 1px solid #eef0f4;
+        }
+
+        .run-actions .btn {
+            width: 100%;
+        }
+
+        /* Pannello mappa scrollabile (solo verticale) */
+        .map-wrap {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto; /* scroll interno al pannello */
+            overflow-x: hidden; /* niente barra orizzontale */
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        /* Mappa con altezza responsiva, il resto scorre sotto */
+        .map-area {
+            flex: 0 0 auto; /* non “spingere” oltre */
+            height: clamp(340px, 48vh, 560px); /* scegli tu i limiti */
+        }
+
+        /* Robuste contro overflow laterali */
+        .units-panel,
+        .units-head,
+        .units-actions,
+        .units-actions input,
+        .units-panel .group,
+        .units-panel .toolbar {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        /* (opzionale) tieni la mappa “appiccicata” in alto mentre scorri */
+        .map-wrap.sticky-map .map-area {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        /* --- Unità attive a griglia --- */
+        #unit-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            padding: 6px;
+            border-top: 0; /* niente riga superiore */
+            overflow: visible; /* nessuna barra orizzontale */
+        }
+
+        #unit-list .item {
+            margin: 0;
+            background: #fff;
+            border: 1px solid #eef0f4;
+            border-left: 4px solid transparent; /* accent color per tipo */
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(16, 24, 40, .06);
+            display: grid;
+            grid-template-columns:36px 1fr; /* icona + contenuto */
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+        }
+
+        /* accento per tipo mezzo */
+        #unit-list .item[data-type="AUTO_MED"] {
+            border-left-color: var(--auto);
+        }
+
+        #unit-list .item[data-type="AMB_ALS"] {
+            border-left-color: var(--als);
+        }
+
+        #unit-list .item[data-type="AMB_ILS"] {
+            border-left-color: var(--ils);
+        }
+
+        #unit-list .item[data-type="PSAUT"] {
+            border-left-color: var(--psaut);
+        }
+
+        #unit-list .item .icon {
+            width: 36px;
+            text-align: center;
+        }
+
+        #unit-list .item .title {
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #unit-list .item .sub {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* hover gradevole */
+        #unit-list .item:hover {
+            box-shadow: 0 4px 14px rgba(16, 24, 40, .10);
+            transform: translateY(-1px);
+            transition: .15s;
+        }
+
+        /* responsive: più fitto su desktop larghi, più compatto su schermi stretti */
+        @media (min-width: 1400px) {
+            #unit-list {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            #unit-list {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+
+        /* Budget: due colonne perfettamente allineate, con ? accanto al titolo */
+        #budgetRow {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            align-items: end; /* allinea i controlli sul fondo */
+        }
+
+        #budgetRow > label {
+            display: grid;
+            grid-template-columns: 1fr 18px; /* titolo + ? */
+            grid-template-rows: auto auto; /* riga titolo, riga input/select */
+            column-gap: 6px;
+            row-gap: 6px;
+            min-width: 0;
+        }
+
+        #budgetRow > label > b {
+            grid-column: 1;
+            grid-row: 1;
+            align-self: center;
+        }
+
+        #budgetRow > label > .help {
+            grid-column: 2;
+            grid-row: 1;
+            align-self: center;
+            justify-self: end;
+        }
+
+        #budgetRow input, #budgetRow select {
+            grid-column: 1 / -1;
+            grid-row: 2; /* il controllo occupa tutta la riga sotto */
+            width: 100%;
+        }
+
+        /* Stack verticale su schermi stretti */
+        @media (max-width: 560px) {
+            #budgetRow {
+                grid-template-columns:1fr;
+            }
+        }
+
+        /* Bottoni download report */
+        .dl-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-left: auto
+        }
+
+        .dl-buttons .btn {
+            padding: 6px 10px;
+            font-size: 12px
+        }
+
+        @media (max-width: 900px) {
+            .dl-buttons {
+                width: 100%;
+                margin-left: 0;
+                justify-content: flex-start
+            }
+        }
+
+        /* Editor su mappa: badge conteggi e stato attivo */
+        .mp-badge {
+            background: #111827;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, .3);
+        }
+
+        . /* --- Pulsanti ordinati --- */
+        .btn-row {
+            display: grid;
+            grid-template-columns:1fr 1fr;
+            gap: 8px;
+        }
+
+        .btn.block {
+            width: 100%;
+        }
+
+        .btn.small {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        /* Download: usa l'attributo [hidden] e non togglare display inline */
+        #dlBox[hidden] {
+            display: none !important;
+        }
+
+        /* Barra download allineata a destra e compatta */
+        .units-actions {
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .dl-buttons {
+            margin-left: auto;
+            gap: 8px;
+        }
+
+        .dl-buttons .btn {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        /* Bottoni disabilitati visibili e non cliccabili */
+        .btn[disabled], .btn[aria-disabled="true"] {
+            opacity: .55;
+            cursor: not-allowed;
+            pointer-events: none;
+            filter: grayscale(15%);
+        }
+
+        /* ====== Layout pulito per "Editor su mappa" ====== */
+        #map-plan-editor {
+            --gap: 8px;
+        }
+
+        #map-plan-editor h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Riga Tipo / Quantità / Sorgente in griglia */
+        #map-plan-editor > .row:first-of-type {
+            display: grid;
+            grid-template-columns: auto minmax(130px, 1fr) auto 90px auto minmax(150px, 1fr);
+            align-items: center;
+            gap: var(--gap);
+        }
+
+        /* Riga "Comune" */
+        #map-plan-editor .commune-row {
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: var(--gap);
+        }
+
+        /* Campi compatti e coerenti */
+        #map-plan-editor label {
+            font-size: 12px;
+            color: #374151;
+            min-width: 70px;
+        }
+
+        #map-plan-editor input[type="number"],
+        #map-plan-editor input[list],
+        #map-plan-editor select {
+            height: 34px;
+            padding: 6px 10px;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        /* Pulsanti: due colonne, pieni */
+        #map-plan-editor .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gap);
+        }
+
+        #map-plan-editor .btn.block {
+            width: 100%;
+        }
+
+        #map-plan-editor .btn.small {
+            padding: 6px 10px;
+        }
+
+        /* Tabella piano: look pulito */
+        #map-plan-editor .plan-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #map-plan-editor .plan-table th,
+        #map-plan-editor .plan-table td {
+            padding: 8px 6px;
+            border-top: 1px solid #eef0f4;
+            font-size: 12px;
+        }
+
+        #map-plan-editor .plan-table th {
+            text-align: left;
+            color: #374151;
+            background: #fafbff;
+        }
+
+        #map-plan-editor .plan-table td:nth-child(2),
+        #map-plan-editor .plan-table td:nth-child(3),
+        #map-plan-editor .plan-table td:nth-child(4) {
+            text-align: center;
+        }
+
+        /* Mobile: impila bene */
+        @media (max-width: 560px) {
+            #map-plan-editor > .row:first-of-type {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #map-plan-editor .commune-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- FIX scrollbar nel pannello Algoritmo --- */
+        aside.panel.left { /* la sidebar deve poter “stringere” verticalmente */
+            min-height: 0;
+        }
+
+        .mode-pane { /* fa da contenitore flessibile */
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* IMPORTANT: permette al figlio di overfloware */
+        }
+
+        .mode-pane[hidden] { /* quando nascosto, non occupa spazio */
+            display: none !important;
+        }
+
+        .runbox { /* l'area che deve scrollare */
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto !important;
+            overflow-x: hidden;
+        }
+
+        /* Evidenziazione card collegata al marker */
+        .item.is-active {
+            outline: 2px solid #0d6efd;
+            background: #eef5ff;
+            transition: outline-color .15s ease, background-color .15s ease;
+        }
+
+        .item.is-hover {
+            background: #f4f8ff;
+        }
+
+        @keyframes ping {
+            0% {
+                box-shadow: 0 0 0 0 rgba(13, 110, 253, .45);
+            }
+            100% {
+                box-shadow: 0 0 0 12px rgba(13, 110, 253, 0);
+            }
+        }
+
+        .item.pulse {
+            animation: ping .9s ease 2;
+        }
+
+        .mode-switch .tab {
+            flex: 1;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* attiva */
+        .mode-switch .tab[aria-selected="true"],
+        .mode-switch .tab.is-active {
+            background: #fff;
+            border-color: #e6e9ff;
+            box-shadow: 0 1px 3px rgba(16, 24, 40, .08);
+        }
+
+        /* inattiva */
+        .mode-switch .tab[aria-selected="false"] {
+            background: transparent;
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        /* Legenda criticità */
+        #critLegend {
+            position: absolute;
+            left: 14px;
+            bottom: 14px;
+            z-index: 500;
+            background: #fff;
+            border: 1px solid #e6e9ef;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .12);
+            padding: 8px 10px;
+            font-size: 12px;
+        }
+
+        #critLegend .bar {
+            width: 160px;
+            height: 10px;
+            border-radius: 999px;
+            margin: 6px 0;
+            background: linear-gradient(90deg, #28a745, #f59e0b, #dc3545); /* verde→giallo→rosso */
+        }
+
+        #critLegend .scale {
+            display: flex;
+            justify-content: space-between;
+            color: #6b7280;
+        }
+
+
+        #mp-top-controls {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr; /* Tipo | Qty | Sorgente */
+            gap: 8px;
+            align-items: end;
+        }
+
+        #mp-top-controls .ctrl {
+            display: grid;
+            grid-template-rows: auto auto; /* label sopra, controllo sotto */
+            gap: 6px;
+            min-width: 0;
+        }
+
+        #mp-top-controls .ctrl > span {
+            font-size: 12px;
+            color: #374151;
+        }
+
+        #mp-top-controls select, #mp-top-controls input[type="number"] {
+            height: 34px;
+            padding: 6px 10px;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 12px;
+            width: 100%;
+            min-width: 140px;
+        }
+
+
+        #mp-top-controls {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 colonna → più righe */
+            gap: 8px;
+            align-items: end;
+        }
+
+        /* La Quantità occupa sempre tutta la riga quando siamo in 1–2 colonne */
+        #mp-top-controls .qty {
+            grid-column: 1 / -1;
+        }
+
+        /* Da 600px in su: 2 colonne (Tipo | Sorgente) e Quantità sotto */
+        @media (min-width: 600px) {
+            #mp-top-controls {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Da 1000px in su: torna a 3 colonne come nello screenshot (opzionale) */
+        @media (min-width: 1000px) {
+            #mp-top-controls {
+                grid-template-columns: 1fr auto 1fr; /* Tipo | Quantità | Sorgente */
+            }
+
+            #mp-top-controls .qty {
+                grid-column: auto;
+            }
+
+            /* non più full-width */
+        }
+
+        /* Default: ogni controllo su UNA riga */
+        #mp-top-controls {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 colonna → più righe */
+            gap: 8px;
+            align-items: end;
+        }
+
+        /* La Quantità occupa sempre tutta la riga quando siamo in 1–2 colonne */
+        #mp-top-controls .qty {
+            grid-column: 1 / -1;
+        }
+
+        /* Da 600px in su: 2 colonne (Tipo | Sorgente) e Quantità sotto */
+        @media (min-width: 600px) {
+            #mp-top-controls {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Da 1000px in su: torna a 3 colonne come nello screenshot (opzionale) */
+        @media (min-width: 1000px) {
+            #mp-top-controls {
+                grid-template-columns: 1fr auto 1fr; /* Tipo | Quantità | Sorgente */
+            }
+
+            #mp-top-controls .qty {
+                grid-column: auto;
+            }
+
+            /* non più full-width */
+        }
+
+        /* 1 colonna: ogni controllo va su una riga */
+        #mp-top-controls {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            align-items: end;
+        }
+
+        /* Stepper quantità sempre in linea */
+        #mp-top-controls .qty .qtywrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #mp-top-controls .qty .step {
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        #mp-top-controls #mp-qty {
+            flex: 1 1 auto;
+            min-width: 0;
+            width: auto; /* evita di mandarlo a capo */
+        }
+
+
+        /* Quantità: centrato e senza spin native */
+        #mp-top-controls input#mp-qty {
+            text-align: center;
+        }
+
+        #mp-top-controls input#mp-qty::-webkit-outer-spin-button,
+        #mp-top-controls input#mp-qty::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #mp-top-controls input#mp-qty {
+            -moz-appearance: textfield;
+        }
+
+        /* bottone step disabilitato */
+        #mp-top-controls .qty .step[disabled] {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Dashboard Operativa AI · ASL Benevento 118</h1>
+    <div class="kpi" id="kpi">
+        <span class="pill" id="kpi-any">Copertura ANY: –</span>
+        <span class="pill" id="kpi-doc">Copertura con Medico (R+G): –</span>
+        <span class="pill" id="kpi-staff">Medici richiesti da slot attivi: –</span>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Pannello sinistro: parametri + esecuzione + elenco -->
+    <aside class="panel left">
+        <!-- Testata + Switch modalità -->
+        <div class="sidehead"
+             style="position:sticky;top:0;background:linear-gradient(180deg,#fbfbfe,#fbfbfe 70%,transparent);padding-bottom:8px;z-index:5">
+            <h2 style="margin:6px 0 8px 0;font-size:16px">Pannello operazioni</h2>
+            <div class="mode-switch" role="tablist" aria-label="Modalità pannello"
+                 style="display:flex;gap:6px;padding:4px;background:#f4f6ff;border:1px solid #e6e9ff;border-radius:12px">
+                <button class="tab" id="tab-algo" role="tab" aria-selected="true" aria-controls="mode-algo">
+                    <i class="fa-solid fa-sliders"></i> Ottimizza
+                </button>
+                <button class="tab" id="tab-editor" role="tab" aria-selected="false" aria-controls="mode-editor">
+                    <i class="fa-solid fa-map-location-dot"></i> Valuta
+                </button>
+            </div>
+        </div>
+
+        <!-- ============ MODALITÀ 1: Parametri algoritmo ============ -->
+        <section id="mode-algo" class="mode-pane" role="tabpanel" aria-labelledby="tab-algo">
+            <div class="runbox">
+                <!-- ====== Hidden per backend: logica invariata ====== -->
+                <!-- Hidden per vincolo economico -->
+                <input id="budgetTotal" class="hidden-prop" value=""/>
+                <input id="budgetMode" class="hidden-prop" value=""/>
+                <!-- Pesi relax (default) -->
+                <input id="relaxWeights" class="hidden-prop"
+                       value="COV=1e9,DOC=8e8,PSAUT=8e8,DOCTORS=8e8,BUDGET=8e8"/>
+
+                <!-- hidden usati dal backend -->
+                <input id="docCodes" class="hidden-prop" value="ROSSO,GIALLO"/>
+                <input id="docCover" class="hidden-prop" value="strict"/>
+                <input id="staff" class="hidden-prop" value="PSAUT=6,AUTO_MED=3,AMB_ALS=3"/>
+
+                <input id="dataDir" type="hidden" value="data"/>
+                <input id="outDir" type="hidden" value=""/>
+                <input id="paramT" class="hidden-prop" value="ROSSO=8,GIALLO=20,VERDE=30,BIANCO=45"/>
+                <input id="typeSpeed" class="hidden-prop" value="AUTO_MED=0.90,AMB_ALS=0.98,AMB_ILS=1.00"/>
+                <input id="capex" class="hidden-prop" value="AUTO_MED=500000,AMB_ALS=350000,AMB_ILS=250000,PSAUT=0"/>
+                <input id="opex" class="hidden-prop" value="AUTO_MED=250000,AMB_ALS=200000,AMB_ILS=150000,PSAUT=0"/>
+
+                <!-- select nascosti collegati a switch -->
+                <select id="verbose" class="hidden-prop" hidden>
+                    <option value="--verbose" selected>on</option>
+                    <option value="">off</option>
+                </select>
+                <select id="reloc" class="hidden-prop" hidden>
+                    <option value="off" selected>off</option>
+                    <option value="on">on</option>
+                </select>
+
+                <!-- Tacchette riusabili -->
+                <datalist id="marks0_60">
+                    <option value="0">
+                    <option value="10">
+                    <option value="20">
+                    <option value="30">
+                    <option value="45">
+                    <option value="60">
+                </datalist>
+
+                <!-- Soglie T -->
+                <div class="group" id="groupT">
+                    <h3>
+                        Soglie T (minuti)
+                        <span class="help" tabindex="0">?
+            <span class="tip">Tempo massimo di arrivo per codice. Il modello massimizza la copertura entro queste soglie.</span>
+          </span>
+                    </h3>
+                    <div class="control">
+                        <label for="tROSSO">Rosso</label>
+                        <input id="tROSSO" type="range" min="0" max="60" step="1" list="marks0_60"/>
+                        <output id="tROSSO_val" aria-live="polite">0</output>
+                    </div>
+                    <div class="control">
+                        <label for="tGIALLO">Giallo</label>
+                        <input id="tGIALLO" type="range" min="0" max="60" step="1" list="marks0_60"/>
+                        <output id="tGIALLO_val" aria-live="polite">0</output>
+                    </div>
+                    <div class="control">
+                        <label for="tVERDE">Verde</label>
+                        <input id="tVERDE" type="range" min="0" max="60" step="1" list="marks0_60"/>
+                        <output id="tVERDE_val" aria-live="polite">0</output>
+                    </div>
+                    <div class="control">
+                        <label for="tBIANCO">Bianco</label>
+                        <input id="tBIANCO" type="range" min="0" max="60" step="1" list="marks0_60"/>
+                        <output id="tBIANCO_val" aria-live="polite">0</output>
+                    </div>
+                </div>
+
+                <!-- Type-speed -->
+                <div class="group" id="groupTypeSpeed">
+                    <h3>
+                        Type-speed (fattori)
+                        <span class="help" tabindex="0">?
+            <span class="tip">Fattore moltiplicativo sui tempi (1.00 = baseline, &lt;1 più veloce, &gt;1 più lento).</span>
+          </span>
+                    </h3>
+                    <div class="control">
+                        <label for="spAUTO_MED">Automedica</label>
+                        <input id="spAUTO_MED" type="range" min="0.5" max="1.5" step="0.01"/>
+                        <output id="spAUTO_MED_val" aria-live="polite">1.00×</output>
+                    </div>
+                    <div class="control">
+                        <label for="spAMB_ALS">Amb. ALS</label>
+                        <input id="spAMB_ALS" type="range" min="0.5" max="1.5" step="0.01"/>
+                        <output id="spAMB_ALS_val" aria-live="polite">1.00×</output>
+                    </div>
+                    <div class="control">
+                        <label for="spAMB_ILS">Amb. ILS</label>
+                        <input id="spAMB_ILS" type="range" min="0.5" max="1.5" step="0.01"/>
+                        <output id="spAMB_ILS_val" aria-live="polite">1.00×</output>
+                    </div>
+                    <input id="psautMin" type="hidden" value="2"/>
+                    <input id="psautExact" type="hidden" value="2"/>
+                </div>
+
+                <!-- CAPEX / OPEX -->
+                <div class="row">
+                    <div class="group">
+                        <h3>
+                            CAPEX (€/anno)
+                            <span class="help" tabindex="0">?
+              <span class="tip">Costo d’investimento annuo equivalente per tipo mezzo.</span>
+            </span>
+                        </h3>
+                        <div class="control"><label for="cxAUTO_MED">Automedica</label><input id="cxAUTO_MED"
+                                                                                              type="number" min="0"
+                                                                                              step="1000"></div>
+                        <div class="control"><label for="cxAMB_ALS">Amb. ALS</label><input id="cxAMB_ALS" type="number"
+                                                                                           min="0" step="1000"></div>
+                        <div class="control"><label for="cxAMB_ILS">Amb. ILS</label><input id="cxAMB_ILS" type="number"
+                                                                                           min="0" step="1000"></div>
+                        <div class="control"><label for="cxPSAUT">PSAUT</label><input id="cxPSAUT" type="number" min="0"
+                                                                                      step="1000"></div>
+                    </div>
+                    <div class="group">
+                        <h3>
+                            OPEX (€/anno)
+                            <span class="help" tabindex="0">?
+              <span class="tip">Costo operativo annuo per tipo mezzo.</span>
+            </span>
+                        </h3>
+                        <div class="control"><label for="oxAUTO_MED">Automedica</label><input id="oxAUTO_MED"
+                                                                                              type="number" min="0"
+                                                                                              step="1000"></div>
+                        <div class="control"><label for="oxAMB_ALS">Amb. ALS</label><input id="oxAMB_ALS" type="number"
+                                                                                           min="0" step="1000"></div>
+                        <div class="control"><label for="oxAMB_ILS">Amb. ILS</label><input id="oxAMB_ILS" type="number"
+                                                                                           min="0" step="1000"></div>
+                        <div class="control"><label for="oxPSAUT">PSAUT</label><input id="oxPSAUT" type="number" min="0"
+                                                                                      step="1000"></div>
+                    </div>
+                </div>
+
+                <!-- Doctor codes -->
+                <div class="group">
+                    <h3>
+                        Codici dottori
+                        <span class="help" tabindex="0">?
+            <span class="tip">Codici che richiedono copertura con medico secondo la modalità scelta.</span>
+          </span>
+                    </h3>
+                    <div class="row" id="docCodesRow" style="gap:12px">
+                        <label class="iconcheck" title="ROSSO">
+                            <input type="checkbox" id="dcROSSO">
+                            <span class="chip" aria-label="ROSSO" style="--c:var(--bad)"></span>
+                        </label>
+
+                        <label class="iconcheck" title="GIALLO">
+                            <input type="checkbox" id="dcGIALLO">
+                            <span class="chip" aria-label="GIALLO" style="--c:var(--warn)"></span>
+                        </label>
+
+                        <label class="iconcheck" title="VERDE">
+                            <input type="checkbox" id="dcVERDE">
+                            <span class="chip" aria-label="VERDE" style="--c:#28a745"></span>
+                        </label>
+
+                        <label class="iconcheck" title="BIANCO">
+                            <input type="checkbox" id="dcBIANCO">
+                            <span class="chip chip-white" aria-label="BIANCO"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Staff -->
+                <div class="group">
+                    <h3>
+                        Staff per tipo (n. persone / unità)
+                        <span class="help" tabindex="0">?
+            <span class="tip">FTE necessari per mantenere operativo un mezzo 24/7 (valori tipici: PSAUT&gt;AUTO_MED≈ALS).</span>
+          </span>
+                    </h3>
+                    <div class="control"><label for="stPSAUT">PSAUT</label><input id="stPSAUT" type="number" min="0"
+                                                                                  step="1"></div>
+                    <div class="control"><label for="stAUTO_MED">Automedica</label><input id="stAUTO_MED" type="number"
+                                                                                          min="0" step="1"></div>
+                    <div class="control"><label for="stAMB_ALS">Amb. ALS</label><input id="stAMB_ALS" type="number"
+                                                                                       min="0" step="1"></div>
+                </div>
+
+                <!-- Budget & coperture -->
+                <div class="row" id="budgetRow">
+                    <label><b>Numero di medici</b>
+                        <span class="help" tabindex="0">?<span class="tip">Ore-medico totali…</span></span>
+                        <input id="docTotal" type="number" min="0" step="1" value="120"/>
+                    </label>
+
+                    <label><b>Budget mode</b>
+                        <span class="help" tabindex="0">?<span class="tip">absolute/incremental…</span></span>
+                        <select id="docMode">
+                            <option value="absolute" selected>absolute</option>
+                            <option value="incremental">incremental</option>
+                        </select>
+                    </label>
+                </div>
+
+                <!-- Basi (avanzate) -->
+                <div class="row advanced">
+                    <label><b>Bases</b>
+                        <select id="bases">
+                            <option value="ATT_POT" selected>ATT_POT</option>
+                            <option value="ALL">ALL</option>
+                        </select>
+                    </label>
+                    <label><b>Limit-bases</b><input id="limitBases" type="number" min="0" step="1" value="0"/></label>
+                </div>
+
+                <!-- Copertura / Threads (avanzate) -->
+                <div class="row advanced">
+                    <label><b>Full-coverage</b>
+                        <select id="fullcov">
+                            <option value="strict" selected>strict</option>
+                            <option value="feasible-only">feasible-only</option>
+                            <option value="off">off</option>
+                        </select>
+                    </label>
+                    <label><b>Threads</b><input id="threads" type="number" min="1" step="1" value="8"/></label>
+                </div>
+
+                <!-- Time limit & Verbose (avanzate) -->
+                <div class="row advanced">
+                    <label><b>Time limit sec</b><input id="tl" type="number" min="0" step="1"
+                                                       placeholder="(vuoto)"/></label>
+                    <label class="switch" style="align-items:end">
+                        <input type="checkbox" id="verboseSwitch" checked>
+                        <span>Verbose</span>
+                    </label>
+                </div>
+
+                <!-- Toggle opzioni avanzate -->
+                <div class="row" style="justify-content:flex-end">
+                    <label class="switch">
+                        <input type="checkbox" id="advToggle">
+                        <span>Mostra opzioni avanzate</span>
+                    </label>
+                </div>
+                <div class="group" style="margin-top:8px">
+                    <h3>
+                        Vincoli di budget
+                        <span class="help" tabindex="0">?
+      <span class="tip">
+        Applica un tetto economico al piano generato dall’algoritmo.
+        Scegli cosa contare nel vincolo (solo CAPEX o CAPEX+OPEX).
+        Il vincolo viene rispettato durante l’ottimizzazione.
+      </span>
+    </span>
+                    </h3>
+
+                    <div class="row" style="margin-top:8px">
+                        <label>
+                            <b>Budget totale (€)</b>
+                            <span class="help" tabindex="0">?
+        <span class="tip">
+          Importo massimo annuo che il modello non deve superare.
+          <br><br>
+          • In modalità <b>CAPEX soltanto</b> → somma i costi d’acquisto (solo unità nuove).<br>
+          • In modalità <b>CAPEX + OPEX</b> → somma CAPEX (nuove) + OPEX (tutte) delle unità attive.
+          <br><br>
+          Lascia vuoto per non imporre alcun vincolo economico.
+        </span>
+      </span>
+                            <input id="uiBudgetTotal" type="number" min="0" step="1000" placeholder="es. 2_000_000">
+                        </label>
+
+                        <label>
+                            <b>Modalità budget</b>
+                            <span class="help" tabindex="0">?
+        <span class="tip">
+          Come calcolare la spesa a cui applicare il tetto:
+          <br><br>
+          • <b>(default)</b>: nessun vincolo economico.<br>
+          • <b>CAPEX soltanto</b>: considera solo i <i>costi d’acquisto</i> (unità nuove).<br>
+          • <b>CAPEX + OPEX</b>: considera acquisti (nuove) <b>più</b> costi operativi annui (tutte).
+        </span>
+      </span>
+                            <select id="uiBudgetMode">
+                                <option value="">(default)</option>
+                                <option value="capex">CAPEX soltanto</option>
+                                <option value="capex_opex">CAPEX + OPEX</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="hint">
+                        Se valorizzati, questi campi inviano al backend anche un tetto economico. I valori unitari sono
+                        presi da
+                        <code>CAPEX/OPEX</code> nella colonna di sinistra.
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- Azioni -->
+            <div class="row run-actions">
+                <button class="btn" id="btnRun"><i class="fa-solid fa-play"></i> Esegui algoritmo</button>
+            </div>
+        </section>
+
+
+        <!-- ============ MODALITÀ 2: Editor su mappa ============ -->
+        <section id="mode-editor" class="mode-pane" role="tabpanel" aria-labelledby="tab-editor" hidden>
+            <div class="group" id="map-plan-editor" style="margin-bottom:10px">
+                <h3>
+                    Editor su mappa
+                    <span class="help" tabindex="0">?
+          <span class="tip">
+            1) Scegli tipo/quantità<br/>
+            2) Attiva “Seleziona su mappa”<br/>
+            3) Clicca un presidio o la mappa (snap al comune)<br/>
+            4) Premi “Valuta su mappa”
+          </span>
+        </span>
+                </h3>
+
+                <div class="controls-inline" id="mp-top-controls">
+                    <label class="ctrl">
+                        <span>Tipo</span>
+                        <select id="mp-type">
+                            <option value="AMB_ILS">AMB_ILS</option>
+                            <option value="AMB_ALS" selected>AMB_ALS</option>
+                            <option value="AUTO_MED">AUTO_MED</option>
+                            <option value="PSAUT">PSAUT</option>
+                        </select>
+                    </label>
+
+                    <label class="ctrl qty">
+                        <span>Quantità</span>
+                        <div class="qtywrap">
+                            <button type="button" class="step" data-delta="-1" aria-label="Diminuisci">−</button>
+                            <input id="mp-qty" type="number" min="1" step="1" value="1" inputmode="numeric">
+                            <button type="button" class="step" data-delta="+1" aria-label="Aumenta">+</button>
+                        </div>
+                    </label>
+
+                    <label class="ctrl">
+                        <span>Sorgente</span>
+                        <select id="mp-source">
+                            <option value="any">any</option>
+                            <option value="purchase">purchase</option>
+                            <option value="existing">existing</option>
+                        </select>
+                    </label>
+                </div>
+
+
+                <!-- Comune: selezione da lista -->
+                <div class="row commune-row">
+                    <label>Comune</label>
+                    <input id="mp-comune" list="mp-comuni-list"
+                           placeholder="Digita o scegli un comune…"
+                           autocomplete="off" autocapitalize="off" spellcheck="false"/>
+                    <datalist id="mp-comuni-list"></datalist>
+                </div>
+
+                <div class="btn-row" style="margin-top:8px">
+                    <button class="btn ghost block" onclick="mp_addFromDropdown(false)">
+                        <i class="fa-solid fa-crosshairs"></i> Mostra
+                    </button>
+                    <button class="btn block" onclick="mp_addFromDropdown(true)">
+                        <i class="fa-solid fa-plus"></i> Aggiungi al piano
+                    </button>
+                </div>
+
+                <div class="btn-row" style="margin-top:8px">
+                    <button class="btn secondary block" id="mp-clear">
+                        <i class="fa-regular fa-trash-can"></i> Svuota piano
+                    </button>
+                    <button class="btn secondary block" id="mp-export">
+                        <i class="fa-solid fa-file-export"></i> Esporta
+                    </button>
+                </div>
+
+                <div style="margin-top:10px">
+                    <button class="btn block" id="btnEvalFromMap">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i> Valuta su mappa
+                    </button>
+                </div>
+
+                <!-- Tabella piano -->
+                <div id="mp-table" class="plan-table" aria-live="polite" style="margin-top:8px;font-size:12px"></div>
+            </div>
+        </section>
+
+        <!-- Script piccolo per lo switch (autonomo) -->
+        <script>
+            (function () {
+                function setPanelMode(paneId) {
+                    const tabs = Array.from(document.querySelectorAll('.mode-switch .tab[role="tab"]'));
+                    const panes = Array.from(document.querySelectorAll('.mode-pane[role="tabpanel"]'));
+
+                    tabs.forEach(btn => {
+                        const target = btn.getAttribute('aria-controls');
+                        const active = (target === paneId);
+
+                        btn.classList.toggle('is-active', active);
+                        btn.setAttribute('aria-selected', String(active));
+
+                        // 🔧 forza lo stile inline per riflettere lo stato attivo
+                        btn.style.background = active ? '#fff' : 'transparent';
+                        btn.style.border = active ? '1px solid #e6e9ff' : '1px solid transparent';
+                        btn.style.boxShadow = active ? '0 1px 3px rgba(16,24,40,.08)' : 'none';
+                    });
+
+                    panes.forEach(p => p.hidden = (p.id !== paneId));
+
+                    if (paneId === 'mode-editor' && typeof window.mp_updateEditorButtons === 'function') {
+                        try {
+                            window.mp_updateEditorButtons();
+                        } catch {
+                        }
+                    }
+                    try {
+                        localStorage.setItem('panelMode', paneId);
+                    } catch {
+                    }
+                }
+
+                function bindTabs() {
+                    document.querySelectorAll('.mode-switch .tab[role="tab"]').forEach(btn => {
+                        btn.addEventListener('click', () => setPanelMode(btn.getAttribute('aria-controls')));
+                    });
+                    let saved = 'mode-algo';
+                    try {
+                        saved = localStorage.getItem('panelMode') || 'mode-algo';
+                    } catch {
+                    }
+                    if (!document.getElementById(saved)) saved = 'mode-algo'; // <-- fallback se "mode-budget" non esiste più
+                    setPanelMode(saved);
+                }
+
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', bindTabs, {once: true});
+                } else {
+                    bindTabs();
+                }
+                window.setPanelMode = setPanelMode;
+            })();
+        </script>
+
+
+    </aside>
+
+
+    <!-- Pannello mappa -->
+    <section class="panel map-wrap sticky-map">
+        <div class="map-area">
+            <div id="map"></div>
+            <div class="legend">
+                <div class="row"><span class="swatch" style="background:var(--psaut)"></span> PSAUT</div>
+                <div class="row"><span class="swatch" style="background:var(--auto)"></span> AUTO_MED</div>
+                <div class="row"><span class="swatch" style="background:var(--als)"></span> AMB_ALS</div>
+                <div class="row"><span class="swatch" style="background:var(--ils)"></span> AMB_ILS</div>
+            </div>
+        </div>
+        <div class="units-panel">
+            <div class="units-head">
+                <h2>Unità attive</h2>
+
+                <div class="units-actions">
+                    <input id="unitSearch" placeholder="Cerca per tipo, site o comune…"/>
+                    <span class="muted" id="unitCount">0 unità</span>
+
+                    <!-- ⬇️ Download report -->
+
+                    <div class="dl-buttons" id="dlBox" hidden>
+                        <!-- ...altri bottoni... -->
+                        <button class="btn ghost" id="dlPDF">
+                            <i class="fa-solid fa-file-pdf"></i> Report (PDF)
+                        </button>
+
+                        <a class="btn ghost" id="dlChosen" download><i class="fa-solid fa-table"></i> Slot (CSV)</a>
+                        <a class="btn ghost" id="dlAny" download><i class="fa-solid fa-table"></i> Copertura ANY</a>
+                        <a class="btn ghost" id="dlDoc" download><i class="fa-solid fa-user-doctor"></i> Copertura
+                            Medico</a>
+                        <a class="btn ghost" id="dlDoctors" download><i class="fa-solid fa-file-lines"></i> Medici (TXT)</a>
+                        <button class="btn secondary" id="dlAll"><i class="fa-solid fa-file-zipper"></i> Tutto (ZIP)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <label><input type="checkbox" class="flt" value="AUTO_MED" checked> <i class="fa-solid fa-car"
+                                                                                       style="color:var(--auto)"></i>
+                    Automediche</label>
+                <label><input type="checkbox" class="flt" value="AMB_ALS" checked> <i class="fa-solid fa-truck-medical"
+                                                                                      style="color:var(--als)"></i> ALS</label>
+                <label><input type="checkbox" class="flt" value="AMB_ILS" checked> <i class="fa-solid fa-truck-medical"
+                                                                                      style="color:var(--ils)"></i> ILS</label>
+                <label><input type="checkbox" class="flt" value="PSAUT" checked> <i class="fa-solid fa-building"
+                                                                                    style="color:var(--psaut)"></i>
+                    PSAUT</label>
+            </div>
+
+            <div class="group" id="costsBox" hidden>
+                <h3>Riepilogo costi</h3>
+                <div id="costs"></div>
+                <div class="hint">
+                    I CAPEX sono conteggiati come investimento annuo equivalente per unità;
+                    gli OPEX come costo operativo annuo. Se il CSV indica unità <i>nuove</i>,
+                    il CAPEX “Acquisti” mostra solo quelle.
+                </div>
+            </div>
+
+            <div class="list" id="unit-list">
+                <div class="muted" style="padding:10px">La mappa è vuota finché non esegui o apri un run.</div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<script>
+    /* ===========================
+ *  DASHBOARD 118 — SCRIPT
+ * =========================== */
+    let LAST_RUN_KIND = null; // 'algo' o 'editor'
+    let RUN_URL = null;                   // URL del run (es. /runs/run_YYYYMMDD_HHMMSS)
+    let CONFIG = {dataDir: null};      // valorizzato da /api/config o fallback
+    let MP_PREVIEW_LAYER; // anteprima piano persistente
+
+    const FILES = () => RUN_URL ? ({
+        chosen: `${RUN_URL}/chosen_slots.csv`,
+        covAny: `${RUN_URL}/coverage_summary.csv`,
+        covDoc: `${RUN_URL}/doctor_coverage_summary.csv`,
+        docTxt: `${RUN_URL}/doctors_summary.txt`,
+    }) : null;
+
+    const TYPE_COLOR = {PSAUT: 'var(--psaut)', AUTO_MED: 'var(--auto)', AMB_ALS: 'var(--als)', AMB_ILS: 'var(--ils)'};
+
+    function iconFor(type) {
+        const html = {
+            PSAUT: `<i class="fa-solid fa-building fa-lg" style="color:${TYPE_COLOR.PSAUT}"></i>`,
+            AUTO_MED: `<i class="fa-solid fa-car   fa-lg" style="color:${TYPE_COLOR.AUTO_MED}"></i>`,
+            AMB_ALS: `<i class="fa-solid fa-truck-medical fa-lg" style="color:${TYPE_COLOR.AMB_ALS}"></i>`,
+            AMB_ILS: `<i class="fa-solid fa-truck-medical fa-lg" style="color:${TYPE_COLOR.AMB_ILS}"></i>`
+        }[type] || '<i class="fa-solid fa-location-dot fa-lg" style="color:#555"></i>';
+        return L.divIcon({className: 'pin', html, iconSize: [28, 28], iconAnchor: [14, 28], popupAnchor: [0, -28]});
+    }
+
+    function loadCSV(path) {
+        return new Promise((resolve, reject) => {
+            Papa.parse(path, {
+                download: true, header: true, skipEmptyLines: true,
+                complete: res => resolve(res.data), error: err => reject(err)
+            });
+        });
+    }
+
+    function isTruthy(v) {
+        if (v == null) return false;
+        const s = String(v).trim().toLowerCase();
+        return s === '1' || s === 'true' || s === 'yes' || s === 'y' || s === 'si' || s === 'sì';
+    }
+
+
+    function euro(n) {
+        try {
+            return Number(n || 0).toLocaleString('it-IT', {style: 'currency', currency: 'EUR'});
+        } catch {
+            return (n || 0) + ' €';
+        }
+    }
+
+    let LAST_SIG = null; // firma dell’ultima valutazione riuscita
+
+    function computeSignature() {
+        // NB: buildRunBody() già include tutti i parametri dell’algoritmo
+        const body = buildRunBody();
+        return JSON.stringify({body, plan: MP_PLAN});
+    }
+
+    async function ensureFreshEvaluation() {
+        // NON forzare /api/evaluate se l’ultimo risultato è dell’algoritmo
+        if (LAST_RUN_KIND !== 'editor') return;
+        const sig = computeSignature();
+        if (sig !== LAST_SIG) {
+            const ok = await mp_eval();
+            if (!ok) throw new Error('Valutazione fallita');
+            LAST_SIG = sig;
+        }
+    }
+
+
+    /* ====== PDF Report (stato + helper) ====== */
+    let LAST_CHOSEN = [], LAST_COV_ANY = [], LAST_COV_DOC = [], LAST_DOCTORS_TXT = '';
+
+    function covTotals(arr) {
+        const row = findTotalRow(arr);
+        if (!row) return {calls: null, uncovered: null, pct: null};
+        return {calls: row.total_calls, uncovered: row.total_uncovered, pct: pctFrom(row)};
+    }
+
+    function prepareCosts(chosen) {
+        const capexKV = parsePairs(document.getElementById('capex')?.value || '');
+        const opexKV = parsePairs(document.getElementById('opex')?.value || '');
+        const CX = Object.fromEntries(Object.entries(capexKV).map(([k, v]) => [k, Number(v || 0)]));
+        const OX = Object.fromEntries(Object.entries(opexKV).map(([k, v]) => [k, Number(v || 0)]));
+        const counts = {}, newCnt = {};
+        for (const r of chosen || []) {
+            const t = String(r.tipo || r.type || '').toUpperCase();
+            if (!t) continue;
+            counts[t] = (counts[t] || 0) + 1;
+
+            // “nuovo” vs “fisso” per CAPEX acquisti
+            const siteId = String(r.site_id || r.site || r.slot || '');
+            const origin = String(r.origin || r.src || '').toLowerCase();
+            const isFixed =
+                isTruthy(r.is_fixed) || /^fix[_-]/i.test(siteId) || /(^|[^a-z])fix[^a-z]?/i.test(siteId) ||
+                origin === 'base' || origin === 'fixed';
+
+            const hasExplicitNew = ('is_new' in r) || ('new' in r) || ('purchase' in r) || ('is_purchase' in r) || ('acquisto' in r);
+            const isNew = hasExplicitNew
+                ? (isTruthy(r.is_new) || isTruthy(r.new) || isTruthy(r.purchase) || isTruthy(r.is_purchase) || isTruthy(r.acquisto))
+                : !isFixed;
+
+            if (isNew) newCnt[t] = (newCnt[t] || 0) + 1;
+        }
+        const types = Object.keys(counts).sort();
+        const perType = types.map(t => {
+            const n = counts[t] || 0, nNew = newCnt[t] || 0, cx = CX[t] || 0, ox = OX[t] || 0;
+            return {tipo: t, n, nNew, cxUnit: cx, oxUnit: ox, cxTot: n * cx, oxTot: n * ox, cxNew: nNew * cx};
+        });
+        const totals = perType.reduce((a, r) => ({
+            units: a.units + r.n,
+            newUnits: a.newUnits + r.nNew,
+            capex: a.capex + r.cxTot,
+            opex: a.opex + r.oxTot,
+            capexNew: a.capexNew + r.cxNew
+        }), {units: 0, newUnits: 0, capex: 0, opex: 0, capexNew: 0});
+        return {perType, totals};
+    }
+
+    async function trySaveReportOnServer(blob, filename) {
+        try {
+            const base64 = await new Promise(res => {
+                const fr = new FileReader();
+                fr.onload = () => res(fr.result.split(',')[1]);
+                fr.readAsDataURL(blob);
+            });
+            const r = await fetch('/api/save-report', {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({run_url: RUN_URL, filename, data_base64: base64})
+            });
+            return r.ok;
+        } catch {
+            return false;
+        }
+    }
+
+
+    function fixRunPath(p) {
+        if (!p) return '';
+        let s = String(p).trim().replace(/\\/g, '/');
+        if (!s) return '';
+        if (s.startsWith('/runs/')) return s;
+        const i = s.toLowerCase().lastIndexOf('/runs/');
+        if (i >= 0) return s.slice(i);          // “…/runs/2025_..” -> “/runs/2025_..”
+        const j = s.toLowerCase().indexOf('runs/');
+        if (j >= 0) return '/' + s.slice(j);    // “runs/2025_..”   -> “/runs/2025_..”
+        return '';
+    }
+
+
+    function updateDownloadButtons() {
+        const files = FILES();
+        const box = document.getElementById('dlBox');
+
+        if (!box || !files) {
+            if (box) box.hidden = true;   // ← usa hidden, coerente con resetRunView
+            return;
+        }
+
+        const setA = (id, url, name) => {
+            const a = document.getElementById(id);
+            if (!a) return;
+            a.href = url;
+            a.setAttribute('download', name || url.split('/').pop());
+            a.target = '_blank';
+        };
+
+        setA('dlChosen', files.chosen, 'chosen_slots.csv');
+        setA('dlAny', files.covAny, 'coverage_summary.csv');
+        setA('dlDoc', files.covDoc, 'doctor_coverage_summary.csv');
+        setA('dlDoctors', files.docTxt, 'doctors_summary.txt');
+
+        const all = document.getElementById('dlAll');
+        if (all) {
+            all.onclick = async () => {
+                try {
+                    const zip = new JSZip();
+                    const entries = [
+                        ['chosen_slots.csv', files.chosen],
+                        ['coverage_summary.csv', files.covAny],
+                        ['doctor_coverage_summary.csv', files.covDoc],
+                        ['doctors_summary.txt', files.docTxt],
+                    ];
+                    await Promise.all(entries.map(async ([name, url]) => {
+                        const r = await fetch(url);
+                        if (!r.ok) throw new Error('Errore fetching ' + name);
+                        zip.file(name, await r.blob());
+                    }));
+                    const blob = await zip.generateAsync({type: 'blob'});
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                    a.download = `reports_${ts}.zip`;
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(() => {
+                        URL.revokeObjectURL(a.href);
+                        a.remove();
+                    }, 800);
+                } catch (e) {
+                    alert('Impossibile creare lo ZIP: ' + e.message);
+                }
+            };
+        }
+
+        box.hidden = false;             // ← mostra davvero i bottoni
+    }
+
+
+    function renderCosts(chosen) {
+
+        const box = document.getElementById('costsBox');
+        const el = document.getElementById('costs');
+        if (!box || !el) return;
+
+        if (!Array.isArray(chosen) || !chosen.length) {
+            box.hidden = true;          // <— invece di box.style.display='none'
+            el.innerHTML = '';
+            return;
+        }
+
+
+        const capexKV = parsePairs(document.getElementById('capex')?.value || '');
+        const opexKV = parsePairs(document.getElementById('opex')?.value || '');
+        const CAPEX = Object.fromEntries(Object.entries(capexKV).map(([k, v]) => [k, Number(v || 0)]));
+        const OPEX = Object.fromEntries(Object.entries(opexKV).map(([k, v]) => [k, Number(v || 0)]));
+
+        const counts = {}, newCnt = {};
+        chosen.forEach(r => {
+            const t = String(r.tipo || r.type || '').toUpperCase();
+            if (!t) return;
+            counts[t] = (counts[t] || 0) + 1;
+            // Nuove vs di base (fallback: tutto ciò che NON è FIX_ è considerato nuovo)
+            const siteId = String(r.site_id || r.site || r.slot || '');
+            const origin = String(r.origin || r.src || '').toLowerCase();
+            const isFixed =
+                isTruthy(r.is_fixed) ||                      // flag esplicito
+                /^fix[_-]/i.test(siteId) ||                  // es. FIX_001@Apice
+                /(^|[^a-z])fix[^a-z]?/i.test(siteId) ||      // qualunque variante "fix"
+                origin === 'base' || origin === 'fixed';
+
+            const hasExplicitNewFlag = (
+                'is_new' in r || 'new' in r || 'purchase' in r || 'is_purchase' in r || 'acquisto' in r
+            );
+
+            const isNew = hasExplicitNewFlag
+                ? (isTruthy(r.is_new) || isTruthy(r.new) || isTruthy(r.purchase) || isTruthy(r.is_purchase) || isTruthy(r.acquisto))
+                : !isFixed;   // se non ci sono flag, tutto ciò che non è FIX_ viene contato come nuovo
+
+            if (isNew) newCnt[t] = (newCnt[t] || 0) + 1;
+        });
+
+        const types = Object.keys(counts).sort();
+        const perType = types.map(t => {
+            const n = counts[t] || 0, nNew = newCnt[t] || 0;
+            const cx = CAPEX[t] || 0, ox = OPEX[t] || 0;
+            const cxAll = n * cx, oxAll = n * ox, cxNew = nNew * cx;
+            return {t, n, nNew, cx, ox, cxAll, oxAll, cxNew};
+        });
+
+        const totUnits = perType.reduce((s, r) => s + r.n, 0);
+        const totNew = perType.reduce((s, r) => s + r.nNew, 0);
+        const totCapexAll = perType.reduce((s, r) => s + r.cxAll, 0);
+        const totOpexAll = perType.reduce((s, r) => s + r.oxAll, 0);
+        const totCapexNew = perType.reduce((s, r) => s + r.cxNew, 0);
+        const maxCxAll = Math.max(1, ...perType.map(r => r.cxAll));
+        const maxOxAll = Math.max(1, ...perType.map(r => r.oxAll));
+
+        const rows = perType.map(r => `
+    <tr>
+      <td>${r.t} <span class="costs-badge">${r.n}</span></td>
+      <td class="num">${r.n}</td>
+      <td class="num">${r.nNew}</td>
+      <td class="num">${euro(r.cx)}</td>
+      <td class="num">${euro(r.ox)}</td>
+      <td class="num">
+        <div>${euro(r.cxAll)}</div>
+        <div class="costs-bar"><span style="--w:${(r.cxAll / maxCxAll * 100).toFixed(1)}%"></span></div>
+      </td>
+      <td class="num">
+        <div>${euro(r.oxAll)}</div>
+        <div class="costs-bar"><span style="--w:${(r.oxAll / maxOxAll * 100).toFixed(1)}%"></span></div>
+      </td>
+    </tr>
+  `).join('');
+
+        el.innerHTML = `
+    <div class="costs-kpis">
+      <span class="kchip">Unità attive <b>${totUnits}</b></span>
+      <span class="kchip">Unità nuove <b>${totNew}</b></span>
+      <span class="kchip">CAPEX totale <b>${euro(totCapexAll)}</b></span>
+      <span class="kchip">OPEX totale <b>${euro(totOpexAll)}</b></span>
+    </div>
+    <div class="costs-table-wrap">
+      <table class="costs-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th># Attive</th>
+            <th># Nuove</th>
+            <th>CAPEX / unità</th>
+            <th>OPEX / unità</th>
+            <th>CAPEX Totale (annuo eq.)</th>
+            <th>OPEX Totale (annuo)</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+        <tfoot>
+          <tr>
+            <td>Totale</td>
+            <td class="num">${totUnits}</td>
+            <td class="num">${totNew}</td>
+            <td></td><td></td>
+            <td class="num">${euro(totCapexAll)}</td>
+            <td class="num">${euro(totOpexAll)}</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align:right">CAPEX “Acquisti” (solo nuove):</td>
+            <td colspan="2" class="num"><b>${euro(totCapexNew)}</b></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  `;
+
+        box.hidden = false;
+
+    }
+
+
+    // Geocoding: prova vari file/colonne
+    async function loadGeo() {
+        const base = CONFIG.dataDir;
+        const candidates = [
+            `${base}/comuni_geocoded.csv`,
+            `${base}/geocoded_communes.csv`,
+            `${base}/sites_geocoded.csv`
+        ];
+        for (const p of candidates) {
+            try {
+                const data = await loadCSV(p);
+                if (Array.isArray(data) && data.length) return data;
+            } catch {
+            }
+        }
+        return [];
+    }
+
+    // ---- Verifica file minimi ----
+    async function fileExists(path) {
+        try {
+            const r = await fetch(path, {method: 'GET', cache: 'no-store'});
+            return r.ok;
+        } catch {
+            return false;
+        }
+    }
+
+    async function preflightData(base) {
+        const must = [`${base}/comuni.csv`, `${base}/od_time_min.csv`];
+        const demandA = `${base}/weighted_demand_by_comune_code.csv`;
+        const demandB = `${base}/demand_by_comune_code.csv`;
+        const sitesCsv = `${base}/sites.csv`;
+        const presAtt = `${base}/presidi_attuali.csv`;
+        const sitesGeo = `${base}/sites_geocoded.csv`;
+
+        const checks = await Promise.all([
+            ...must.map(fileExists), fileExists(demandA), fileExists(demandB), fileExists(sitesCsv), fileExists(presAtt), fileExists(sitesGeo)
+        ]);
+        const missing = [];
+        if (!checks[0]) missing.push(`${base}/comuni.csv`);
+        if (!checks[1]) missing.push(`${base}/od_time_min.csv`);
+        if (!(checks[2] || checks[3])) missing.push(`${base}/weighted_demand_by_comune_code.csv OR ${base}/demand_by_comune_code.csv`);
+        if (!(checks[4] || checks[5] || checks[6])) missing.push(`${base}/sites.csv OR (${base}/presidi_attuali.csv) OR ${base}/sites_geocoded.csv`);
+
+        return {
+            ok: missing.length === 0,
+            missing,
+            message: missing.length ? 'Dati mancanti in DATA DIR' : 'Dati OK: file minimi presenti'
+        };
+    }
+
+    // ---- UI safe (gli elementi potrebbero non esserci) ----
+    function renderDataStatus(diag) {
+        const el = document.getElementById('dataStatus');
+        if (!el) return;
+        if (!diag) {
+            el.textContent = '';
+            return;
+        }
+        if (diag.ok) {
+            el.innerHTML = `✅ <b>${diag.message}</b>`;
+        } else {
+            el.innerHTML = `❌ <b>${diag.message}</b><br>Assicurati di avere:
+      <ul style="margin:6px 0 0 18px;">
+        <li><code>comuni.csv</code></li>
+        <li><code>od_time_min.csv</code></li>
+        <li><code>demand_by_comune_code.csv</code> oppure <code>weighted_demand_by_comune_code.csv</code></li>
+        <li><code>sites.csv</code> oppure <code>presidi_attuali.csv</code> oppure <code>sites_geocoded.csv</code></li>
+      </ul>`;
+        }
+    }
+
+    // ---- Config backend + fallback automatici ----
+    async function loadConfig() {
+        try {
+            const r = await fetch('/api/config', {cache: 'no-store'});
+            if (!r.ok) {
+                CONFIG.dataDir = '';
+                return;
+            }
+            const j = await r.json();
+            let dir = (typeof j.data_dir === 'string') ? j.data_dir.trim() : '';
+            if (/^(null|undefined|none)?$/i.test(dir)) dir = '';
+            CONFIG.dataDir = dir;
+        } catch {
+            CONFIG.dataDir = '';
+        }
+    }
+
+    async function ensureValidDataDir() {
+        const candidates = [];
+        if (CONFIG.dataDir && !/^(null|undefined|none)$/i.test(CONFIG.dataDir)) {
+            candidates.push(CONFIG.dataDir);
+        }
+        candidates.push('dataset/data', 'data'); // fallback
+
+        let lastDiag = null;
+        for (const base of candidates) {
+            const diag = await preflightData(base);
+            lastDiag = diag;
+            if (diag.ok) {
+                CONFIG.dataDir = base;
+                const pi = document.getElementById('pathInfo');
+                if (pi) pi.innerHTML = `DATA DIR: <code>${base}</code> · OUT DIR: <i>auto</i>${base === 'data' ? ' <span class="muted">(fallback)</span>' : ''}`;
+                const dd = document.getElementById('dataDir');
+                if (dd) dd.value = base;
+                renderDataStatus(diag);
+                return;
+            }
+        }
+        const pi = document.getElementById('pathInfo');
+        if (pi) pi.innerHTML = `DATA DIR: <code>${candidates[0] || 'data'}</code> · OUT DIR: <i>auto</i>`;
+        renderDataStatus(lastDiag);
+    }
+
+    // ---- Body per /api/run con paracadute su data_dir ----
+    function buildRunBody() {
+        const q = id => (document.getElementById(id)?.value || '').trim();
+
+        // fallback robusto per data_dir
+        const safeDataDir =
+            (CONFIG.dataDir && !/^(null|undefined|none)$/i.test(CONFIG.dataDir))
+                ? CONFIG.dataDir
+                : 'data';
+
+        const body = {
+            data_dir: safeDataDir,
+            out_dir: '',
+            relax_weights: q('relaxWeights'),
+            T: q('paramT'),
+            type_speed: q('typeSpeed'),
+            purchase_costs: q('capex'),
+            opex_costs: q('opex'),
+            doctor_codes: q('docCodes'),
+            doctor_cover: q('docCover'),
+            staff_per_type: q('staff'),
+            doctors_total: q('docTotal'),
+            doctors_budget_mode: q('docMode'),
+            reloc_psaut: q('reloc'),
+            psaut_min: q('psautMin'),
+            psaut_exact: q('psautExact'),
+            bases: q('bases'),
+            limit_bases: q('limitBases'),
+            full_coverage: q('fullcov'),
+            threads: q('threads'),
+            time_limit_sec: q('tl'),
+            verbose: q('verbose')
+        };
+  body.objective = 'max_cover_budget';   // sempre massimizza copertura entro budget
+  // (opzionale) body.lambda_cost = 1.0;
+
+        // ⬇️ NUOVO: budget economico opzionale dal tab Budget
+        const bt = q('budgetTotal');
+        const bm = q('budgetMode');
+        if (bt) body.budget_total = bt;     // es: 2000000
+        if (bm) body.budget_mode = bm;     // es: capex / capex_opex
+
+        // --- AUTO: spegni vincolo medico se non ci sono medici liberi oltre i PSAUT ---
+const docTot = Number(document.getElementById('docTotal')?.value || 0);
+const staffKV = (document.getElementById('staff')?.value || '')
+  .split(',').reduce((a,s)=>{const [k,v]=s.split('='); if(k) a[k.trim()]=Number(v||0); return a;},{});
+const psautExact = Number((document.getElementById('psautExact')?.value || 0));
+const psautMin   = Number((document.getElementById('psautMin')?.value   || 0));
+const psautNeed  = (psautExact ? psautExact : psautMin) * (Number(staffKV.PSAUT||6));
+const freeDocs   = docTot - psautNeed;
+
+if (freeDocs <= 0) {
+  body.doctor_cover = 'off';  // niente vincolo medico
+  body.doctor_codes = '';     // nessun codice richiede medico
+}
+body.turnoff_doctor_families='true'
+
+        return body;
+    }
+
+    let CRIT_LAYER, CRIT_POLY_LAYER;   // cerchi o poligoni
+    let CRIT_DATA = null;              // Map(comune -> {score, classe})
+    let CRIT_LEGEND_EL = null;
+
+
+    // ---- Mappa ----
+    let map, layersByType;
+    const BENEVENTO_CENTER = [41.13, 14.78];
+    const BENEVENTO_BOUNDS = L.latLngBounds([40.85, 14.20], [41.60, 15.25]);
+
+    // Mapping bidirezionale key -> elementi UI
+    const ROW_BY_KEY = new Map();     // key -> <div.item>
+    const MARKER_BY_KEY = new Map();  // key -> Leaflet marker
+    let CURRENT_KEY = null;
+
+    function clearFocus() {
+        if (!CURRENT_KEY) return;
+        ROW_BY_KEY.get(CURRENT_KEY)?.classList.remove('is-active', 'pulse');
+        CURRENT_KEY = null;
+    }
+
+    function focusCard(key, {scroll = true, pulse = true} = {}) {
+        if (!key) return;
+        if (CURRENT_KEY !== key) clearFocus();
+        const el = ROW_BY_KEY.get(key);
+        if (!el) return;
+        el.classList.add('is-active');
+        if (pulse) el.classList.add('pulse'), setTimeout(() => el.classList.remove('pulse'), 1000);
+        if (scroll) el.scrollIntoView({block: 'nearest', behavior: 'smooth'});
+        CURRENT_KEY = key;
+    }
+
+    function hoverCard(key, on) {
+        const el = ROW_BY_KEY.get(key);
+        if (el) el.classList.toggle('is-hover', !!on);
+    }
+
+    function slotKeyFromRecord(r, i) {
+        return String(r.site_id || r.site || r.slot || `slot_${i}`);
+    }
+
+    let MP_PLAN = [];                         // [{base_comune,tipo,qty,source}]
+    let MP_SITE_MARKERS = [];                 // [{marker,comune,nome}]
+    let MP_COUNTS_BY_BASE = new Map();        // base -> { tipo -> qty }
+    let MP_COMMUNES = [];                     // [{comune,lat,lon}]
+    let MP_FREE_LAYER;                        // layer per clic liberi
+
+    // util distanza/snap
+    function mp_haversineKm(aLat, aLon, bLat, bLon) {
+        const R = 6371, rad = x => x * Math.PI / 180, dLat = rad(bLat - aLat), dLon = rad(bLon - aLon);
+        const A = Math.sin(dLat / 2) ** 2 + Math.cos(rad(aLat)) * Math.cos(rad(bLat)) * Math.sin(dLon / 2) ** 2;
+        return 2 * R * Math.asin(Math.sqrt(A));
+    }
+
+    function mp_nearestComune(lat, lon) {
+        if (!MP_COMMUNES.length) return null;
+        let best = null, bestD = 1e9;
+        for (const c of MP_COMMUNES) {
+            const d = mp_haversineKm(lat, lon, c.lat, c.lon);
+            if (d < bestD) {
+                bestD = d;
+                best = c;
+            }
+        }
+        return best ? {...best, dist_km: bestD} : null;
+    }
+
+    // carica comuni (per snap)
+    // carica comuni (per snap) — più nomi supportati
+    async function mp_loadCommunes() {
+        const base = CONFIG.dataDir || 'data';
+        const candidates = [
+            `${base}/comuni_geocoded.csv`,
+            `${base}/geocoded_communes.csv`,
+            `${base}/comuni.csv`
+        ];
+        let rows = [], used = null;
+        for (const u of candidates) {
+            if (!(await fileExists(u))) continue;
+            try {
+                const tmp = await loadCSV(u);
+                if (tmp && tmp.length) {
+                    rows = tmp;
+                    used = u;
+                    break;
+                }
+            } catch {
+            }
+        }
+        if (!rows.length) {
+            MP_COMMUNES = [];
+            console.warn('[MP] Nessun file comuni con coordinate trovato:', candidates.join(' , '));
+            const h = document.getElementById('mp-hint');
+            if (h) h.innerHTML = '⚠️ Fornisci un CSV con colonne lat/lon (es. <code>comuni_geocoded.csv</code>).';
+            return;
+        }
+        console.log('[MP] comuni da', used);
+
+        const comK = pickKeyCI(rows[0], ['comune', 'base_comune', 'name', 'denominazione', 'site', 'site_name']) || 'comune';
+        const latK = pickKeyCI(rows[0], ['lat', 'latitude', 'latitudine', 'y']) || 'lat';
+        const lonK = pickKeyCI(rows[0], ['lon', 'lng', 'long', 'longitude', 'longitudine', 'x']) || 'lon';
+        const istatK = pickKeyCI(rows[0], ['istat', 'codice_istat', 'comune_code', 'codice_comune']);
+        MP_COMMUNES = rows
+            .map(r => ({
+                comune: normalizeComune(r[comK] || ''),
+                lat: latK ? +r[latK] : NaN,
+                lon: lonK ? +r[lonK] : NaN,
+                istat: istatK && r[istatK] != null ? String(r[istatK]).padStart(6, '0') : ''
+            }))
+            .filter(r => r.comune);
+
+    }
+
+
+    // carica presìdi e crea marker cliccabili
+    // carica presìdi e crea marker cliccabili — più nomi supportati
+    let MP_SITES = []; // {comune, lat, lon, nome}
+
+    async function mp_loadSitesLayer() {
+        const base = CONFIG.dataDir || 'data';
+        const candidates = [
+            `${base}/sites_geocoded.csv`,
+            `${base}/presidi_attuali.csv`,
+            `${base}/sites.csv`
+        ];
+        let rows = [], used = null;
+        for (const u of candidates) {
+            if (!(await fileExists(u))) continue;
+            try {
+                const tmp = await loadCSV(u);
+                if (tmp && tmp.length) {
+                    rows = tmp;
+                    used = u;
+                    break;
+                }
+            } catch {
+            }
+        }
+        if (!rows.length) {
+            console.warn('[MP] Nessun file presìdi trovato:', candidates.join(' , '));
+            return;
+        }
+        console.log('[MP] elenco presìdi da', used);
+
+        const latK = ['lat', 'Lat', 'latitude', 'Latitude'].find(k => k in rows[0]);
+        const lonK = ['lon', 'Lon', 'lng', 'Lng', 'longitude', 'Longitude'].find(k => k in rows[0]);
+        const comK = ['comune', 'Comune', 'base_comune', 'BASE_COMUNE', 'name'].find(k => k in rows[0]) || 'comune';
+        const nameK = ['nome', 'Nome', 'site_name', 'Site', 'denominazione'].find(k => k in rows[0]) || comK;
+
+        MP_SITES = rows.map(r => {
+            let lat = latK ? parseFloat(r[latK]) : NaN;
+            let lon = lonK ? parseFloat(r[lonK]) : NaN;
+            const comune = normalizeComune(r[comK] || '');
+            if ((!Number.isFinite(lat) || !Number.isFinite(lon)) && MP_COMMUNES.length) {
+                const c = MP_COMMUNES.find(x => x.comune === comune && Number.isFinite(x.lat) && Number.isFinite(x.lon));
+                if (c) {
+                    lat = c.lat;
+                    lon = c.lon;
+                }
+            }
+            return {comune, lat, lon, nome: (r[nameK] || comune || 'Sito').toString()};
+        });
+    }
+
+
+    // badge su marker
+    function mp_updateMarkerBadge(marker, baseComune) {
+        const counts = MP_COUNTS_BY_BASE.get(baseComune);
+        const title = marker.options.title || baseComune;
+        if (!counts) {
+            marker.unbindTooltip();
+            marker.bindTooltip(`<div><strong>${title}</strong><br/><span style="color:#6b7280">${baseComune}</span></div>`);
+            return;
+        }
+        const chips = Object.entries(counts).map(([t, q]) => `<span class="mp-badge">${t}: ${q}</span>`).join(' ');
+        marker.unbindTooltip();
+        marker.bindTooltip(`<div><strong>${title}</strong><br/><span style="color:#6b7280">${baseComune}</span><div style="margin-top:4px">${chips}</div></div>`);
+    }
+
+    // piano (aggiungi / rimuovi / render)
+    function mp_addToPlan(base_comune, tipo, qty, source) {
+        const key = `${base_comune}||${tipo}||${source}`;
+        let row = MP_PLAN.find(r => `${r.base_comune}||${r.tipo}||${r.source}` === key);
+        if (!row) {
+            row = {base_comune, tipo, qty: 0, source};
+            MP_PLAN.push(row);
+        }
+        row.qty += qty;
+
+        if (!MP_COUNTS_BY_BASE.has(base_comune)) MP_COUNTS_BY_BASE.set(base_comune, {});
+        const m = MP_COUNTS_BY_BASE.get(base_comune);
+        m[tipo] = (m[tipo] || 0) + qty;
+
+        mp_renderPlanTable();
+        mp_updateEditorButtons(); // 🔧 nuovo
+    }
+
+    function mp_removeFromPlan(base_comune, tipo, source, qty = 1) {
+        const key = `${base_comune}||${tipo}||${source}`;
+        const i = MP_PLAN.findIndex(r => `${r.base_comune}||${r.tipo}||${r.source}` === key);
+        if (i >= 0) {
+            MP_PLAN[i].qty -= qty;
+            if (MP_PLAN[i].qty <= 0) MP_PLAN.splice(i, 1);
+        }
+        const m = MP_COUNTS_BY_BASE.get(base_comune) || {};
+        if (m[tipo]) {
+            m[tipo] -= qty;
+            if (m[tipo] <= 0) delete m[tipo];
+        }
+        if (Object.keys(m).length === 0) MP_COUNTS_BY_BASE.delete(base_comune);
+        const rec = MP_SITE_MARKERS.find(x => x.comune === base_comune);
+        if (rec) mp_updateMarkerBadge(rec.marker, base_comune);
+        mp_renderPlanTable();
+        mp_updateEditorButtons();
+    }
+
+
+    // Abilita/disabilita i pulsanti dell'editor
+    function mp_updateEditorButtons() {
+        const hasPlan = MP_PLAN.length > 0;
+        const comuneInput = document.getElementById('mp-comune');
+        const comuneOk = !!mp_findComuneByName(comuneInput?.value || '') || !!MP_SITES.find(s => s.comune === normalizeComune(comuneInput?.value || ''));
+
+        const btnMostra = document.querySelector('#map-plan-editor button.btn.ghost.block');     // "Mostra"
+        const btnAdd = document.querySelector('#map-plan-editor button.btn.block');           // "Aggiungi al piano" (il primo .btn.block)
+        const btnClear = document.getElementById('mp-clear');
+        const btnExport = document.getElementById('mp-export');
+        const btnEval = document.getElementById('btnEvalFromMap');
+
+        if (btnMostra) btnMostra.disabled = !comuneOk;
+        if (btnAdd) btnAdd.disabled = !comuneOk;
+        if (btnClear) btnClear.disabled = !hasPlan;
+        if (btnExport) btnExport.disabled = !hasPlan;
+        if (btnEval) btnEval.disabled = !hasPlan;
+    }
+
+    function mp_renderPlanTable() {
+        const el = document.getElementById('mp-table');
+        if (!el) return; // <<— evita il crash
+        if (!MP_PLAN.length) {
+            el.innerHTML = `<em style="color:#6b7280">Nessuna unità nel piano.</em>`;
+            return;
+        }
+        let html = `<table style="width:100%;font-size:12px;border-collapse:collapse">
+    <thead><tr>
+      <th style="text-align:left">Presidio/Comune</th>
+      <th>Tipo</th><th>Sorgente</th><th>Qty</th><th></th>
+    </tr></thead><tbody>`;
+        for (const r of MP_PLAN) {
+            html += `<tr>
+      <td>${r.base_comune}</td>
+      <td style="text-align:center">${r.tipo}</td>
+      <td style="text-align:center">${r.source}</td>
+      <td style="text-align:center">${r.qty}</td>
+      <td style="text-align:right">
+        <button class="btn small" onclick="mp_removeFromPlan('${r.base_comune.replace(/'/g, "\\'")}','${r.tipo}','${r.source}',1)">-1</button>
+        <button class="btn small secondary" onclick="mp_removeFromPlan('${r.base_comune.replace(/'/g, "\\'")}','${r.tipo}','${r.source}',${r.qty})">rimuovi</button>
+      </td>
+    </tr>`;
+        }
+        html += `</tbody></table>`;
+        el.innerHTML = html;
+    }
+
+
+    function mp_clear() {
+        MP_PLAN = [];
+        MP_COUNTS_BY_BASE.clear();
+        document.getElementById('mp-table').innerHTML = `<em style="color:#6b7280;font-size:12px">Nessuna unità nel piano.</em>`;
+        MP_FREE_LAYER && MP_FREE_LAYER.clearLayers();
+        for (const rec of MP_SITE_MARKERS) mp_updateMarkerBadge(rec.marker, rec.comune);
+    }
+
+
+    // Popola la tendina con l’elenco dei comuni caricati
+    function mp_populateComuneList() {
+        const dl = document.getElementById('mp-comuni-list');
+        if (!dl) return;
+        // evita duplicati
+        const seen = new Set();
+        const opts = [];
+        for (const c of MP_COMMUNES) {
+            if (c && c.comune && !seen.has(c.comune)) {
+                seen.add(c.comune);
+                opts.push(`<option value="${c.comune}"></option>`);
+            }
+        }
+        dl.innerHTML = opts.join('');
+    }
+
+    // Trova il record del comune (normalizzando il nome)
+    function mp_findComuneByName(name) {
+        const q = normalizeComune(name);
+        if (!q) return null;
+        return MP_COMMUNES.find(c => c.comune === q) || null;
+    }
+
+    // Evidenzia il punto e centra la mappa
+    function mp_zoomAndPing(lat, lon, label, tipo) {
+        if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+        try {
+            map.setView([lat, lon], Math.max(map.getZoom(), 12), {animate: true});
+        } catch {
+        }
+        const icon = iconFor((tipo || '').toUpperCase() || 'AMB_ILS'); // 🚑 stesse icone del modello
+        const m = L.marker([lat, lon], {icon}).addTo(MP_FREE_LAYER)
+            .bindTooltip(label || 'Selezione');
+
+    }
+
+    async function mp_addFromDropdown(addToPlan = true) {
+        const inp = document.getElementById('mp-comune');
+        if (!inp) return;
+        const tipo = (document.getElementById('mp-type')?.value || 'AMB_ILS').toUpperCase();
+
+        const rec = mp_findComuneByName(inp.value) || MP_SITES.find(s => s.comune === normalizeComune(inp.value));
+        if (!rec) {
+            alert('Comune non trovato. Sceglilo dalla lista.');
+            return;
+        }
+
+        if (Number.isFinite(rec.lat) && Number.isFinite(rec.lon)) {
+            mp_zoomAndPing(rec.lat, rec.lon, rec.comune, tipo);
+        } else {
+            alert(`Coordinate non disponibili per "${rec.comune}". Fornisci un CSV geocodificato.`);
+        }
+
+        if (addToPlan) {
+            const qty = Math.max(1, parseInt(document.getElementById('mp-qty').value || '1', 10));
+            const src = (document.getElementById('mp-source').value || 'any').toLowerCase();
+            mp_addToPlan(rec.comune, tipo, qty, src);
+        }
+    }
+
+
+    // valuta con /api/evaluate riusando la pipeline esistente
+    async function mp_eval() {
+
+        try {
+            resetRunView({keepExtent: true});
+            const body = buildRunBody();
+            body.plan = MP_PLAN.slice();
+
+
+            const res = await fetch('/api/evaluate', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            });
+            const j = await res.json();
+
+// aggiorna subito il KPI (se l'API espone il numero), con fallback automatico
+            updateDoctorsKPI({
+                usedApi: (j?.doctors_used ?? j?.doctors ?? j?.metrics?.doctors_used ?? null)
+            });
+
+
+            if (!j.ok) {
+                alert(j.error || 'Errore valutazione');
+                return false;
+            }
+
+            RUN_URL = j.out_web || fixRunPath(j.out_dir || '');
+            if (!RUN_URL) {
+                alert('Percorso dei risultati non disponibile (out_web/out_dir).');
+                return false;
+            }
+
+            LAST_RUN_KIND = 'editor';     // 👈 traccia l’origine
+            updateDownloadButtons();
+            await reloadData();
+
+            // 👇 IMPORTANTISSIMO: la firma attuale diventa la “pulita”
+            LAST_SIG = computeSignature();
+
+            return true;
+        } catch (e) {
+            console.error(e);
+            alert('Errore durante la valutazione.');
+            return false;
+        }
+    }
+
+
+    // collega i bottoni dell’editor (chiamare dopo init mappa)
+    function mp_bindUI() {
+        // PULSANTE: svuota piano
+        const btnClear = document.getElementById('mp-clear');
+        if (btnClear && !btnClear.dataset.bound) {
+            btnClear.dataset.bound = '1';
+            btnClear.addEventListener('click', mp_clear);
+        }
+
+        // PULSANTE: esporta PDF (EDITOR) → rivaluta se necessario, poi PDF
+        const btnExp = document.getElementById('mp-export');
+        if (btnExp && !btnExp.dataset.bound) {
+            btnExp.dataset.bound = '1';
+            btnExp.innerHTML = `<i class="fa-solid fa-file-pdf"></i> Esporta PDF`;
+            btnExp.classList.remove('secondary');
+
+            btnExp.addEventListener('click', async (e) => {
+                e.preventDefault();
+                btnExp.disabled = true;
+                btnExp.setAttribute('aria-busy', 'true');
+                try {
+                    await ensureFreshEvaluation();   // SOLO editor: se piano cambiato, valuta
+                    await generatePDFReport();      // poi genera dal RUN corrente
+                } catch (err) {
+                    alert('Impossibile generare il PDF: ' + (err?.message || err));
+                } finally {
+                    btnExp.disabled = false;
+                    btnExp.removeAttribute('aria-busy');
+                }
+            });
+        }
+
+        async function generatePDFReport() {
+            if (!RUN_URL || !Array.isArray(LAST_CHOSEN) || LAST_CHOSEN.length === 0) {
+                alert('Nessun dato da impaginare: esegui una OTTIMIZZAZIONE o una VALUTAZIONE prima di esportare il PDF.');
+                return;
+            }
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                alert('Libreria PDF non disponibile');
+                return;
+            }
+            const {jsPDF} = window.jspdf;
+
+            const itInt = n => (n == null || isNaN(n)) ? '–' : Math.round(Number(n)).toLocaleString('it-IT');
+            const itPct = x => (x == null || isNaN(x)) ? '–' : Number(x).toFixed(1) + '%';
+
+            const parseDoctorsFromTxt = (txt) => {
+                if (!txt) return null;
+                const m = txt.match(/(?:medici\s*(?:richiesti|totali|usati)|doctors(?:\s*needed|\s*total|\s*used)?)\D+(\d+(?:[.,]\d+)?)/i);
+                return m ? Number(m[1].replace(',', '.')) : null;
+            };
+
+            // usa i dati già caricati per aggiornare la pill dei medici
+            const cap = Number(document.getElementById('docTotal')?.value || NaN);
+            let n = parseDoctorsFromTxt(LAST_DOCTORS_TXT || '');
+
+// fallback: se manca il TXT, prova a sommare una colonna "doctors_need" nel chosen
+            if (n == null && Array.isArray(LAST_CHOSEN) && LAST_CHOSEN.length) {
+                const key = ['doctors_need', 'docs_need', 'medici', 'doctors', 'doctors_required']
+                    .find(k => k in LAST_CHOSEN[0]);
+                if (key) n = LAST_CHOSEN.reduce((a, r) => a + (+r[key] || 0), 0);
+            }
+
+            setDoctorsKPI(n, cap);
+
+
+            const any = covTotals(LAST_COV_ANY);
+            const doc = covTotals(LAST_COV_DOC);
+            const staffNum = parseDoctorsFromTxt(LAST_DOCTORS_TXT || '');
+            const {perType, totals} = prepareCosts(LAST_CHOSEN || []);
+
+            const pdf = new jsPDF({unit: 'pt', format: 'a4'});
+            const M = {l: 44, r: 44, t: 52, b: 52};
+            const line = y => pdf.setLineWidth(0.6).setDrawColor(230).line(M.l, y, 595 - M.r, y);
+
+            // Intestazione
+            const title = 'Rete UOC 118 · Piano';
+            const right = `ASL Benevento 118 · ${new Date().toLocaleString('it-IT')}`;
+            pdf.setFont('helvetica', 'bold').setFontSize(16).text(title, M.l, M.t);
+            pdf.setFont('helvetica', 'normal').setFontSize(10).text(right, 595 - M.r, M.t, {align: 'right'});
+            line(M.t + 14);
+            let y = M.t + 38;
+
+            // KPI
+            pdf.setFont('helvetica', 'bold').setFontSize(12).text('Indicatori di copertura', M.l, y);
+            y += 16;
+            pdf.setFont('helvetica', 'normal').setFontSize(11);
+            pdf.text(`Copertura ANY: ${itPct(any.pct)} (${itInt(any.calls)} chiamate eq.)`, M.l, y);
+            pdf.text(`Copertura con Medico (R+G): ${itPct(doc.pct)} (${itInt(doc.calls)} chiamate eq.)`, 595 / 2, y);
+            y += 16;
+            pdf.text(`Medici richiesti da slot attivi: ${staffNum != null ? itInt(staffNum) : '–'}`, M.l, y);
+
+            // Costi
+            line(y + 14);
+            y += 28;
+            pdf.setFont('helvetica', 'bold').setFontSize(12).text('Riepilogo costi', M.l, y);
+
+            const bodyRows = (perType || []).map(r => [
+                r.tipo, String(r.n), String(r.nNew),
+                euro(r.cxUnit), euro(r.oxUnit), euro(r.cxTot), euro(r.oxTot),
+            ]);
+
+            pdf.autoTable({
+                startY: y + 10,
+                head: [['Tipo', '# Attive', '# Nuove', 'CAPEX / unità', 'OPEX / unità', 'CAPEX Totale', 'OPEX Totale']],
+                body: bodyRows.length ? bodyRows : [['–', '0', '0', '0 €', '0 €', '0 €', '0 €']],
+                foot: [
+                    ['Totale', String(totals.units || 0), String(totals.newUnits || 0), '', '', euro(totals.capex || 0), euro(totals.opex || 0)],
+                    [{
+                        content: 'CAPEX “Acquisti” (solo nuove):',
+                        colSpan: 5,
+                        styles: {halign: 'right'}
+                    }, {content: euro(totals.capexNew || 0), colSpan: 1}],
+                ],
+                styles: {font: 'helvetica', fontSize: 10, cellPadding: 4},
+                headStyles: {fillColor: [13, 110, 253], textColor: 255},
+                footStyles: {fillColor: [245, 247, 255], textColor: 20},
+                margin: {left: M.l, right: M.r}
+            });
+
+
+            // Unità attive (dal run corrente)
+            let y3 = pdf.lastAutoTable ? pdf.lastAutoTable.finalY + 24 : (y2 + 120);
+            pdf.setFont('helvetica', 'bold').setFontSize(12).text('Unità attive (run)', M.l, y3);
+
+            const chosen = Array.isArray(LAST_CHOSEN) ? LAST_CHOSEN : [];
+            const unitRows = (chosen.length ? chosen : [{tipo: '—', site_id: '—', base_comune: '—'}])
+                .map((r, i) => [String(i + 1), String(r.tipo || ''), String(r.site_id || r.site || r.slot || ''), String(r.base_comune || r.base || r.comune || '')]);
+
+            pdf.autoTable({
+                startY: y3 + 10,
+                head: [['#', 'Tipo', 'Site', 'Base']],
+                body: unitRows,
+                styles: {font: 'helvetica', fontSize: 10, cellPadding: 4},
+                headStyles: {fillColor: [40, 40, 40], textColor: 255},
+                margin: {left: M.l, right: M.r},
+                didDrawPage: () => {
+                    pdf.setFont('helvetica', 'normal').setFontSize(9).setTextColor(120);
+                    const runInfo = `Run: ${RUN_URL || '(non salvato)'} · Data dir: ${(CONFIG && CONFIG.dataDir) || 'data'}`;
+                    pdf.text(runInfo, M.l, 842 - M.b + 20);
+                    pdf.text(String(pdf.internal.getNumberOfPages()), 595 - M.r, 842 - M.b + 20, {align: 'right'});
+                }
+            });
+
+            // Download
+            const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+            const fname = `Rete_UOC_118_Report_${ts}.pdf`;
+            const blob = pdf.output('blob');
+
+            try {
+                if (typeof trySaveReportOnServer === 'function') {
+                    const saved = await trySaveReportOnServer(blob, fname);
+                    if (saved) return;
+                }
+            } catch {
+            }
+
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = fname;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                URL.revokeObjectURL(a.href);
+                a.remove();
+            }, 800);
+        }
+
+        // PULSANTE: Report (PDF) nella lista Unità attive → NON rivaluta, usa il run corrente
+        const btnPdf = document.getElementById('dlPDF');
+        if (btnPdf && !btnPdf.dataset.bound) {
+            btnPdf.dataset.bound = '1';
+            btnPdf.addEventListener('click', async (e) => {
+                e.preventDefault();
+                btnPdf.disabled = true;
+                btnPdf.setAttribute('aria-busy', 'true');
+                try {
+                    // niente ensureFreshEvaluation qui: evitiamo di “sostituire” il run con la mappa
+                    await generatePDFReport();
+                } catch (err) {
+                    alert('Impossibile generare il PDF: ' + (err?.message || err));
+                } finally {
+                    btnPdf.disabled = false;
+                    btnPdf.removeAttribute('aria-busy');
+                }
+            });
+        }
+
+        // PULSANTE: Valuta su mappa
+        const btnEval = document.getElementById('btnEvalFromMap');
+        // Esempio: click su "Valuta piano"
+        document.getElementById('btnEvalFromMap')?.addEventListener('click', async () => {
+            resetRunView({keepExtent: true});   // ← svuota tutto ma mantiene lo zoom
+            await mp_eval();                       // poi disegna i risultati della valutazione
+        });
+
+        if (btnEval && !btnEval.dataset.bound) {
+            btnEval.dataset.bound = '1';
+            btnEval.addEventListener('click', mp_eval);
+        }
+
+        // Input che influenzano lo stato dei pulsanti editor
+        const comuneInp = document.getElementById('mp-comune');
+        ['input', 'change', 'blur'].forEach(ev => comuneInp?.addEventListener(ev, mp_updateEditorButtons));
+        document.getElementById('mp-type')?.addEventListener('change', mp_updateEditorButtons);
+        document.getElementById('mp-qty')?.addEventListener('input', mp_updateEditorButtons);
+        document.getElementById('mp-source')?.addEventListener('change', mp_updateEditorButtons);
+
+        mp_updateEditorButtons();
+    }
+
+
+    // ---- Utilità parsing ----
+    const toFixed = (x, n = 2) => Number(x).toFixed(n);
+
+    function parsePairs(str) {
+        const out = {};
+        if (!str) return out;
+        str.split(',').map(s => s.trim()).filter(Boolean).forEach(kv => {
+            const [k, v] = kv.split('=');
+            if (k) out[k.trim()] = (v ?? '').toString().trim();
+        });
+        return out;
+    }
+
+    function itInt(n) {
+        return (n == null || isNaN(n))
+            ? '–'
+            : Math.round(Number(n)).toLocaleString('it-IT');
+    }
+
+    function parseDoctorsFromTxt(txt) {
+        if (!txt) return null;
+        // IT: Medici richiesti/totali/usati ...
+        // EN: Doctors needed/total/used/required ...
+        let m = txt.match(/(?:medici\s*(?:richiesti|totali|usati)|doctors\s*(?:needed|total|used|required))\D+(\d+(?:[.,]\d+)?)/i);
+        if (m) return Number(m[1].replace(',', '.'));
+        // fallback: primo numero nel file
+        m = txt.match(/(\d+(?:[.,]\d+)?)/);
+        return m ? Number(m[1].replace(',', '.')) : null;
+    }
+
+    function compilePairs(obj) {
+        return Object.entries(obj).map(([k, v]) => `${k}=${v}`).join(',');
+    }
+
+    function parseList(str) {
+        return (str || '').split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    // ---- Binder controlli ↔ hidden ----
+    function initControlsFromHidden() {
+        // Toggle Avanzate
+        const advToggle = document.getElementById('advToggle');
+        const box = document.querySelector('.runbox');
+        advToggle?.addEventListener('change', () => box?.classList.toggle('show-adv', advToggle.checked));
+
+        // Soglie T
+        const T = parsePairs(document.getElementById('paramT').value);
+        const tIds = ['ROSSO', 'GIALLO', 'VERDE', 'BIANCO'];
+        tIds.forEach(k => {
+            const s = document.getElementById('t' + k);
+            const o = document.getElementById('t' + k + '_val');
+            const def = (k === 'ROSSO' ? 8 : k === 'GIALLO' ? 20 : k === 'VERDE' ? 30 : 45);
+            const v = Number(T[k] ?? def);
+            if (s) {
+                s.value = v;
+                o && (o.textContent = v);
+                s.addEventListener('input', syncParamT);
+            }
+        });
+        syncParamT();
+
+        // Type-speed
+        const TS = parsePairs(document.getElementById('typeSpeed').value);
+        ['AUTO_MED', 'AMB_ALS', 'AMB_ILS'].forEach(k => {
+            const s = document.getElementById('sp' + k);
+            const o = document.getElementById('sp' + k + '_val');
+            const v = Number(TS[k] ?? 1.00);
+            if (s) {
+                s.value = v;
+                o && (o.textContent = toFixed(v, 2) + '×');
+                s.addEventListener('input', () => {
+                    o && (o.textContent = toFixed(s.value, 2) + '×');
+                    syncTypeSpeed();
+                });
+            }
+        });
+        syncTypeSpeed();
+
+        // CAPEX / OPEX
+        const CX = parsePairs(document.getElementById('capex').value);
+        const OX = parsePairs(document.getElementById('opex').value);
+        ['AUTO_MED', 'AMB_ALS', 'AMB_ILS', 'PSAUT'].forEach(k => {
+            const cx = document.getElementById('cx' + k);
+            if (cx) {
+                cx.value = Number(CX[k] ?? 0);
+                cx.addEventListener('input', syncCapex);
+            }
+            const ox = document.getElementById('ox' + k);
+            if (ox) {
+                ox.value = Number(OX[k] ?? 0);
+                ox.addEventListener('input', syncOpex);
+            }
+        });
+        syncCapex();
+        syncOpex();
+
+        // Doctor-codes
+        const codes = new Set(parseList(document.getElementById('docCodes').value));
+        ['ROSSO', 'GIALLO', 'VERDE', 'BIANCO'].forEach(k => {
+            const chk = document.getElementById('dc' + k);
+            if (chk) {
+                chk.checked = codes.has(k);
+                chk.addEventListener('change', syncDocCodes);
+            }
+        });
+        syncDocCodes();
+
+        // Staff
+        const ST = parsePairs(document.getElementById('staff').value);
+        const defaults = {PSAUT: 6, AUTO_MED: 3, AMB_ALS: 3};
+        Object.entries(defaults).forEach(([k, def]) => {
+            const inp = document.getElementById('st' + k);
+            if (inp) {
+                inp.value = Number(ST[k] ?? def);
+                inp.addEventListener('input', syncStaff);
+            }
+        });
+        syncStaff();
+
+        // Verbose switch → select
+        const verbVal = document.getElementById('verbose')?.value || '--verbose';
+        const vSw = document.getElementById('verboseSwitch');
+        if (vSw) {
+            vSw.checked = (verbVal === '--verbose');
+            vSw.addEventListener('change', () => {
+                const v = document.getElementById('verbose');
+                if (v) v.value = vSw.checked ? '--verbose' : '';
+            });
+        }
+
+        // === BUDGET: collega i controlli visibili agli hidden usati da buildRunBody ===
+        (function wireBudgetControls() {
+            const uiBT = document.getElementById('uiBudgetTotal'); // numero visibile
+            const uiBM = document.getElementById('uiBudgetMode');  // select visibile
+            const hBT = document.getElementById('budgetTotal');   // hidden letto da buildRunBody
+            const hBM = document.getElementById('budgetMode');    // hidden letto da buildRunBody
+
+            if (!uiBT || !uiBM || !hBT || !hBM) return;
+
+            // inizializza UI dai hidden se ricarichi la pagina
+            uiBT.value = hBT.value || '';
+            // UI usa: "" | "capex" | "capex_opex"
+            // Solver/CLI usa (di solito): "" | "purchase" | "all".
+            // Qui lasciamo nella UI i valori "capex / capex_opex" e li mappiamo nel hidden.
+            const mapUiToHidden = (v) => v === 'capex' ? 'purchase' : (v === 'capex_opex' ? 'all' : '');
+            const mapHiddenToUi = (v) => v === 'purchase' ? 'capex' : (v === 'all' ? 'capex_opex' : '');
+            uiBM.value = mapHiddenToUi(hBM.value || '');
+
+            // sincronizza mentre l’utente digita/cambia
+            uiBT.addEventListener('input', () => {
+                hBT.value = (uiBT.value || '').trim();   // numero o vuoto per “nessun vincolo”
+            });
+            uiBM.addEventListener('change', () => {
+                hBM.value = mapUiToHidden(uiBM.value);   // "capex"→"purchase", "capex_opex"→"all"
+            });
+
+            // esegui una prima sync ora
+            hBT.value = (uiBT.value || '').trim();
+            hBM.value = mapUiToHidden(uiBM.value);
+        })();
+
+    }
+
+    function syncParamT() {
+        const obj = {
+            ROSSO: Number(document.getElementById('tROSSO')?.value || 0),
+            GIALLO: Number(document.getElementById('tGIALLO')?.value || 0),
+            VERDE: Number(document.getElementById('tVERDE')?.value || 0),
+            BIANCO: Number(document.getElementById('tBIANCO')?.value || 0)
+        };
+        const setTxt = (id, val) => {
+            const o = document.getElementById(id);
+            if (o) o.textContent = val;
+        };
+        setTxt('tROSSO_val', obj.ROSSO);
+        setTxt('tGIALLO_val', obj.GIALLO);
+        setTxt('tVERDE_val', obj.VERDE);
+        setTxt('tBIANCO_val', obj.BIANCO);
+        const h = document.getElementById('paramT');
+        if (h) h.value = compilePairs(obj);
+    }
+
+    function syncTypeSpeed() {
+        const obj = {
+            AUTO_MED: toFixed(document.getElementById('spAUTO_MED')?.value || 1, 2),
+            AMB_ALS: toFixed(document.getElementById('spAMB_ALS')?.value || 1, 2),
+            AMB_ILS: toFixed(document.getElementById('spAMB_ILS')?.value || 1, 2)
+        };
+        const h = document.getElementById('typeSpeed');
+        if (h) h.value = compilePairs(obj);
+    }
+
+    function syncCapex() {
+        const obj = {
+            AUTO_MED: Number(document.getElementById('cxAUTO_MED')?.value || 0),
+            AMB_ALS: Number(document.getElementById('cxAMB_ALS')?.value || 0),
+            AMB_ILS: Number(document.getElementById('cxAMB_ILS')?.value || 0),
+            PSAUT: Number(document.getElementById('cxPSAUT')?.value || 0)
+        };
+        const h = document.getElementById('capex');
+        if (h) h.value = compilePairs(obj);
+    }
+
+    function syncOpex() {
+        const obj = {
+            AUTO_MED: Number(document.getElementById('oxAUTO_MED')?.value || 0),
+            AMB_ALS: Number(document.getElementById('oxAMB_ALS')?.value || 0),
+            AMB_ILS: Number(document.getElementById('oxAMB_ILS')?.value || 0),
+            PSAUT: Number(document.getElementById('oxPSAUT')?.value || 0)
+        };
+        const h = document.getElementById('opex');
+        if (h) h.value = compilePairs(obj);
+    }
+
+    // Carica un GeoJSON dei comuni (prende il primo che trova)
+    async function loadComuniGeo() {
+        const base = CONFIG.dataDir || 'data';
+        const candidates = [
+            `${base}/comuni_benevento.geojson`,
+            `${base}/comuni.geojson`,
+            `dataset/data/comuni_benevento.geojson`
+        ];
+        for (const url of candidates) {
+            if (await fileExists(url)) {
+                const geojson = await fetch(url, {cache: 'no-store'}).then(r => r.json());
+                return {url, geojson};
+            }
+        }
+        return null;
+    }
+
+    function syncDocCodes() {
+        const parts = [];
+        ['ROSSO', 'GIALLO', 'VERDE', 'BIANCO'].forEach(k => {
+            if (document.getElementById('dc' + k)?.checked) parts.push(k);
+        });
+        const h = document.getElementById('docCodes');
+        if (h) h.value = parts.join(',');
+    }
+
+    function syncStaff() {
+        const obj = {
+            PSAUT: Number(document.getElementById('stPSAUT')?.value || 0),
+            AUTO_MED: Number(document.getElementById('stAUTO_MED')?.value || 0),
+            AMB_ALS: Number(document.getElementById('stAMB_ALS')?.value || 0)
+        };
+        const h = document.getElementById('staff');
+        if (h) h.value = compilePairs(obj);
+    }
+
+
+    let layersCtl;                 // controllo Leaflet layers
+    const CRIT_PANE = 'critPane';  // pane dedicata
+
+    function ensureCritPaneAndControl() {
+        if (!map.getPane(CRIT_PANE)) {
+            map.createPane(CRIT_PANE);
+            map.getPane(CRIT_PANE).style.zIndex = 625; // sopra i marker standard (600)
+        }
+        if (!layersCtl) {
+            layersCtl = L.control.layers({}, {}, {position: 'topright', collapsed: true}).addTo(map);
+        }
+    }
+
+    // ---- Palette (basso rischio→alto rischio)
+    const CRIT_PALETTE = ['#e8f6e3', '#a6d97a', '#5fb164', '#f7c65a', '#f08a4b', '#e24b3b'];
+
+    let CRIT_BREAKS = null;
+    let CRIT_GET_FILL = v => '#e5e7eb';
+    let CRIT_GET_STROKE = v => '#9ca3af';
+
+    // Costruisce i quantili e funzioni colore a partire da CRIT_DATA
+    function updateCritScaleFromScores() {
+        const vals = Array.from((CRIT_DATA || new Map()).values())
+            .map(d => Number(d.score))
+            .filter(x => Number.isFinite(x))
+            .sort((a, b) => a - b);
+
+        if (!vals.length) {
+            CRIT_BREAKS = null;
+            return;
+        }
+
+        const q = p => {
+            const idx = (vals.length - 1) * p;
+            const lo = Math.floor(idx), hi = Math.ceil(idx);
+            if (lo === hi) return vals[lo];
+            const h = idx - lo;
+            return vals[lo] + h * (vals[hi] - vals[lo]);
+        };
+
+        // 5 classi → 6 break: min, q20, q40, q60, q80, max
+        CRIT_BREAKS = [vals[0], q(0.2), q(0.4), q(0.6), q(0.8), vals[vals.length - 1]];
+
+        CRIT_GET_FILL = v => {
+            if (v == null || isNaN(v)) return '#e5e7eb';
+            if (v <= CRIT_BREAKS[1]) return CRIT_PALETTE[0];
+            if (v <= CRIT_BREAKS[2]) return CRIT_PALETTE[1];
+            if (v <= CRIT_BREAKS[3]) return CRIT_PALETTE[2];
+            if (v <= CRIT_BREAKS[4]) return CRIT_PALETTE[3];
+            return CRIT_PALETTE[5];
+        };
+
+        // bordo un po’ più scuro per ogni classe
+        const STROKES = ['#7dab5f', '#5b9956', '#3e874d', '#ce9c2e', '#c86831', '#b33a32'];
+        CRIT_GET_STROKE = v => {
+            if (v == null || isNaN(v)) return '#9ca3af';
+            return (v <= CRIT_BREAKS[1]) ? STROKES[0]
+                : (v <= CRIT_BREAKS[2]) ? STROKES[1]
+                    : (v <= CRIT_BREAKS[3]) ? STROKES[2]
+                        : (v <= CRIT_BREAKS[4]) ? STROKES[3]
+                            : STROKES[5];
+        };
+
+        // Aggiorna legenda con classi
+        const Lg = document.getElementById('critLegend');
+        if (Lg) {
+            const fmt = x => (x == null ? '–' : (x * 100).toFixed(0) + '%');
+            Lg.innerHTML = `
+      <div><b>Criticità (quantili)</b></div>
+      <div style="display:grid;grid-template-columns:1fr;gap:4px;margin-top:6px">
+        ${[1, 2, 3, 4, 5].map(i => `
+          <div style="display:flex;align-items:center;gap:8px">
+            <i style="width:14px;height:14px;border:1px solid #666;background:${CRIT_GET_FILL(CRIT_BREAKS[i])}"></i>
+            <span style="font-size:12px">${fmt(CRIT_BREAKS[i - 1])} – ${fmt(CRIT_BREAKS[i])}</span>
+          </div>`).join('')}
+      </div>`;
+        }
+
+        // Debug utile in console
+        console.log('[CRIT scale]',
+            {
+                min: CRIT_BREAKS[0], q20: CRIT_BREAKS[1], q40: CRIT_BREAKS[2],
+                q60: CRIT_BREAKS[3], q80: CRIT_BREAKS[4], max: CRIT_BREAKS[5]
+            });
+    }
+
+    // === Nuova loadCriticita: robusta (tempo vs domanda) ===
+    async function loadCriticita() {
+        if (CRIT_DATA) return CRIT_DATA;
+
+        const base = CONFIG.dataDir || 'data';
+        const candidates = [
+            `${base}/weighted_demand_by_comune_code.csv`, // <- la tua
+            `${base}/demand_by_comune_code.csv`
+        ];
+        let path = null;
+        for (const p of candidates) if (await fileExists(p)) {
+            path = p;
+            break;
+        }
+
+        const rows = path ? await loadCSV(path) : [];
+        if (!rows?.length) {
+            CRIT_DATA = new Map();
+            return CRIT_DATA;
+        }
+
+        const nameK = pickKeyCI(rows[0], ['comune', 'denominazione', 'nome_comune', 'name']);
+        const codeK = pickKeyCI(rows[0], ['comune_code', 'istat', 'codice_istat', 'codice_comune']);
+        const timeK = pickKeyCI(rows[0], ['rt_min', 'risposta_min', 'tempo_min', 'response_time', 'tempo']);
+        const demandK = pickKeyCI(rows[0], [
+            'weighted_demand', 'demand', 'weighted', 'calls', 'chiamate', 'peso_domanda',
+            'n_missioni_pesate', 'n_missioni', 'missioni', 'n_chiamate', 'totale_missioni'
+        ]);
+
+        const toNum = v => {
+            const n = Number(String(v ?? '').replace(',', '.'));
+            return Number.isFinite(n) ? n : null;
+        };
+
+        // Map input -> {comune, time, demand}
+        const recs = [];
+        let matched = 0, skipped = 0;
+        for (const r of rows) {
+            // nome dal CSV o da codice istat
+            let nome = '';
+            if (nameK && r[nameK]) nome = normalizeComune(r[nameK]);
+            else if (codeK && r[codeK] != null) {
+                const code = String(r[codeK]).trim().padStart(6, '0');
+                const hit = MP_BY_CODE?.get?.(code);
+                if (hit) nome = hit.comune;
+            }
+            if (!nome) {
+                skipped++;
+                continue;
+            }
+
+            const t = timeK ? toNum(r[timeK]) : null;
+            const d = demandK ? toNum(r[demandK]) : null;
+            if (t == null && d == null) {
+                skipped++;
+                continue;
+            }
+
+            recs.push({comune: nome, time: t, demand: d});
+            matched++;
+        }
+        if (!recs.length) {
+            CRIT_DATA = new Map();
+            return CRIT_DATA;
+        }
+
+        // --- Scelta base dello score ---
+        const targetMin = 21;
+        const exceed = recs.filter(x => x.time != null && x.time > targetMin);
+        const hasVarTime = exceed.length >= Math.max(1, Math.round(0.2 * recs.length)) &&
+            (Math.max(...exceed.map(x => x.time)) - Math.min(...exceed.map(x => x.time))) > 1e-6;
+
+        // helper: normalizzazione 0..1 con fallback a ranking
+        const norm01 = (vals) => {
+            const arr = vals.slice();
+            const vmin = Math.min(...arr.filter(v => v != null));
+            const vmax = Math.max(...arr.filter(v => v != null));
+            const span = vmax - vmin;
+            if (!(span > 0)) {
+                // tutti uguali → ranking uniforme per avere variazione visiva
+                const uniq = Array.from(new Set(arr.filter(v => v != null))).sort((a, b) => a - b);
+                const rank = new Map(uniq.map((v, i) => [v, i / (Math.max(uniq.length - 1, 1))]));
+                return arr.map(v => v == null ? null : rank.get(v));
+            }
+            return arr.map(v => v == null ? null : (v - vmin) / span);
+        };
+
+        let basis = '';
+        let scores = [];
+
+        if (hasVarTime) {
+            // usa il supero della soglia
+            const exceedAmt = recs.map(x => x.time == null ? null : Math.max(0, x.time - targetMin));
+            const sTime = norm01(exceedAmt);
+            // opzionale: mix con domanda se disponibile
+            if (recs.some(x => x.demand != null)) {
+                const sDem = norm01(recs.map(x => x.demand));
+                scores = sTime.map((v, i) => v == null ? (sDem[i] ?? null) : (sDem[i] == null ? v : 0.6 * v + 0.4 * sDem[i]));
+                basis = 'tempo (supero) + domanda';
+
+
+            } else {
+                scores = sTime;
+                basis = 'tempo (supero)';
+            }
+        } else {
+            // tempi tutti sotto soglia o senza variabilità → usa domanda pesata
+            scores = norm01(recs.map(x => x.demand));
+            basis = 'domanda';
+        }
+
+        const mp = new Map();
+        recs.forEach((x, i) => {
+            const s = scores[i];
+            mp.set(x.comune, {
+                score: (s == null ? 0 : Math.max(0, Math.min(1, s))),
+                time: x.time ?? null,
+                demand: x.demand ?? null
+            });
+        });
+
+        document.getElementById('critStatus')?.replaceChildren(
+            `Sorgente: ${path} · Comuni mappati: ${matched} — non mappati: ${skipped} · base: ${basis}`
+        );
+
+        CRIT_DATA = mp;
+        return CRIT_DATA;
+
+
+    }
+
+
+    function critFillColor(x) {  // 0..1
+        x = Math.max(0, Math.min(1, Number(x) || 0));
+        const h = (1 - x) * 120;          // verde→rosso
+        const s = 85;
+        const l = 50 + 8 * Math.pow(x, 0.6); // leggermente più chiaro alle alte criticità
+        return `hsl(${h},${s}%,${l}%)`;
+    }
+
+    function critStrokeColor(x) {
+        x = Math.max(0, Math.min(1, Number(x) || 0));
+        const h = (1 - x) * 120;
+        return `hsl(${h},80%,35%)`;
+    }
+
+
+    // ---- INIT ----
+    async function init() {
+        if (!window.L) {
+            const el = document.getElementById('map');
+            if (el) el.innerHTML = '<div style="padding:12px;color:#b00020">Errore: Leaflet non caricato.</div>';
+            return;
+        }
+
+        map = L.map('map', {
+            center: BENEVENTO_CENTER,
+            zoom: 11,
+            minZoom: 9,
+            maxBounds: BENEVENTO_BOUNDS,
+            maxBoundsViscosity: 1.0
+        });
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+        map.whenReady(() => map.invalidateSize());
+        setTimeout(() => map.invalidateSize(), 100);
+        window.addEventListener('resize', () => map.invalidateSize());
+
+        layersByType = {
+            AUTO_MED: L.layerGroup().addTo(map),
+            AMB_ALS: L.layerGroup().addTo(map),
+            AMB_ILS: L.layerGroup().addTo(map),
+            PSAUT: L.layerGroup().addTo(map)
+        };
+
+        MP_FREE_LAYER = L.layerGroup().addTo(map);
+        MP_PREVIEW_LAYER = L.layerGroup().addTo(map);
+        ensureCritPaneAndControl();
+
+        // Bottoni
+        const btnRun = document.getElementById('btnRun');
+        btnRun && (btnRun.onclick = runAlgorithm);
+
+        // Filtri lista/mappa
+        document.querySelectorAll('.flt').forEach(chk => {
+            chk.addEventListener('change', () => {
+                const t = chk.value;
+                if (chk.checked) {
+                    layersByType[t] && map.addLayer(layersByType[t]);
+                } else {
+                    layersByType[t] && map.removeLayer(layersByType[t]);
+                }
+                filterList();
+                fitToData();
+            });
+        });
+        document.getElementById('unitSearch')?.addEventListener('input', filterList);
+
+        await loadConfig();
+        await ensureValidDataDir();
+
+        await mp_loadCommunes();
+        await mp_loadSitesLayer();
+        mp_backfillComuneCoordsFromSites();   // ⬅️ nuovo
+        buildComuneIndexes();
+        mp_populateComuneList();
+
+
+// collega i bottoni (toggle, svuota, esporta, valuta)
+        mp_bindUI();   // <— AGGIUNGI QUESTA RIGA
+        // Binder controlli
+        initControlsFromHidden();
+
+        // Toggle layer criticità
+        const critTg = document.getElementById('critToggle');
+        if (critTg) critTg.addEventListener('change', renderCriticita);
+
+
+// accendi quando premi Esegui/Valuta (se presenti i bottoni)
+        document.getElementById('btnRun')?.addEventListener('click', async () => {
+            if (critTg && !critTg.checked) critTg.checked = true;
+            await renderCriticita();
+        });
+        document.getElementById('btnEvalFromMap')?.addEventListener('click', async () => {
+            if (critTg && !critTg.checked) critTg.checked = true;
+            await renderCriticita();
+        });
+
+        document.getElementById('tab-editor').addEventListener('click', switchToValutazione);
+
+        // Inquadra area Benevento
+        try {
+            map.fitBounds(BENEVENTO_BOUNDS);
+        } catch (e) {
+        }
+    }
+
+
+    function updateDoctorsKPI({usedApi = null, chosen = null} = {}) {
+        const cap = Number(document.getElementById('docTotal')?.value || NaN);
+
+        // 1) prova con dato API
+        let used = (usedApi == null ? NaN : Number(usedApi));
+
+        // 2) fallback: doctors_summary.txt
+        if (!Number.isFinite(used)) {
+            const parsed = parseDoctorsFromTxt((window.LAST_DOCTORS_TXT || ''));
+            if (Number.isFinite(parsed)) used = parsed;
+        }
+
+        // 3) fallback: stima dai chosen
+        if (!Number.isFinite(used)) {
+            used = estimateDoctorsFromChosen(chosen || window.LAST_CHOSEN || []);
+        }
+
+        // 4) anti-zero: se è 0 o NaN ma nel PIANO ci sono unità “con medico”, usa la stima dal piano
+        try {
+            const plan = (window.MP_PLAN || []);
+            const {total: estFromPlan, hasDocCapable} = estimateDoctorsFromPlan(plan);
+            if ((used === 0 || !Number.isFinite(used)) && hasDocCapable && estFromPlan > 0) {
+                used = estFromPlan;
+            }
+            console.table(window.MP_PLAN);
+            console.log(estimateDoctorsFromPlan(window.MP_PLAN));
+
+        } catch (e) {
+            console.warn('plan fallback error:', e);
+        }
+
+        setDoctorsKPI(used, cap);
+    }
+
+    function normalizeType(t) {
+        return String(t || '')
+            .toUpperCase()
+            .replace(/\s+/g, '')            // toglie spazi
+            .replace(/[^A-Z_]/g, '')        // toglie caratteri strani
+            .replace(/^AMBALS$/, 'AMB_ALS')
+            .replace(/^AMBILS$/, 'AMB_ILS')
+            .replace(/^AUTOMED$/, 'AUTO_MED')
+            .replace(/^PSAUTO?$/, 'PSAUT'); // accetta PSAUT/PSAUTO
+    }
+
+    function estimateDoctorsFromPlan(plan) {
+        const staffKV = parsePairs(document.getElementById('staff')?.value || '');
+        // staff di default: AUTO_MED=3, AMB_ALS=3, PSAUT=6
+        const staffFor = (t) => {
+            const k = normalizeType(t);
+            if (k === 'AUTO_MED') return Number(staffKV.AUTO_MED || 3);
+            if (k === 'AMB_ALS') return Number(staffKV.AMB_ALS || 3);
+            if (k === 'PSAUT') return Number(staffKV.PSAUT || 6);
+            return 0; // AMB_ILS o altro → 0 medici
+        };
+
+        let tot = 0, hasDocCapable = false;
+        (plan || []).forEach(r => {
+            const t = normalizeType(r.tipo || r.type);
+            const q = Number(r.qty || 0);
+            const add = staffFor(t) * q;
+            tot += add;
+            if (add > 0) hasDocCapable = true; // AUTO_MED / AMB_ALS / PSAUT
+        });
+        return {total: tot, hasDocCapable};
+    }
+
+    // ---- RUN ----
+    async function runAlgorithm() {
+        resetRunView({keepExtent: true});
+        const log = document.getElementById('log');
+        const spin = document.getElementById('spin');
+
+        const diag = await preflightData(CONFIG.dataDir || 'data');
+        if (!diag.ok) {
+            renderDataStatus(diag);
+            const msg = `${diag.message}\n\nMancano:\n - ${diag.missing.join('\n - ')}`;
+            if (log) log.textContent = msg; else console.warn(msg);
+            alert('Dati incompleti: completa i file o imposta il DATA DIR nel backend (/api/config).');
+            return;
+        }
+
+        const body = buildRunBody();
+        spin && spin.classList.add('on');
+        log ? (log.textContent = '(avvio...)') : console.log('[RUN] avvio...');
+
+        try {
+            const res = await fetch('/api/run', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            });
+            const j = await res.json();
+
+            let nice = (j.cmd ? j.cmd + '\n\n' : '') + (j.stdout || '');
+            if (j.stderr) nice += `\n[stderr]\n${j.stderr}`;
+            if (Array.isArray(j.missing) && j.missing.length) {
+                nice += '\n\n[DATI MANCANTI]\n' + j.missing.map(x => ' - ' + x).join('\n');
+                nice += "\n\nSuggerimento: imposta DATA DIR nel backend (/api/config) o copia i file nella cartella 'data'.";
+            }
+            if (j.error) nice += `\n\n[ERRORE] ${j.error}`;
+            log ? (log.textContent = nice) : console.log(nice);
+
+            if (j.ok && (j.out_web || j.out_dir)) {
+                // ✅ anche qui: normalizza in /runs/...
+                RUN_URL = j.out_web || fixRunPath(j.out_dir || '');
+                if (!RUN_URL) {
+                    alert('Run completato ma non trovo il percorso web dei risultati.');
+                    return;
+                }
+                LAST_RUN_KIND = 'algo';
+// considera lo stato "pulito" così la prima pressione del PDF non forza evaluate
+                LAST_SIG = computeSignature();
+
+                updateDownloadButtons();
+                await reloadData();
+            } else if (!(Array.isArray(j.missing) && j.missing.length)) {
+                alert('Errore esecuzione algoritmo');
+            }
+            // Collega il bottone Report (PDF) in Unità attive
+            const btnDlPDF = document.getElementById('dlPDF');
+            if (btnDlPDF) {
+                btnDlPDF.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    btnDlPDF.disabled = true;
+                    btnDlPDF.setAttribute('aria-busy', 'true');
+                    try {
+                        await ensureFreshEvaluation();   // forza una valutazione se i dati non sono allineati
+                        await generatePDFReport();
+                    } finally {
+                        btnDlPDF.disabled = false;
+                        btnDlPDF.removeAttribute('aria-busy');
+                    }
+                });
+            }
+
+        } catch (e) {
+            const msg = 'Errore: ' + e;
+            log ? (log.textContent = msg) : console.error(msg);
+            alert('Errore richiesta al backend');
+        } finally {
+            spin && spin.classList.remove('on');
+        }
+    }
+
+
+    // ---- Render output run ----
+    function getFirstKey(obj, names) {
+        for (const n of names) {
+            if (Object.prototype.hasOwnProperty.call(obj, n) && obj[n] != null && String(obj[n]).length) return n;
+        }
+        return null;
+    }
+
+
+    function ensureCritLegend() {
+        if (CRIT_LEGEND_EL) return;
+        const host = document.querySelector('.map-area') || map.getContainer();
+        const box = document.createElement('div');
+        box.id = 'critLegend';
+        box.style.position = 'absolute';
+        box.style.left = '14px';
+        box.style.bottom = '14px';
+        box.innerHTML = `<div><b>Criticità</b></div><div class="bar" style="width:160px;height:10px;border-radius:999px;margin:6px 0;background:linear-gradient(90deg,#28a745,#f59e0b,#dc3545)"></div><div class="scale" style="display:flex;justify-content:space-between;color:#6b7280;"><span>Bassa</span><span>Alta</span></div>`;
+        host.appendChild(box);
+        CRIT_LEGEND_EL = box;
+    }
+
+
+    function critRadius(score01) {
+        const z = map?.getZoom?.() ?? 11;                 // zoom corrente
+        const base = 1200 * Math.pow(2, 11 - z);          // ~1200 m a z=11; raddoppia zoomando out
+        const s = Math.max(0, Math.min(1, Number(score01) || 0));
+        return base * (0.6 + 1.6 * Math.pow(s, 0.7));     // 60%..220% del base (più score, più grande)
+    }
+
+
+    // Helper: crea le pane dedicate e assicura il Layers Control
+    function ensureCritPanesAndControl() {
+        if (!map.getPane('critCircles')) {
+            map.createPane('critCircles');
+            map.getPane('critCircles').style.zIndex = 450;
+            map.getPane('critCircles').style.pointerEvents = 'none';
+            map.getPane('critCircles').style.mixBlendMode = 'multiply'; // ⬅️ aggiungi
+        }
+        if (!map.getPane('critLabels')) {
+            map.createPane('critLabels');
+            map.getPane('critLabels').style.zIndex = 650;
+        }
+        if (!layersCtl) {
+            layersCtl = L.control.layers({}, {}, {position: 'topright', collapsed: true}).addTo(map);
+        }
+    }
+
+
+    /**
+     * Disegna il layer "Criticità" usando cerchi su pane dedicata.
+     * - carica (se serve) i dati di criticità
+     * - calcola coordinate per ogni comune (comuni_geocoded → centroidi presìdi come fallback)
+     * - disegna cerchi colorati (raggio in metri) e opzionale etichetta sopra
+     * - rispetta il toggle #critToggle (on/off)
+     */
+    async function renderCriticita(forceReload = false) {
+        if (!map) return;
+
+        if (!Array.isArray(MP_COMMUNES) || MP_COMMUNES.length === 0) {
+            await mp_loadCommunes();
+            buildComuneIndexes?.();
+        }
+        (typeof ensureCritPanesAndControl === 'function') && ensureCritPanesAndControl();
+        (typeof ensureCritLegend === 'function') && ensureCritLegend();
+
+        if (!CRIT_DATA || forceReload) await loadCriticita();
+        updateCritScaleFromScores();   // <-- costruisce i quantili e le funzioni colore
+
+
+        const tg = document.getElementById('critToggle');
+        const wantOn = !tg || tg.checked === true;
+
+        // Pulisci layer precedenti
+        try {
+            if (CRIT_LAYER && layersCtl) layersCtl.removeLayer(CRIT_LAYER);
+        } catch {
+        }
+        try {
+            if (CRIT_POLY_LAYER && layersCtl) layersCtl.removeLayer(CRIT_POLY_LAYER);
+        } catch {
+        }
+        try {
+            if (CRIT_LAYER && map.hasLayer(CRIT_LAYER)) map.removeLayer(CRIT_LAYER);
+        } catch {
+        }
+        try {
+            if (CRIT_POLY_LAYER && map.hasLayer(CRIT_POLY_LAYER)) map.removeLayer(CRIT_POLY_LAYER);
+        } catch {
+        }
+        CRIT_LAYER = null;
+        CRIT_POLY_LAYER = null;
+
+        if (!wantOn) {
+            document.getElementById('critStatus')?.replaceChildren('Layer disattivato.');
+            return;
+        }
+
+        // Prova confini in GeoJSON
+        const gj = await loadComuniGeo();
+
+        const comuneNameFromFeature = (f) => {
+            const p = f.properties || {};
+            let n = p.nome || p.denominazione || p.comune || p.name || '';
+            if (!n) {
+                let code = p.comune_code ?? p.cod_istat ?? p.codice_istat ?? p.ISTAT;
+                if (code != null) {
+                    code = String(code).padStart(6, '0');
+                    n = MP_BY_CODE?.get?.(code)?.comune || '';
+                }
+            }
+            return normalizeComune(n || '');
+        };
+
+        if (gj && gj.geojson && Array.isArray(gj.geojson.features)) {
+            // ✅ COROPLETA (riempita)
+            CRIT_POLY_LAYER = L.geoJSON(gj.geojson, {
+                style: (feat) => {
+                    const n = comuneNameFromFeature(feat);
+                    const rec = CRIT_DATA?.get(n);
+                    const s = rec?.score;
+
+                    if (s == null) {
+                        return {
+                            stroke: false,
+                            fill: true,
+                            fillColor: '#e5e7eb',
+                            fillOpacity: .35,
+                            color: '#9ca3af',
+                            weight: 1,
+                            opacity: .9
+                        };
+                    }
+                    return {
+                        fill: true,
+                        fillColor: CRIT_GET_FILL(s),    // <-- colore per classe
+                        fillOpacity: 0.55,
+                        color: CRIT_GET_STROKE(s),      // <-- bordo coerente
+                        weight: 1.5,
+                        opacity: 0.9
+                    };
+                },
+
+                onEachFeature: (feat, layer) => {
+                    const n = comuneNameFromFeature(feat) || 'Comune';
+                    const rec = CRIT_DATA?.get(n);
+                    const s = rec?.score, t = rec?.time, d = rec?.demand;
+
+                    const rows = [
+                        `<b>${n}</b>`,
+                        `<small>Criticità: ${s == null ? 'n.d.' : (s * 100).toFixed(0) + '%'}</small>`
+                    ];
+                    if (t != null && isFinite(t)) rows.push(`<small>Tempo medio: ${Number(t).toFixed(1)} min</small>`);
+                    if (d != null && isFinite(d)) rows.push(`<small>Domanda: ${Number(d).toLocaleString('it-IT')}</small>`);
+
+                    layer.bindTooltip(rows.join('<br>'), {sticky: true});
+                    layer.on({
+                        mouseover: e => e.target.setStyle({weight: 3, fillOpacity: 0.60}),
+                        mouseout: e => CRIT_POLY_LAYER.resetStyle(e.target),
+                        click: e => map.fitBounds(e.target.getBounds(), {padding: [14, 14]})
+                    });
+                }
+            }).addTo(map);
+
+            CRIT_POLY_LAYER.bringToBack(); // icone sopra i confini
+            layersCtl?.addOverlay(CRIT_POLY_LAYER, 'Comuni (coropleta criticità)');
+            document.getElementById('critStatus')?.replaceChildren(
+                `Sorgente confini: ${gj.url} · comuni disegnati: ${CRIT_POLY_LAYER.getLayers().length}`
+            );
+            return;
+        }
+
+        // 🔁 Fallback: CERCHI se non c'è GeoJSON
+        const coordsByComune = new Map(
+            (MP_COMMUNES || []).filter(c => isFinite(c.lat) && isFinite(c.lon)).map(c => [c.comune, [c.lat, c.lon]])
+        );
+        const renderer = L.canvas({padding: 0.5});
+        CRIT_LAYER = L.layerGroup();
+
+        let drawn = 0, skipped = 0;
+        for (const [name, rec] of (CRIT_DATA || new Map())) {
+            const ll = coordsByComune.get(name);
+            if (!ll) {
+                skipped++;
+                continue;
+            }
+            const s = Math.max(0, Math.min(1, Number(rec.score) || 0));
+            L.circle(ll, {
+                pane: 'critCircles', renderer,
+                radius: critRadius(s),
+                color: critStrokeColor(s), weight: 1, opacity: .85,
+                fillColor: critFillColor(s), fillOpacity: .25,
+                interactive: false
+            }).addTo(CRIT_LAYER);
+            drawn++;
+        }
+        CRIT_LAYER.addTo(map);
+        layersCtl?.addOverlay(CRIT_LAYER, 'Criticità comuni (cerchi)');
+        document.getElementById('critStatus')?.replaceChildren(
+            `GeoJSON non trovato → cerchi. Disegnati: ${drawn}, senza coordinate: ${skipped}`
+        );
+    }
+
+    // Bucket globali
+
+
+    function switchToValutazione() {
+        if (!map) return;
+
+        // 0) Pulisci lo stato del run precedente (svuota gruppi/tooltip, mantiene zoom)
+        resetRunView({keepExtent: true});
+
+        // 1) Rimuovi i gruppi del run precedente (quelli veri!)
+        if (window.layersByType) {
+            Object.values(layersByType).forEach(g => {
+                try {
+                    g.clearLayers();
+                } catch {
+                }
+                try {
+                    if (map.hasLayer(g)) map.removeLayer(g);
+                } catch {
+                }
+            });
+        }
+
+        // 2) Rimuovi qualsiasi layer NON base che non vogliamo in Valutazione
+        const KEEP = new Set([window.MP_FREE_LAYER, window.MP_PREVIEW_LAYER,
+            window.CRIT_LAYER, window.CRIT_POLY_LAYER]);
+        map.eachLayer(l => {
+            const isBase = (l instanceof L.TileLayer);
+            if (isBase) return;
+            let keep = false;
+            for (const k of KEEP) {
+                if (!k) continue;
+                if (l === k) {
+                    keep = true;
+                    break;
+                }
+                if (typeof k.hasLayer === 'function' && k.hasLayer(l)) {
+                    keep = true;
+                    break;
+                }
+            }
+            if (!keep) {
+                try {
+                    map.removeLayer(l);
+                } catch {
+                }
+            }
+        });
+
+        // 3) Assicura i layer dell’editor
+        if (!window.MP_FREE_LAYER) window.MP_FREE_LAYER = L.layerGroup();
+        if (!window.MP_PREVIEW_LAYER) window.MP_PREVIEW_LAYER = L.layerGroup();
+        if (!map.hasLayer(MP_FREE_LAYER)) MP_FREE_LAYER.addTo(map);
+        if (!map.hasLayer(MP_PREVIEW_LAYER)) MP_PREVIEW_LAYER.addTo(map);
+
+        // 4) Criticità: mostrala solo se il toggle è ON
+        const critOn = document.getElementById('critToggle')?.checked;
+        if (critOn) {
+            renderCriticita(); // ridisegna l’overlay corretto
+        } else {
+            try {
+                if (CRIT_LAYER && map.hasLayer(CRIT_LAYER)) map.removeLayer(CRIT_LAYER);
+            } catch {
+            }
+            try {
+                if (CRIT_POLY_LAYER && map.hasLayer(CRIT_POLY_LAYER)) map.removeLayer(CRIT_POLY_LAYER);
+            } catch {
+            }
+        }
+
+        // 5) Pulisci la lista UI
+        const list = document.getElementById('unit-list');
+        if (list) list.innerHTML = `<div class="muted" style="padding:10px">
+    Mappa pronta per la <b>Valutazione</b>. Aggiungi un mezzo e premi “Valuta su mappa”.
+  </div>`;
+        const cnt = document.getElementById('unitCount');
+        if (cnt) cnt.textContent = '0 unità';
+
+        LAST_RUN_KIND = 'editor';
+    }
+
+    // === SOLO MAPPA: stima rapida medici ===
+    // Regola temporanea: PSAUT sempre 2 → 12 medici fissi
+    // +3 per ogni AUTO_MED
+    // +3 per ogni AMB_ALS
+    function doctorsFromPlanQuick(plan) {
+        const arr = Array.isArray(plan) ? plan : [];
+        let auto = 0, als = 0;
+        for (const r of arr) {
+            const t = String(r.tipo || '').toUpperCase();
+            const q = Number(r.qty || 0);
+            if (t === 'AUTO_MED') auto += q;
+            else if (t === 'AMB_ALS') als += q;
+        }
+        return 12 + 3 * auto + 3 * als;  // 12 = 2 PSAUT * 6
+    }
+
+    // alternativa se vuoi contarle dai chosen (dopo evaluate)
+    function doctorsFromChosenQuick(chosen) {
+        const arr = Array.isArray(chosen) ? chosen : [];
+        let auto = 0, als = 0;
+        for (const r of arr) {
+            const t = String(r.tipo || r.type || '').toUpperCase();
+            if (t === 'AUTO_MED') auto++;
+            else if (t === 'AMB_ALS') als++;
+        }
+        return 12 + 3 * auto + 3 * als;
+    }
+
+    // scrive il KPI “Medici richiesti…”
+    function setDoctorsKPIQuick(num) {
+        const el = document.querySelector('#kpi-staff');
+        if (!el) return;
+        const cap = Number(document.getElementById('docTotal')?.value || NaN);
+        const n = Math.round(Number(num || 0));
+        el.textContent = Number.isFinite(cap)
+            ? `Medici richiesti da slot attivi: ${n} / ${Math.round(cap)}`
+            : `Medici richiesti da slot attivi: ${n}`;
+    }
+
+    function mp_backfillComuneCoordsFromSites() {
+        if (!Array.isArray(MP_SITES) || MP_SITES.length === 0) return;
+
+        // raggruppa presìdi per comune
+        const ptsByComune = new Map();
+        for (const s of MP_SITES) {
+            if (!Number.isFinite(s.lat) || !Number.isFinite(s.lon)) continue;
+            const k = s.comune;
+            if (!ptsByComune.has(k)) ptsByComune.set(k, []);
+            ptsByComune.get(k).push([s.lat, s.lon]);
+        }
+
+        // se NON abbiamo un elenco comuni → crealo dai presìdi
+        if (!Array.isArray(MP_COMMUNES) || MP_COMMUNES.length === 0) {
+            MP_COMMUNES = Array.from(ptsByComune.entries()).map(([com, pts]) => {
+                const n = pts.length;
+                const lat = pts.reduce((a, p) => a + p[0], 0) / n;
+                const lon = pts.reduce((a, p) => a + p[1], 0) / n;
+                return {comune: com, lat, lon};
+            });
+            return;
+        }
+
+        // altrimenti: riempi lat/lon mancanti
+        for (const c of MP_COMMUNES) {
+            if (Number.isFinite(c.lat) && Number.isFinite(c.lon)) continue;
+            const pts = ptsByComune.get(c.comune);
+            if (pts && pts.length) {
+                const n = pts.length;
+                c.lat = pts.reduce((a, p) => a + p[0], 0) / n;
+                c.lon = pts.reduce((a, p) => a + p[1], 0) / n;
+            }
+        }
+    }
+
+
+    let MP_BY_NAME = new Map();
+    let MP_BY_CODE = new Map();
+
+    function buildComuneIndexes() {
+        MP_BY_NAME = new Map();
+        MP_BY_CODE = new Map();
+
+        if (!Array.isArray(MP_COMMUNES)) return;
+        for (const r of MP_COMMUNES) {
+            const keys = Object.keys(r || {});
+            const get = (names) => {
+                const low = keys.map(k => k.toLowerCase());
+                for (const n of names) {
+                    const i = low.indexOf(n.toLowerCase());
+                    if (i >= 0) return r[keys[i]];
+                }
+                return '';
+            };
+            const name = normalizeComune(get(['comune', 'denominazione', 'nome_comune', 'name']) || '');
+            let code = (get(['istat', 'codice_istat', 'comune_code', 'codice_comune']) || '').toString().trim();
+            if (code) code = code.padStart(6, '0');
+
+            if (name) MP_BY_NAME.set(name, {...r, comune: name});
+            if (code) MP_BY_CODE.set(code, {...r, comune: name || r.comune || ''});
+        }
+    }
+
+
+    async function reloadData() {
+        if (!RUN_URL) return;
+        const files = FILES();
+
+
+        let [chosen, covAny, covDoc] = await Promise.all([
+            loadCSV(files.chosen).catch(() => []),
+            loadCSV(files.covAny).catch(() => []),
+            loadCSV(files.covDoc).catch(() => [])
+        ]);
+
+// ↙️ Memorizza per il PDF
+        LAST_CHOSEN = chosen;
+        LAST_COV_ANY = covAny;
+        LAST_COV_DOC = covDoc;
+
+        updateKPIs(covAny, covDoc);
+
+        // 🔁 SOLO MAPPA: niente TXT → calcola rapido.
+// In modalità algoritmo prova il TXT, altrimenti fallback rapido.
+        if (LAST_RUN_KIND === 'editor') {
+            // Siamo in “Valuta su mappa”: usa i chosen per stimare i medici
+            setDoctorsKPIQuick(doctorsFromChosenQuick(chosen));
+        } else {
+            // Siamo in “Ottimizza”: prova a leggere il TXT, se manca → stima rapida
+            try {
+                const t = await fetch(files.docTxt).then(r => r.text());
+                LAST_DOCTORS_TXT = t;
+                const n = parseDoctorsFromTxt(t);
+                if (Number.isFinite(n)) {
+                    setDoctorsKPIQuick(n);
+                } else {
+                    setDoctorsKPIQuick(doctorsFromChosenQuick(chosen));
+                }
+            } catch {
+                LAST_DOCTORS_TXT = '';
+                setDoctorsKPIQuick(doctorsFromChosenQuick(chosen));
+            }
+        }
+
+
+        const geocoded = await loadGeo();
+        const nameKey = geocoded.length ? (getFirstKey(geocoded[0], ['comune', 'Comune', 'name', 'site_name', 'base_comune']) || 'comune') : 'comune';
+        const latKey = geocoded.length ? (getFirstKey(geocoded[0], ['lat', 'Lat', 'latitude', 'Latitude']) || 'lat') : 'lat';
+        const lonKey = geocoded.length ? (getFirstKey(geocoded[0], ['lon', 'Lon', 'lng', 'Lng', 'longitude', 'Longitude']) || 'lon') : 'lon';
+
+        const geolist = geocoded.map(r => [normalizeComune(r[nameKey]), {lat: +r[latKey], lon: +r[lonKey]}]);
+        const coordsByComune = new Map(geolist);
+
+        const list = document.querySelector('#unit-list');
+        if (list) list.innerHTML = '';
+        Object.values(layersByType).forEach(g => g.clearLayers());
+
+        // svuota mapping ad ogni ricarica
+        ROW_BY_KEY.clear();
+        MARKER_BY_KEY.clear();
+
+        chosen.forEach((r, i) => {
+            const tipo = (r.tipo || '').toUpperCase();
+            const base = normalizeComune(r.base_comune || r.base || r.comune || '');
+            const site = r.site_id || `slot_${i}`;
+            const key = slotKeyFromRecord(r, i);          // NEW
+            const where = coordsByComune.get(base);
+
+            // --- CARD LISTA
+            const row = document.createElement('div');
+            row.className = 'item';
+            row.dataset.type = tipo;
+            row.dataset.text = `${tipo} ${site} ${base}`.toLowerCase();
+            row.dataset.key = key;                         // NEW
+            row.tabIndex = 0;                               // accessibilità
+            row.innerHTML = `
+    <div class="icon">${iconFor(tipo).options.html}</div>
+    <div>
+      <div class="title">${tipo} · <span class="sub">${site}</span></div>
+      <div class="sub">Base: ${base}${String(r.is_fixed) === "1" ? " · fisso" : ""}</div>
+    </div>
+  `;
+            list && list.appendChild(row);
+
+            // Registra la card
+            ROW_BY_KEY.set(key, row);                       // NEW
+
+            // Click/hover sulla card -> mappa
+            row.addEventListener('click', () => focusMarker(key, {open: true, pan: true}));        // NEW
+            row.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    ev.preventDefault();
+                    focusMarker(key, {open: true, pan: true});
+                }
+            }); // NEW
+            row.addEventListener('mouseenter', () => hoverCard(key, true));   // NEW
+            row.addEventListener('mouseleave', () => hoverCard(key, false));  // NEW
+
+            // --- MARKER MAPPA
+            if (where && isFinite(where.lat) && isFinite(where.lon)) {
+                const mark = L.marker([where.lat, where.lon], {icon: iconFor(tipo)})
+                    .bindPopup(`<b>${tipo}</b><br>${site}<br><small>Base: ${base}</small>`);
+
+                // Registra il marker
+                MARKER_BY_KEY.set(key, mark);                 // NEW
+
+                // Click/popup sul marker -> card
+                mark.on('click', () => focusCard(key, {scroll: true}));      // NEW (mobile)
+                mark.on('popupopen', () => focusCard(key, {scroll: true}));      // NEW
+                mark.on('popupclose', () => {/* opzionale: clearFocus(); */
+                });   // facoltativo
+
+                layersByType[tipo]?.addLayer(mark);
+            }
+        });
+
+
+        filterList();
+        fitToData();
+        renderCosts(chosen);
+
+    }
+
+    function fitToData() {
+        const groups = Object.values(layersByType).filter(g => map.hasLayer(g));
+        try {
+            const layers = groups.flatMap(g => g.getLayers());
+            if (layers.length) {
+                const b = L.featureGroup(layers).getBounds().pad(0.12);
+                map.fitBounds(b);
+            } else {
+                map.fitBounds(BENEVENTO_BOUNDS);
+            }
+        } catch (e) {
+        }
+    }
+
+    function getFilterTypes() {
+        const set = new Set();
+        document.querySelectorAll('.flt').forEach(c => {
+            if (c.checked) set.add(c.value);
+        });
+        return set;
+    }
+
+    function bounceMarkerOnce(m) {
+        try {
+            // semplice "alzata" momentanea senza plugin
+            m.setZIndexOffset(1000);
+            setTimeout(() => m.setZIndexOffset(0), 600);
+        } catch {
+        }
+    }
+
+    function focusMarker(key, opts) {
+        const m = MARKER_BY_KEY.get(key);
+        if (!m) return;
+        if (opts?.pan) map.setView(m.getLatLng(), Math.max(map.getZoom(), 12), {animate: true});
+        if (opts?.open && m.getPopup()) m.openPopup();
+        bounceMarkerOnce(m);                    // <- qui
+        focusCard(key, {scroll: true});
+    }
+
+
+    function filterList() {
+        const q = (document.getElementById('unitSearch')?.value || '').toLowerCase();
+        const allowed = getFilterTypes();
+        const items = document.querySelectorAll('#unit-list .item');
+        let visible = 0;
+        items.forEach(it => {
+            const okType = allowed.has(it.dataset.type);
+            const okSearch = !q || (it.dataset.text || '').includes(q);
+            const show = okType && okSearch;
+            it.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+        const cnt = document.getElementById('unitCount');
+        if (cnt) cnt.textContent = `${visible} unità`;
+    }
+
+    function normalizeComune(x) {
+        return String(x || '')
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // togli accenti
+            .replace(/^comune di\s+/i, '')                    // es. "Comune di Benevento"
+            .replace(/\s+/g, ' ')
+            .replace(/’/g, "'")
+            .trim()
+            .split(' ')
+            .map(w => w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w)
+            .join(' ');
+    }
+
+    function setDoctorsKPI(used, cap) {
+        const el = document.querySelector('#kpi-staff');
+        if (!el) return;
+        const u = Number(used);
+        const c = Number(cap);
+        if (Number.isFinite(u) && Number.isFinite(c)) {
+            el.textContent = `Medici richiesti da slot attivi: ${Math.round(u)} / ${Math.round(c)}`;
+        } else if (Number.isFinite(u)) {
+            el.textContent = `Medici richiesti da slot attivi: ${Math.round(u)}`;
+        } else {
+            el.textContent = `Medici richiesti da slot attivi: –`;
+        }
+    }
+
+    function updateKPIs(covAny, covDoc) {
+        // calcolo ANY anche senza riga TOTAL
+        const rows = covAny || [];
+        const calls = rows.reduce((a, r) => a + (+r.chiamate || 0), 0);
+        const uncov = rows.reduce((a, r) => a + (+r.uncovered || 0), 0);
+        if (calls > 0) {
+            const anyPct = 100 * (1 - uncov / calls);
+            document.querySelector('#kpi-any').textContent =
+                `Copertura ANY: ${anyPct.toFixed(1)}%`;
+        }
+
+        try {
+            const rg = (covDoc || []).filter(r => {
+                const code = String(r.codice || r.CODICE || '').toUpperCase();
+                return code === 'ROSSO' || code === 'GIALLO';
+            });
+            const calls = rg.reduce((a, r) => a + (+r.chiamate || 0), 0);
+            const uncov = rg.reduce((a, r) => a + (+r.uncovered_doctor || +r.uncovered || 0), 0);
+            const docPct = calls > 0 ? 100 * (1 - uncov / calls) : null;
+            if (docPct != null) {
+                document.querySelector('#kpi-doc').textContent =
+                    `Copertura con Medico (R+G): ${docPct.toFixed(1)}%`;
+            }
+        } catch (e) {
+        }
+
+    }
+
+    function findTotalRow(arr) {
+        if (!Array.isArray(arr)) return null;
+        const row = arr.find(r => String(r.codice || r.CODICE || '').toUpperCase() === 'TOTAL') || arr[arr.length - 1];
+        if (!row) return null;
+        const norm = {};
+        for (const k in row) {
+            norm[k.toLowerCase()] = row[k];
+        }
+        return {
+            total_calls: +norm['chiamate'] || +norm['total_calls'] || null,
+            total_uncovered: +norm['uncovered'] || +norm['uncovered_doctor'] || +norm['total_uncovered'] || null,
+            total_pct: +norm['total_pct'] || null
+        };
+    }
+
+    function pctFrom(row) {
+        if (!row) return null;
+        const a = row.total_calls, u = row.total_uncovered;
+        if (!(a > 0)) return null;
+        return 100 * (1 - (u / a));
+    }
+
+    /**
+     * Pulisce la mappa prima di una nuova valutazione/disegno.
+     * - svuota i layer temporanei registrati (layersByType, ecc.)
+     * - rimuove/svuota overlay dell’editor (MP_PREVIEW_LAYER, MP_FREE_LAYER, DRAWN_ITEMS)
+     * - chiude popup/tooltip
+     * - azzera cache marker/righe se presenti
+     * - mantiene l’estensione se keepExtent: true
+     */
+    function resetRunView({keepExtent = false} = {}) {
+        const map =
+            window.MAP || window.map || globalThis.MAP || globalThis.map || null;
+
+        // Salva i bounds se serve mantenerli
+        const prevBounds =
+            keepExtent && map && typeof map.getBounds === "function"
+                ? map.getBounds()
+                : null;
+
+        // Helper per svuotare un gruppo/layer in modo sicuro
+        const clearGroup = (g) => {
+            if (!g) return;
+            try {
+                if (typeof g.clearLayers === "function") {
+                    g.clearLayers();
+                } else if (typeof g.eachLayer === "function") {
+                    g.eachLayer((l) => {
+                        try {
+                            if (typeof l.remove === "function") l.remove();
+                            else if (map && typeof l.removeFrom === "function") l.removeFrom(map);
+                            else if (map && typeof map.removeLayer === "function") map.removeLayer(l);
+                        } catch {
+                        }
+                    });
+                } else if (Array.isArray(g)) {
+                    g.forEach((l) => {
+                        try {
+                            if (typeof l.remove === "function") l.remove();
+                            else if (map && typeof map.removeLayer === "function") map.removeLayer(l);
+                        } catch {
+                        }
+                    });
+                }
+            } catch {
+            }
+        };
+
+        // 1) Svuota i layer temporanei registrati (supporta nomi diversi, se presenti)
+        const registries = [
+            window.layersByType,
+            window.LAYERS_BY_TYPE,
+            window.layers,
+            globalThis.layersByType,
+        ].filter(Boolean);
+
+        registries.forEach((reg) => {
+            try {
+                Object.values(reg || {}).forEach((g) => clearGroup(g));
+            } catch {
+            }
+        });
+
+        // 2) Pulisci/rimuovi overlay dell’editor (anteprima piano + click liberi + eventuali drawn items)
+        const kill = (layer) => {
+            if (!layer) return;
+            try {
+                if (typeof layer.clearLayers === "function") layer.clearLayers();
+            } catch {
+            }
+            try {
+                if (map && typeof map.hasLayer === "function" && map.hasLayer(layer)) {
+                    map.removeLayer(layer);
+                } else if (typeof layer.remove === "function") {
+                    layer.remove();
+                }
+            } catch {
+            }
+        };
+        kill(window.MP_PREVIEW_LAYER);
+        kill(window.MP_FREE_LAYER);
+        kill(window.DRAWN_ITEMS);
+
+        // 3) Azzera eventuali cache/registry di supporto (se esistono)
+        try {
+            window.ROW_BY_KEY?.clear?.();
+        } catch {
+        }
+        try {
+            window.MARKER_BY_KEY?.clear?.();
+        } catch {
+        }
+        try {
+            window.LAST_EVAL_RESULTS = undefined;
+        } catch {
+        }
+
+        // 4) UI cleanup (popup/tooltip)
+        try {
+            map?.closePopup?.();
+        } catch {
+        }
+        try {
+            map?.closeTooltip?.();
+        } catch {
+        }
+
+        // 5) Ripristina bounds se richiesto
+        if (keepExtent && map && prevBounds) {
+            try {
+                map.fitBounds(prevBounds, {animate: false});
+            } catch {
+            }
+        }
+    }
+
+
+    // helper: trova una chiave ignorando maiuscole/minuscole e sinonimi
+    function pickKeyCI(row, candidates) {
+        const keys = Object.keys(row || {});
+        const low = keys.map(k => k.toLowerCase());
+        for (const c of candidates) {
+            const i = low.indexOf(c.toLowerCase());
+            if (i >= 0) return keys[i];       // restituisci la chiave originale
+        }
+        return null;
+    }
+
+
+    // ---- Avvio ----
+    window.addEventListener('DOMContentLoaded', init);
+</script>
+
+
+</body>
+</html>

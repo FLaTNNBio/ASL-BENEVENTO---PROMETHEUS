@@ -1,0 +1,1092 @@
+site_id,tipo,is_fixed,fixed_commune,capex,opex,is_existing,reloc_family
+FIX_001@Airola,AMB_ALS,0,Airola,0.0,0.0,1,FIX_001
+FIX_001@Amorosi,AMB_ALS,0,Amorosi,0.0,0.0,1,FIX_001
+FIX_001@Apice,AMB_ALS,0,Apice,0.0,0.0,1,FIX_001
+FIX_001@Apollosa,AMB_ALS,0,Apollosa,0.0,0.0,1,FIX_001
+FIX_001@Arpaia,AMB_ALS,0,Arpaia,0.0,0.0,1,FIX_001
+FIX_001@Arpaise,AMB_ALS,0,Arpaise,0.0,0.0,1,FIX_001
+FIX_001@Baselice,AMB_ALS,0,Baselice,0.0,0.0,1,FIX_001
+FIX_001@Benevento,AMB_ALS,0,Benevento,0.0,0.0,1,FIX_001
+FIX_001@Bonea,AMB_ALS,0,Bonea,0.0,0.0,1,FIX_001
+FIX_001@Bucciano,AMB_ALS,0,Bucciano,0.0,0.0,1,FIX_001
+FIX_001@Buonalbergo,AMB_ALS,0,Buonalbergo,0.0,0.0,1,FIX_001
+FIX_001@Calvi,AMB_ALS,0,Calvi,0.0,0.0,1,FIX_001
+FIX_001@Campolattaro,AMB_ALS,0,Campolattaro,0.0,0.0,1,FIX_001
+FIX_001@Campoli Del Monte Taburno,AMB_ALS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_001
+FIX_001@Casalduni,AMB_ALS,0,Casalduni,0.0,0.0,1,FIX_001
+FIX_001@Castelfranco In Miscano,AMB_ALS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_001
+FIX_001@Castelpagano,AMB_ALS,0,Castelpagano,0.0,0.0,1,FIX_001
+FIX_001@Castelpoto,AMB_ALS,0,Castelpoto,0.0,0.0,1,FIX_001
+FIX_001@Castelvenere,AMB_ALS,0,Castelvenere,0.0,0.0,1,FIX_001
+FIX_001@Castelvetere In Val Fortore,AMB_ALS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_001
+FIX_001@Cautano,AMB_ALS,0,Cautano,0.0,0.0,1,FIX_001
+FIX_001@Ceppaloni,AMB_ALS,0,Ceppaloni,0.0,0.0,1,FIX_001
+FIX_001@Cerreto Sannita,AMB_ALS,0,Cerreto Sannita,0.0,0.0,1,FIX_001
+FIX_001@Circello,AMB_ALS,0,Circello,0.0,0.0,1,FIX_001
+FIX_001@Colle Sannita,AMB_ALS,0,Colle Sannita,0.0,0.0,1,FIX_001
+FIX_001@Cusano Mutri,AMB_ALS,0,Cusano Mutri,0.0,0.0,1,FIX_001
+FIX_001@Dugenta,AMB_ALS,0,Dugenta,0.0,0.0,1,FIX_001
+FIX_001@Durazzano,AMB_ALS,0,Durazzano,0.0,0.0,1,FIX_001
+FIX_001@Faicchio,AMB_ALS,0,Faicchio,0.0,0.0,1,FIX_001
+FIX_001@Foglianise,AMB_ALS,0,Foglianise,0.0,0.0,1,FIX_001
+FIX_001@Foiano Di Val Fortore,AMB_ALS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_001
+FIX_001@Forchia,AMB_ALS,0,Forchia,0.0,0.0,1,FIX_001
+FIX_001@Fragneto L'Abate,AMB_ALS,0,Fragneto L'Abate,0.0,0.0,1,FIX_001
+FIX_001@Fragneto Monforte,AMB_ALS,0,Fragneto Monforte,0.0,0.0,1,FIX_001
+FIX_001@Frasso Telesino,AMB_ALS,0,Frasso Telesino,0.0,0.0,1,FIX_001
+FIX_001@Ginestra Degli Schiavoni,AMB_ALS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_001
+FIX_001@Guardia Sanframondi,AMB_ALS,0,Guardia Sanframondi,0.0,0.0,1,FIX_001
+FIX_001@Limatola,AMB_ALS,0,Limatola,0.0,0.0,1,FIX_001
+FIX_001@Melizzano,AMB_ALS,0,Melizzano,0.0,0.0,1,FIX_001
+FIX_001@Moiano,AMB_ALS,0,Moiano,0.0,0.0,1,FIX_001
+FIX_001@Molinara,AMB_ALS,0,Molinara,0.0,0.0,1,FIX_001
+FIX_001@Montefalcone Di Val Fortore,AMB_ALS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_001
+FIX_001@Montesarchio,AMB_ALS,0,Montesarchio,0.0,0.0,1,FIX_001
+FIX_001@Morcone,AMB_ALS,0,Morcone,0.0,0.0,1,FIX_001
+FIX_001@Paduli,AMB_ALS,0,Paduli,0.0,0.0,1,FIX_001
+FIX_001@Pago Veiano,AMB_ALS,0,Pago Veiano,0.0,0.0,1,FIX_001
+FIX_001@Pannarano,AMB_ALS,0,Pannarano,0.0,0.0,1,FIX_001
+FIX_001@Paolisi,AMB_ALS,0,Paolisi,0.0,0.0,1,FIX_001
+FIX_001@Paupisi,AMB_ALS,0,Paupisi,0.0,0.0,1,FIX_001
+FIX_001@Pesco Sannita,AMB_ALS,0,Pesco Sannita,0.0,0.0,1,FIX_001
+FIX_001@Pietraroja,AMB_ALS,0,Pietraroja,0.0,0.0,1,FIX_001
+FIX_001@Pietrelcina,AMB_ALS,0,Pietrelcina,0.0,0.0,1,FIX_001
+FIX_001@Ponte,AMB_ALS,0,Ponte,0.0,0.0,1,FIX_001
+FIX_001@Pontelandolfo,AMB_ALS,0,Pontelandolfo,0.0,0.0,1,FIX_001
+FIX_001@Puglianello,AMB_ALS,0,Puglianello,0.0,0.0,1,FIX_001
+FIX_001@Reino,AMB_ALS,0,Reino,0.0,0.0,1,FIX_001
+FIX_001@San Bartolomeo In Galdo,AMB_ALS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_001
+FIX_001@San Giorgio Del Sannio,AMB_ALS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_001
+FIX_001@San Giorgio La Molara,AMB_ALS,0,San Giorgio La Molara,0.0,0.0,1,FIX_001
+FIX_001@San Leucio Del Sannio,AMB_ALS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_001
+FIX_001@San Lorenzello,AMB_ALS,0,San Lorenzello,0.0,0.0,1,FIX_001
+FIX_001@San Lorenzo Maggiore,AMB_ALS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_001
+FIX_001@San Lupo,AMB_ALS,0,San Lupo,0.0,0.0,1,FIX_001
+FIX_001@San Marco Dei Cavoti,AMB_ALS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_001
+FIX_001@San Martino Sannita,AMB_ALS,0,San Martino Sannita,0.0,0.0,1,FIX_001
+FIX_001@San Nazzaro,AMB_ALS,0,San Nazzaro,0.0,0.0,1,FIX_001
+FIX_001@San Nicola Manfredi,AMB_ALS,0,San Nicola Manfredi,0.0,0.0,1,FIX_001
+FIX_001@San Salvatore Telesino,AMB_ALS,0,San Salvatore Telesino,0.0,0.0,1,FIX_001
+FIX_001@Sant'Agata De' Goti,AMB_ALS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_001
+FIX_001@Sant'Angelo A Cupolo,AMB_ALS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_001
+FIX_001@Sant'Arcangelo Trimonte,AMB_ALS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_001
+FIX_001@Santa Croce Del Sannio,AMB_ALS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_001
+FIX_001@Sassinoro,AMB_ALS,0,Sassinoro,0.0,0.0,1,FIX_001
+FIX_001@Solopaca,AMB_ALS,0,Solopaca,0.0,0.0,1,FIX_001
+FIX_001@Telese Terme,AMB_ALS,0,Telese Terme,0.0,0.0,1,FIX_001
+FIX_001@Tocco Caudio,AMB_ALS,0,Tocco Caudio,0.0,0.0,1,FIX_001
+FIX_001@Torrecuso,AMB_ALS,0,Torrecuso,0.0,0.0,1,FIX_001
+FIX_001@Vitulano,AMB_ALS,0,Vitulano,0.0,0.0,1,FIX_001
+FIX_002@Airola,AMB_ALS,0,Airola,0.0,0.0,1,FIX_002
+FIX_002@Amorosi,AMB_ALS,0,Amorosi,0.0,0.0,1,FIX_002
+FIX_002@Apice,AMB_ALS,0,Apice,0.0,0.0,1,FIX_002
+FIX_002@Apollosa,AMB_ALS,0,Apollosa,0.0,0.0,1,FIX_002
+FIX_002@Arpaia,AMB_ALS,0,Arpaia,0.0,0.0,1,FIX_002
+FIX_002@Arpaise,AMB_ALS,0,Arpaise,0.0,0.0,1,FIX_002
+FIX_002@Baselice,AMB_ALS,0,Baselice,0.0,0.0,1,FIX_002
+FIX_002@Benevento,AMB_ALS,0,Benevento,0.0,0.0,1,FIX_002
+FIX_002@Bonea,AMB_ALS,0,Bonea,0.0,0.0,1,FIX_002
+FIX_002@Bucciano,AMB_ALS,0,Bucciano,0.0,0.0,1,FIX_002
+FIX_002@Buonalbergo,AMB_ALS,0,Buonalbergo,0.0,0.0,1,FIX_002
+FIX_002@Calvi,AMB_ALS,0,Calvi,0.0,0.0,1,FIX_002
+FIX_002@Campolattaro,AMB_ALS,0,Campolattaro,0.0,0.0,1,FIX_002
+FIX_002@Campoli Del Monte Taburno,AMB_ALS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_002
+FIX_002@Casalduni,AMB_ALS,0,Casalduni,0.0,0.0,1,FIX_002
+FIX_002@Castelfranco In Miscano,AMB_ALS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_002
+FIX_002@Castelpagano,AMB_ALS,0,Castelpagano,0.0,0.0,1,FIX_002
+FIX_002@Castelpoto,AMB_ALS,0,Castelpoto,0.0,0.0,1,FIX_002
+FIX_002@Castelvenere,AMB_ALS,0,Castelvenere,0.0,0.0,1,FIX_002
+FIX_002@Castelvetere In Val Fortore,AMB_ALS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_002
+FIX_002@Cautano,AMB_ALS,0,Cautano,0.0,0.0,1,FIX_002
+FIX_002@Ceppaloni,AMB_ALS,0,Ceppaloni,0.0,0.0,1,FIX_002
+FIX_002@Cerreto Sannita,AMB_ALS,0,Cerreto Sannita,0.0,0.0,1,FIX_002
+FIX_002@Circello,AMB_ALS,0,Circello,0.0,0.0,1,FIX_002
+FIX_002@Colle Sannita,AMB_ALS,0,Colle Sannita,0.0,0.0,1,FIX_002
+FIX_002@Cusano Mutri,AMB_ALS,0,Cusano Mutri,0.0,0.0,1,FIX_002
+FIX_002@Dugenta,AMB_ALS,0,Dugenta,0.0,0.0,1,FIX_002
+FIX_002@Durazzano,AMB_ALS,0,Durazzano,0.0,0.0,1,FIX_002
+FIX_002@Faicchio,AMB_ALS,0,Faicchio,0.0,0.0,1,FIX_002
+FIX_002@Foglianise,AMB_ALS,0,Foglianise,0.0,0.0,1,FIX_002
+FIX_002@Foiano Di Val Fortore,AMB_ALS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_002
+FIX_002@Forchia,AMB_ALS,0,Forchia,0.0,0.0,1,FIX_002
+FIX_002@Fragneto L'Abate,AMB_ALS,0,Fragneto L'Abate,0.0,0.0,1,FIX_002
+FIX_002@Fragneto Monforte,AMB_ALS,0,Fragneto Monforte,0.0,0.0,1,FIX_002
+FIX_002@Frasso Telesino,AMB_ALS,0,Frasso Telesino,0.0,0.0,1,FIX_002
+FIX_002@Ginestra Degli Schiavoni,AMB_ALS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_002
+FIX_002@Guardia Sanframondi,AMB_ALS,0,Guardia Sanframondi,0.0,0.0,1,FIX_002
+FIX_002@Limatola,AMB_ALS,0,Limatola,0.0,0.0,1,FIX_002
+FIX_002@Melizzano,AMB_ALS,0,Melizzano,0.0,0.0,1,FIX_002
+FIX_002@Moiano,AMB_ALS,0,Moiano,0.0,0.0,1,FIX_002
+FIX_002@Molinara,AMB_ALS,0,Molinara,0.0,0.0,1,FIX_002
+FIX_002@Montefalcone Di Val Fortore,AMB_ALS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_002
+FIX_002@Montesarchio,AMB_ALS,0,Montesarchio,0.0,0.0,1,FIX_002
+FIX_002@Morcone,AMB_ALS,0,Morcone,0.0,0.0,1,FIX_002
+FIX_002@Paduli,AMB_ALS,0,Paduli,0.0,0.0,1,FIX_002
+FIX_002@Pago Veiano,AMB_ALS,0,Pago Veiano,0.0,0.0,1,FIX_002
+FIX_002@Pannarano,AMB_ALS,0,Pannarano,0.0,0.0,1,FIX_002
+FIX_002@Paolisi,AMB_ALS,0,Paolisi,0.0,0.0,1,FIX_002
+FIX_002@Paupisi,AMB_ALS,0,Paupisi,0.0,0.0,1,FIX_002
+FIX_002@Pesco Sannita,AMB_ALS,0,Pesco Sannita,0.0,0.0,1,FIX_002
+FIX_002@Pietraroja,AMB_ALS,0,Pietraroja,0.0,0.0,1,FIX_002
+FIX_002@Pietrelcina,AMB_ALS,0,Pietrelcina,0.0,0.0,1,FIX_002
+FIX_002@Ponte,AMB_ALS,0,Ponte,0.0,0.0,1,FIX_002
+FIX_002@Pontelandolfo,AMB_ALS,0,Pontelandolfo,0.0,0.0,1,FIX_002
+FIX_002@Puglianello,AMB_ALS,0,Puglianello,0.0,0.0,1,FIX_002
+FIX_002@Reino,AMB_ALS,0,Reino,0.0,0.0,1,FIX_002
+FIX_002@San Bartolomeo In Galdo,AMB_ALS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_002
+FIX_002@San Giorgio Del Sannio,AMB_ALS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_002
+FIX_002@San Giorgio La Molara,AMB_ALS,0,San Giorgio La Molara,0.0,0.0,1,FIX_002
+FIX_002@San Leucio Del Sannio,AMB_ALS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_002
+FIX_002@San Lorenzello,AMB_ALS,0,San Lorenzello,0.0,0.0,1,FIX_002
+FIX_002@San Lorenzo Maggiore,AMB_ALS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_002
+FIX_002@San Lupo,AMB_ALS,0,San Lupo,0.0,0.0,1,FIX_002
+FIX_002@San Marco Dei Cavoti,AMB_ALS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_002
+FIX_002@San Martino Sannita,AMB_ALS,0,San Martino Sannita,0.0,0.0,1,FIX_002
+FIX_002@San Nazzaro,AMB_ALS,0,San Nazzaro,0.0,0.0,1,FIX_002
+FIX_002@San Nicola Manfredi,AMB_ALS,0,San Nicola Manfredi,0.0,0.0,1,FIX_002
+FIX_002@San Salvatore Telesino,AMB_ALS,0,San Salvatore Telesino,0.0,0.0,1,FIX_002
+FIX_002@Sant'Agata De' Goti,AMB_ALS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_002
+FIX_002@Sant'Angelo A Cupolo,AMB_ALS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_002
+FIX_002@Sant'Arcangelo Trimonte,AMB_ALS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_002
+FIX_002@Santa Croce Del Sannio,AMB_ALS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_002
+FIX_002@Sassinoro,AMB_ALS,0,Sassinoro,0.0,0.0,1,FIX_002
+FIX_002@Solopaca,AMB_ALS,0,Solopaca,0.0,0.0,1,FIX_002
+FIX_002@Telese Terme,AMB_ALS,0,Telese Terme,0.0,0.0,1,FIX_002
+FIX_002@Tocco Caudio,AMB_ALS,0,Tocco Caudio,0.0,0.0,1,FIX_002
+FIX_002@Torrecuso,AMB_ALS,0,Torrecuso,0.0,0.0,1,FIX_002
+FIX_002@Vitulano,AMB_ALS,0,Vitulano,0.0,0.0,1,FIX_002
+FIX_003@Airola,AMB_ALS,0,Airola,0.0,0.0,1,FIX_003
+FIX_003@Amorosi,AMB_ALS,0,Amorosi,0.0,0.0,1,FIX_003
+FIX_003@Apice,AMB_ALS,0,Apice,0.0,0.0,1,FIX_003
+FIX_003@Apollosa,AMB_ALS,0,Apollosa,0.0,0.0,1,FIX_003
+FIX_003@Arpaia,AMB_ALS,0,Arpaia,0.0,0.0,1,FIX_003
+FIX_003@Arpaise,AMB_ALS,0,Arpaise,0.0,0.0,1,FIX_003
+FIX_003@Baselice,AMB_ALS,0,Baselice,0.0,0.0,1,FIX_003
+FIX_003@Benevento,AMB_ALS,0,Benevento,0.0,0.0,1,FIX_003
+FIX_003@Bonea,AMB_ALS,0,Bonea,0.0,0.0,1,FIX_003
+FIX_003@Bucciano,AMB_ALS,0,Bucciano,0.0,0.0,1,FIX_003
+FIX_003@Buonalbergo,AMB_ALS,0,Buonalbergo,0.0,0.0,1,FIX_003
+FIX_003@Calvi,AMB_ALS,0,Calvi,0.0,0.0,1,FIX_003
+FIX_003@Campolattaro,AMB_ALS,0,Campolattaro,0.0,0.0,1,FIX_003
+FIX_003@Campoli Del Monte Taburno,AMB_ALS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_003
+FIX_003@Casalduni,AMB_ALS,0,Casalduni,0.0,0.0,1,FIX_003
+FIX_003@Castelfranco In Miscano,AMB_ALS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_003
+FIX_003@Castelpagano,AMB_ALS,0,Castelpagano,0.0,0.0,1,FIX_003
+FIX_003@Castelpoto,AMB_ALS,0,Castelpoto,0.0,0.0,1,FIX_003
+FIX_003@Castelvenere,AMB_ALS,0,Castelvenere,0.0,0.0,1,FIX_003
+FIX_003@Castelvetere In Val Fortore,AMB_ALS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_003
+FIX_003@Cautano,AMB_ALS,0,Cautano,0.0,0.0,1,FIX_003
+FIX_003@Ceppaloni,AMB_ALS,0,Ceppaloni,0.0,0.0,1,FIX_003
+FIX_003@Cerreto Sannita,AMB_ALS,0,Cerreto Sannita,0.0,0.0,1,FIX_003
+FIX_003@Circello,AMB_ALS,0,Circello,0.0,0.0,1,FIX_003
+FIX_003@Colle Sannita,AMB_ALS,0,Colle Sannita,0.0,0.0,1,FIX_003
+FIX_003@Cusano Mutri,AMB_ALS,0,Cusano Mutri,0.0,0.0,1,FIX_003
+FIX_003@Dugenta,AMB_ALS,0,Dugenta,0.0,0.0,1,FIX_003
+FIX_003@Durazzano,AMB_ALS,0,Durazzano,0.0,0.0,1,FIX_003
+FIX_003@Faicchio,AMB_ALS,0,Faicchio,0.0,0.0,1,FIX_003
+FIX_003@Foglianise,AMB_ALS,0,Foglianise,0.0,0.0,1,FIX_003
+FIX_003@Foiano Di Val Fortore,AMB_ALS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_003
+FIX_003@Forchia,AMB_ALS,0,Forchia,0.0,0.0,1,FIX_003
+FIX_003@Fragneto L'Abate,AMB_ALS,0,Fragneto L'Abate,0.0,0.0,1,FIX_003
+FIX_003@Fragneto Monforte,AMB_ALS,0,Fragneto Monforte,0.0,0.0,1,FIX_003
+FIX_003@Frasso Telesino,AMB_ALS,0,Frasso Telesino,0.0,0.0,1,FIX_003
+FIX_003@Ginestra Degli Schiavoni,AMB_ALS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_003
+FIX_003@Guardia Sanframondi,AMB_ALS,0,Guardia Sanframondi,0.0,0.0,1,FIX_003
+FIX_003@Limatola,AMB_ALS,0,Limatola,0.0,0.0,1,FIX_003
+FIX_003@Melizzano,AMB_ALS,0,Melizzano,0.0,0.0,1,FIX_003
+FIX_003@Moiano,AMB_ALS,0,Moiano,0.0,0.0,1,FIX_003
+FIX_003@Molinara,AMB_ALS,0,Molinara,0.0,0.0,1,FIX_003
+FIX_003@Montefalcone Di Val Fortore,AMB_ALS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_003
+FIX_003@Montesarchio,AMB_ALS,0,Montesarchio,0.0,0.0,1,FIX_003
+FIX_003@Morcone,AMB_ALS,0,Morcone,0.0,0.0,1,FIX_003
+FIX_003@Paduli,AMB_ALS,0,Paduli,0.0,0.0,1,FIX_003
+FIX_003@Pago Veiano,AMB_ALS,0,Pago Veiano,0.0,0.0,1,FIX_003
+FIX_003@Pannarano,AMB_ALS,0,Pannarano,0.0,0.0,1,FIX_003
+FIX_003@Paolisi,AMB_ALS,0,Paolisi,0.0,0.0,1,FIX_003
+FIX_003@Paupisi,AMB_ALS,0,Paupisi,0.0,0.0,1,FIX_003
+FIX_003@Pesco Sannita,AMB_ALS,0,Pesco Sannita,0.0,0.0,1,FIX_003
+FIX_003@Pietraroja,AMB_ALS,0,Pietraroja,0.0,0.0,1,FIX_003
+FIX_003@Pietrelcina,AMB_ALS,0,Pietrelcina,0.0,0.0,1,FIX_003
+FIX_003@Ponte,AMB_ALS,0,Ponte,0.0,0.0,1,FIX_003
+FIX_003@Pontelandolfo,AMB_ALS,0,Pontelandolfo,0.0,0.0,1,FIX_003
+FIX_003@Puglianello,AMB_ALS,0,Puglianello,0.0,0.0,1,FIX_003
+FIX_003@Reino,AMB_ALS,0,Reino,0.0,0.0,1,FIX_003
+FIX_003@San Bartolomeo In Galdo,AMB_ALS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_003
+FIX_003@San Giorgio Del Sannio,AMB_ALS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_003
+FIX_003@San Giorgio La Molara,AMB_ALS,0,San Giorgio La Molara,0.0,0.0,1,FIX_003
+FIX_003@San Leucio Del Sannio,AMB_ALS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_003
+FIX_003@San Lorenzello,AMB_ALS,0,San Lorenzello,0.0,0.0,1,FIX_003
+FIX_003@San Lorenzo Maggiore,AMB_ALS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_003
+FIX_003@San Lupo,AMB_ALS,0,San Lupo,0.0,0.0,1,FIX_003
+FIX_003@San Marco Dei Cavoti,AMB_ALS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_003
+FIX_003@San Martino Sannita,AMB_ALS,0,San Martino Sannita,0.0,0.0,1,FIX_003
+FIX_003@San Nazzaro,AMB_ALS,0,San Nazzaro,0.0,0.0,1,FIX_003
+FIX_003@San Nicola Manfredi,AMB_ALS,0,San Nicola Manfredi,0.0,0.0,1,FIX_003
+FIX_003@San Salvatore Telesino,AMB_ALS,0,San Salvatore Telesino,0.0,0.0,1,FIX_003
+FIX_003@Sant'Agata De' Goti,AMB_ALS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_003
+FIX_003@Sant'Angelo A Cupolo,AMB_ALS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_003
+FIX_003@Sant'Arcangelo Trimonte,AMB_ALS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_003
+FIX_003@Santa Croce Del Sannio,AMB_ALS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_003
+FIX_003@Sassinoro,AMB_ALS,0,Sassinoro,0.0,0.0,1,FIX_003
+FIX_003@Solopaca,AMB_ALS,0,Solopaca,0.0,0.0,1,FIX_003
+FIX_003@Telese Terme,AMB_ALS,0,Telese Terme,0.0,0.0,1,FIX_003
+FIX_003@Tocco Caudio,AMB_ALS,0,Tocco Caudio,0.0,0.0,1,FIX_003
+FIX_003@Torrecuso,AMB_ALS,0,Torrecuso,0.0,0.0,1,FIX_003
+FIX_003@Vitulano,AMB_ALS,0,Vitulano,0.0,0.0,1,FIX_003
+FIX_004@Airola,AMB_ALS,0,Airola,0.0,0.0,1,FIX_004
+FIX_004@Amorosi,AMB_ALS,0,Amorosi,0.0,0.0,1,FIX_004
+FIX_004@Apice,AMB_ALS,0,Apice,0.0,0.0,1,FIX_004
+FIX_004@Apollosa,AMB_ALS,0,Apollosa,0.0,0.0,1,FIX_004
+FIX_004@Arpaia,AMB_ALS,0,Arpaia,0.0,0.0,1,FIX_004
+FIX_004@Arpaise,AMB_ALS,0,Arpaise,0.0,0.0,1,FIX_004
+FIX_004@Baselice,AMB_ALS,0,Baselice,0.0,0.0,1,FIX_004
+FIX_004@Benevento,AMB_ALS,0,Benevento,0.0,0.0,1,FIX_004
+FIX_004@Bonea,AMB_ALS,0,Bonea,0.0,0.0,1,FIX_004
+FIX_004@Bucciano,AMB_ALS,0,Bucciano,0.0,0.0,1,FIX_004
+FIX_004@Buonalbergo,AMB_ALS,0,Buonalbergo,0.0,0.0,1,FIX_004
+FIX_004@Calvi,AMB_ALS,0,Calvi,0.0,0.0,1,FIX_004
+FIX_004@Campolattaro,AMB_ALS,0,Campolattaro,0.0,0.0,1,FIX_004
+FIX_004@Campoli Del Monte Taburno,AMB_ALS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_004
+FIX_004@Casalduni,AMB_ALS,0,Casalduni,0.0,0.0,1,FIX_004
+FIX_004@Castelfranco In Miscano,AMB_ALS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_004
+FIX_004@Castelpagano,AMB_ALS,0,Castelpagano,0.0,0.0,1,FIX_004
+FIX_004@Castelpoto,AMB_ALS,0,Castelpoto,0.0,0.0,1,FIX_004
+FIX_004@Castelvenere,AMB_ALS,0,Castelvenere,0.0,0.0,1,FIX_004
+FIX_004@Castelvetere In Val Fortore,AMB_ALS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_004
+FIX_004@Cautano,AMB_ALS,0,Cautano,0.0,0.0,1,FIX_004
+FIX_004@Ceppaloni,AMB_ALS,0,Ceppaloni,0.0,0.0,1,FIX_004
+FIX_004@Cerreto Sannita,AMB_ALS,0,Cerreto Sannita,0.0,0.0,1,FIX_004
+FIX_004@Circello,AMB_ALS,0,Circello,0.0,0.0,1,FIX_004
+FIX_004@Colle Sannita,AMB_ALS,0,Colle Sannita,0.0,0.0,1,FIX_004
+FIX_004@Cusano Mutri,AMB_ALS,0,Cusano Mutri,0.0,0.0,1,FIX_004
+FIX_004@Dugenta,AMB_ALS,0,Dugenta,0.0,0.0,1,FIX_004
+FIX_004@Durazzano,AMB_ALS,0,Durazzano,0.0,0.0,1,FIX_004
+FIX_004@Faicchio,AMB_ALS,0,Faicchio,0.0,0.0,1,FIX_004
+FIX_004@Foglianise,AMB_ALS,0,Foglianise,0.0,0.0,1,FIX_004
+FIX_004@Foiano Di Val Fortore,AMB_ALS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_004
+FIX_004@Forchia,AMB_ALS,0,Forchia,0.0,0.0,1,FIX_004
+FIX_004@Fragneto L'Abate,AMB_ALS,0,Fragneto L'Abate,0.0,0.0,1,FIX_004
+FIX_004@Fragneto Monforte,AMB_ALS,0,Fragneto Monforte,0.0,0.0,1,FIX_004
+FIX_004@Frasso Telesino,AMB_ALS,0,Frasso Telesino,0.0,0.0,1,FIX_004
+FIX_004@Ginestra Degli Schiavoni,AMB_ALS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_004
+FIX_004@Guardia Sanframondi,AMB_ALS,0,Guardia Sanframondi,0.0,0.0,1,FIX_004
+FIX_004@Limatola,AMB_ALS,0,Limatola,0.0,0.0,1,FIX_004
+FIX_004@Melizzano,AMB_ALS,0,Melizzano,0.0,0.0,1,FIX_004
+FIX_004@Moiano,AMB_ALS,0,Moiano,0.0,0.0,1,FIX_004
+FIX_004@Molinara,AMB_ALS,0,Molinara,0.0,0.0,1,FIX_004
+FIX_004@Montefalcone Di Val Fortore,AMB_ALS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_004
+FIX_004@Montesarchio,AMB_ALS,0,Montesarchio,0.0,0.0,1,FIX_004
+FIX_004@Morcone,AMB_ALS,0,Morcone,0.0,0.0,1,FIX_004
+FIX_004@Paduli,AMB_ALS,0,Paduli,0.0,0.0,1,FIX_004
+FIX_004@Pago Veiano,AMB_ALS,0,Pago Veiano,0.0,0.0,1,FIX_004
+FIX_004@Pannarano,AMB_ALS,0,Pannarano,0.0,0.0,1,FIX_004
+FIX_004@Paolisi,AMB_ALS,0,Paolisi,0.0,0.0,1,FIX_004
+FIX_004@Paupisi,AMB_ALS,0,Paupisi,0.0,0.0,1,FIX_004
+FIX_004@Pesco Sannita,AMB_ALS,0,Pesco Sannita,0.0,0.0,1,FIX_004
+FIX_004@Pietraroja,AMB_ALS,0,Pietraroja,0.0,0.0,1,FIX_004
+FIX_004@Pietrelcina,AMB_ALS,0,Pietrelcina,0.0,0.0,1,FIX_004
+FIX_004@Ponte,AMB_ALS,0,Ponte,0.0,0.0,1,FIX_004
+FIX_004@Pontelandolfo,AMB_ALS,0,Pontelandolfo,0.0,0.0,1,FIX_004
+FIX_004@Puglianello,AMB_ALS,0,Puglianello,0.0,0.0,1,FIX_004
+FIX_004@Reino,AMB_ALS,0,Reino,0.0,0.0,1,FIX_004
+FIX_004@San Bartolomeo In Galdo,AMB_ALS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_004
+FIX_004@San Giorgio Del Sannio,AMB_ALS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_004
+FIX_004@San Giorgio La Molara,AMB_ALS,0,San Giorgio La Molara,0.0,0.0,1,FIX_004
+FIX_004@San Leucio Del Sannio,AMB_ALS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_004
+FIX_004@San Lorenzello,AMB_ALS,0,San Lorenzello,0.0,0.0,1,FIX_004
+FIX_004@San Lorenzo Maggiore,AMB_ALS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_004
+FIX_004@San Lupo,AMB_ALS,0,San Lupo,0.0,0.0,1,FIX_004
+FIX_004@San Marco Dei Cavoti,AMB_ALS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_004
+FIX_004@San Martino Sannita,AMB_ALS,0,San Martino Sannita,0.0,0.0,1,FIX_004
+FIX_004@San Nazzaro,AMB_ALS,0,San Nazzaro,0.0,0.0,1,FIX_004
+FIX_004@San Nicola Manfredi,AMB_ALS,0,San Nicola Manfredi,0.0,0.0,1,FIX_004
+FIX_004@San Salvatore Telesino,AMB_ALS,0,San Salvatore Telesino,0.0,0.0,1,FIX_004
+FIX_004@Sant'Agata De' Goti,AMB_ALS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_004
+FIX_004@Sant'Angelo A Cupolo,AMB_ALS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_004
+FIX_004@Sant'Arcangelo Trimonte,AMB_ALS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_004
+FIX_004@Santa Croce Del Sannio,AMB_ALS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_004
+FIX_004@Sassinoro,AMB_ALS,0,Sassinoro,0.0,0.0,1,FIX_004
+FIX_004@Solopaca,AMB_ALS,0,Solopaca,0.0,0.0,1,FIX_004
+FIX_004@Telese Terme,AMB_ALS,0,Telese Terme,0.0,0.0,1,FIX_004
+FIX_004@Tocco Caudio,AMB_ALS,0,Tocco Caudio,0.0,0.0,1,FIX_004
+FIX_004@Torrecuso,AMB_ALS,0,Torrecuso,0.0,0.0,1,FIX_004
+FIX_004@Vitulano,AMB_ALS,0,Vitulano,0.0,0.0,1,FIX_004
+FIX_005@Airola,AMB_ILS,0,Airola,0.0,0.0,1,FIX_005
+FIX_005@Amorosi,AMB_ILS,0,Amorosi,0.0,0.0,1,FIX_005
+FIX_005@Apice,AMB_ILS,0,Apice,0.0,0.0,1,FIX_005
+FIX_005@Apollosa,AMB_ILS,0,Apollosa,0.0,0.0,1,FIX_005
+FIX_005@Arpaia,AMB_ILS,0,Arpaia,0.0,0.0,1,FIX_005
+FIX_005@Arpaise,AMB_ILS,0,Arpaise,0.0,0.0,1,FIX_005
+FIX_005@Baselice,AMB_ILS,0,Baselice,0.0,0.0,1,FIX_005
+FIX_005@Benevento,AMB_ILS,0,Benevento,0.0,0.0,1,FIX_005
+FIX_005@Bonea,AMB_ILS,0,Bonea,0.0,0.0,1,FIX_005
+FIX_005@Bucciano,AMB_ILS,0,Bucciano,0.0,0.0,1,FIX_005
+FIX_005@Buonalbergo,AMB_ILS,0,Buonalbergo,0.0,0.0,1,FIX_005
+FIX_005@Calvi,AMB_ILS,0,Calvi,0.0,0.0,1,FIX_005
+FIX_005@Campolattaro,AMB_ILS,0,Campolattaro,0.0,0.0,1,FIX_005
+FIX_005@Campoli Del Monte Taburno,AMB_ILS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_005
+FIX_005@Casalduni,AMB_ILS,0,Casalduni,0.0,0.0,1,FIX_005
+FIX_005@Castelfranco In Miscano,AMB_ILS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_005
+FIX_005@Castelpagano,AMB_ILS,0,Castelpagano,0.0,0.0,1,FIX_005
+FIX_005@Castelpoto,AMB_ILS,0,Castelpoto,0.0,0.0,1,FIX_005
+FIX_005@Castelvenere,AMB_ILS,0,Castelvenere,0.0,0.0,1,FIX_005
+FIX_005@Castelvetere In Val Fortore,AMB_ILS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_005
+FIX_005@Cautano,AMB_ILS,0,Cautano,0.0,0.0,1,FIX_005
+FIX_005@Ceppaloni,AMB_ILS,0,Ceppaloni,0.0,0.0,1,FIX_005
+FIX_005@Cerreto Sannita,AMB_ILS,0,Cerreto Sannita,0.0,0.0,1,FIX_005
+FIX_005@Circello,AMB_ILS,0,Circello,0.0,0.0,1,FIX_005
+FIX_005@Colle Sannita,AMB_ILS,0,Colle Sannita,0.0,0.0,1,FIX_005
+FIX_005@Cusano Mutri,AMB_ILS,0,Cusano Mutri,0.0,0.0,1,FIX_005
+FIX_005@Dugenta,AMB_ILS,0,Dugenta,0.0,0.0,1,FIX_005
+FIX_005@Durazzano,AMB_ILS,0,Durazzano,0.0,0.0,1,FIX_005
+FIX_005@Faicchio,AMB_ILS,0,Faicchio,0.0,0.0,1,FIX_005
+FIX_005@Foglianise,AMB_ILS,0,Foglianise,0.0,0.0,1,FIX_005
+FIX_005@Foiano Di Val Fortore,AMB_ILS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_005
+FIX_005@Forchia,AMB_ILS,0,Forchia,0.0,0.0,1,FIX_005
+FIX_005@Fragneto L'Abate,AMB_ILS,0,Fragneto L'Abate,0.0,0.0,1,FIX_005
+FIX_005@Fragneto Monforte,AMB_ILS,0,Fragneto Monforte,0.0,0.0,1,FIX_005
+FIX_005@Frasso Telesino,AMB_ILS,0,Frasso Telesino,0.0,0.0,1,FIX_005
+FIX_005@Ginestra Degli Schiavoni,AMB_ILS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_005
+FIX_005@Guardia Sanframondi,AMB_ILS,0,Guardia Sanframondi,0.0,0.0,1,FIX_005
+FIX_005@Limatola,AMB_ILS,0,Limatola,0.0,0.0,1,FIX_005
+FIX_005@Melizzano,AMB_ILS,0,Melizzano,0.0,0.0,1,FIX_005
+FIX_005@Moiano,AMB_ILS,0,Moiano,0.0,0.0,1,FIX_005
+FIX_005@Molinara,AMB_ILS,0,Molinara,0.0,0.0,1,FIX_005
+FIX_005@Montefalcone Di Val Fortore,AMB_ILS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_005
+FIX_005@Montesarchio,AMB_ILS,0,Montesarchio,0.0,0.0,1,FIX_005
+FIX_005@Morcone,AMB_ILS,0,Morcone,0.0,0.0,1,FIX_005
+FIX_005@Paduli,AMB_ILS,0,Paduli,0.0,0.0,1,FIX_005
+FIX_005@Pago Veiano,AMB_ILS,0,Pago Veiano,0.0,0.0,1,FIX_005
+FIX_005@Pannarano,AMB_ILS,0,Pannarano,0.0,0.0,1,FIX_005
+FIX_005@Paolisi,AMB_ILS,0,Paolisi,0.0,0.0,1,FIX_005
+FIX_005@Paupisi,AMB_ILS,0,Paupisi,0.0,0.0,1,FIX_005
+FIX_005@Pesco Sannita,AMB_ILS,0,Pesco Sannita,0.0,0.0,1,FIX_005
+FIX_005@Pietraroja,AMB_ILS,0,Pietraroja,0.0,0.0,1,FIX_005
+FIX_005@Pietrelcina,AMB_ILS,0,Pietrelcina,0.0,0.0,1,FIX_005
+FIX_005@Ponte,AMB_ILS,0,Ponte,0.0,0.0,1,FIX_005
+FIX_005@Pontelandolfo,AMB_ILS,0,Pontelandolfo,0.0,0.0,1,FIX_005
+FIX_005@Puglianello,AMB_ILS,0,Puglianello,0.0,0.0,1,FIX_005
+FIX_005@Reino,AMB_ILS,0,Reino,0.0,0.0,1,FIX_005
+FIX_005@San Bartolomeo In Galdo,AMB_ILS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_005
+FIX_005@San Giorgio Del Sannio,AMB_ILS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_005
+FIX_005@San Giorgio La Molara,AMB_ILS,0,San Giorgio La Molara,0.0,0.0,1,FIX_005
+FIX_005@San Leucio Del Sannio,AMB_ILS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_005
+FIX_005@San Lorenzello,AMB_ILS,0,San Lorenzello,0.0,0.0,1,FIX_005
+FIX_005@San Lorenzo Maggiore,AMB_ILS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_005
+FIX_005@San Lupo,AMB_ILS,0,San Lupo,0.0,0.0,1,FIX_005
+FIX_005@San Marco Dei Cavoti,AMB_ILS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_005
+FIX_005@San Martino Sannita,AMB_ILS,0,San Martino Sannita,0.0,0.0,1,FIX_005
+FIX_005@San Nazzaro,AMB_ILS,0,San Nazzaro,0.0,0.0,1,FIX_005
+FIX_005@San Nicola Manfredi,AMB_ILS,0,San Nicola Manfredi,0.0,0.0,1,FIX_005
+FIX_005@San Salvatore Telesino,AMB_ILS,0,San Salvatore Telesino,0.0,0.0,1,FIX_005
+FIX_005@Sant'Agata De' Goti,AMB_ILS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_005
+FIX_005@Sant'Angelo A Cupolo,AMB_ILS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_005
+FIX_005@Sant'Arcangelo Trimonte,AMB_ILS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_005
+FIX_005@Santa Croce Del Sannio,AMB_ILS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_005
+FIX_005@Sassinoro,AMB_ILS,0,Sassinoro,0.0,0.0,1,FIX_005
+FIX_005@Solopaca,AMB_ILS,0,Solopaca,0.0,0.0,1,FIX_005
+FIX_005@Telese Terme,AMB_ILS,0,Telese Terme,0.0,0.0,1,FIX_005
+FIX_005@Tocco Caudio,AMB_ILS,0,Tocco Caudio,0.0,0.0,1,FIX_005
+FIX_005@Torrecuso,AMB_ILS,0,Torrecuso,0.0,0.0,1,FIX_005
+FIX_005@Vitulano,AMB_ILS,0,Vitulano,0.0,0.0,1,FIX_005
+FIX_006@Airola,AMB_ILS,0,Airola,0.0,0.0,1,FIX_006
+FIX_006@Amorosi,AMB_ILS,0,Amorosi,0.0,0.0,1,FIX_006
+FIX_006@Apice,AMB_ILS,0,Apice,0.0,0.0,1,FIX_006
+FIX_006@Apollosa,AMB_ILS,0,Apollosa,0.0,0.0,1,FIX_006
+FIX_006@Arpaia,AMB_ILS,0,Arpaia,0.0,0.0,1,FIX_006
+FIX_006@Arpaise,AMB_ILS,0,Arpaise,0.0,0.0,1,FIX_006
+FIX_006@Baselice,AMB_ILS,0,Baselice,0.0,0.0,1,FIX_006
+FIX_006@Benevento,AMB_ILS,0,Benevento,0.0,0.0,1,FIX_006
+FIX_006@Bonea,AMB_ILS,0,Bonea,0.0,0.0,1,FIX_006
+FIX_006@Bucciano,AMB_ILS,0,Bucciano,0.0,0.0,1,FIX_006
+FIX_006@Buonalbergo,AMB_ILS,0,Buonalbergo,0.0,0.0,1,FIX_006
+FIX_006@Calvi,AMB_ILS,0,Calvi,0.0,0.0,1,FIX_006
+FIX_006@Campolattaro,AMB_ILS,0,Campolattaro,0.0,0.0,1,FIX_006
+FIX_006@Campoli Del Monte Taburno,AMB_ILS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_006
+FIX_006@Casalduni,AMB_ILS,0,Casalduni,0.0,0.0,1,FIX_006
+FIX_006@Castelfranco In Miscano,AMB_ILS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_006
+FIX_006@Castelpagano,AMB_ILS,0,Castelpagano,0.0,0.0,1,FIX_006
+FIX_006@Castelpoto,AMB_ILS,0,Castelpoto,0.0,0.0,1,FIX_006
+FIX_006@Castelvenere,AMB_ILS,0,Castelvenere,0.0,0.0,1,FIX_006
+FIX_006@Castelvetere In Val Fortore,AMB_ILS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_006
+FIX_006@Cautano,AMB_ILS,0,Cautano,0.0,0.0,1,FIX_006
+FIX_006@Ceppaloni,AMB_ILS,0,Ceppaloni,0.0,0.0,1,FIX_006
+FIX_006@Cerreto Sannita,AMB_ILS,0,Cerreto Sannita,0.0,0.0,1,FIX_006
+FIX_006@Circello,AMB_ILS,0,Circello,0.0,0.0,1,FIX_006
+FIX_006@Colle Sannita,AMB_ILS,0,Colle Sannita,0.0,0.0,1,FIX_006
+FIX_006@Cusano Mutri,AMB_ILS,0,Cusano Mutri,0.0,0.0,1,FIX_006
+FIX_006@Dugenta,AMB_ILS,0,Dugenta,0.0,0.0,1,FIX_006
+FIX_006@Durazzano,AMB_ILS,0,Durazzano,0.0,0.0,1,FIX_006
+FIX_006@Faicchio,AMB_ILS,0,Faicchio,0.0,0.0,1,FIX_006
+FIX_006@Foglianise,AMB_ILS,0,Foglianise,0.0,0.0,1,FIX_006
+FIX_006@Foiano Di Val Fortore,AMB_ILS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_006
+FIX_006@Forchia,AMB_ILS,0,Forchia,0.0,0.0,1,FIX_006
+FIX_006@Fragneto L'Abate,AMB_ILS,0,Fragneto L'Abate,0.0,0.0,1,FIX_006
+FIX_006@Fragneto Monforte,AMB_ILS,0,Fragneto Monforte,0.0,0.0,1,FIX_006
+FIX_006@Frasso Telesino,AMB_ILS,0,Frasso Telesino,0.0,0.0,1,FIX_006
+FIX_006@Ginestra Degli Schiavoni,AMB_ILS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_006
+FIX_006@Guardia Sanframondi,AMB_ILS,0,Guardia Sanframondi,0.0,0.0,1,FIX_006
+FIX_006@Limatola,AMB_ILS,0,Limatola,0.0,0.0,1,FIX_006
+FIX_006@Melizzano,AMB_ILS,0,Melizzano,0.0,0.0,1,FIX_006
+FIX_006@Moiano,AMB_ILS,0,Moiano,0.0,0.0,1,FIX_006
+FIX_006@Molinara,AMB_ILS,0,Molinara,0.0,0.0,1,FIX_006
+FIX_006@Montefalcone Di Val Fortore,AMB_ILS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_006
+FIX_006@Montesarchio,AMB_ILS,0,Montesarchio,0.0,0.0,1,FIX_006
+FIX_006@Morcone,AMB_ILS,0,Morcone,0.0,0.0,1,FIX_006
+FIX_006@Paduli,AMB_ILS,0,Paduli,0.0,0.0,1,FIX_006
+FIX_006@Pago Veiano,AMB_ILS,0,Pago Veiano,0.0,0.0,1,FIX_006
+FIX_006@Pannarano,AMB_ILS,0,Pannarano,0.0,0.0,1,FIX_006
+FIX_006@Paolisi,AMB_ILS,0,Paolisi,0.0,0.0,1,FIX_006
+FIX_006@Paupisi,AMB_ILS,0,Paupisi,0.0,0.0,1,FIX_006
+FIX_006@Pesco Sannita,AMB_ILS,0,Pesco Sannita,0.0,0.0,1,FIX_006
+FIX_006@Pietraroja,AMB_ILS,0,Pietraroja,0.0,0.0,1,FIX_006
+FIX_006@Pietrelcina,AMB_ILS,0,Pietrelcina,0.0,0.0,1,FIX_006
+FIX_006@Ponte,AMB_ILS,0,Ponte,0.0,0.0,1,FIX_006
+FIX_006@Pontelandolfo,AMB_ILS,0,Pontelandolfo,0.0,0.0,1,FIX_006
+FIX_006@Puglianello,AMB_ILS,0,Puglianello,0.0,0.0,1,FIX_006
+FIX_006@Reino,AMB_ILS,0,Reino,0.0,0.0,1,FIX_006
+FIX_006@San Bartolomeo In Galdo,AMB_ILS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_006
+FIX_006@San Giorgio Del Sannio,AMB_ILS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_006
+FIX_006@San Giorgio La Molara,AMB_ILS,0,San Giorgio La Molara,0.0,0.0,1,FIX_006
+FIX_006@San Leucio Del Sannio,AMB_ILS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_006
+FIX_006@San Lorenzello,AMB_ILS,0,San Lorenzello,0.0,0.0,1,FIX_006
+FIX_006@San Lorenzo Maggiore,AMB_ILS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_006
+FIX_006@San Lupo,AMB_ILS,0,San Lupo,0.0,0.0,1,FIX_006
+FIX_006@San Marco Dei Cavoti,AMB_ILS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_006
+FIX_006@San Martino Sannita,AMB_ILS,0,San Martino Sannita,0.0,0.0,1,FIX_006
+FIX_006@San Nazzaro,AMB_ILS,0,San Nazzaro,0.0,0.0,1,FIX_006
+FIX_006@San Nicola Manfredi,AMB_ILS,0,San Nicola Manfredi,0.0,0.0,1,FIX_006
+FIX_006@San Salvatore Telesino,AMB_ILS,0,San Salvatore Telesino,0.0,0.0,1,FIX_006
+FIX_006@Sant'Agata De' Goti,AMB_ILS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_006
+FIX_006@Sant'Angelo A Cupolo,AMB_ILS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_006
+FIX_006@Sant'Arcangelo Trimonte,AMB_ILS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_006
+FIX_006@Santa Croce Del Sannio,AMB_ILS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_006
+FIX_006@Sassinoro,AMB_ILS,0,Sassinoro,0.0,0.0,1,FIX_006
+FIX_006@Solopaca,AMB_ILS,0,Solopaca,0.0,0.0,1,FIX_006
+FIX_006@Telese Terme,AMB_ILS,0,Telese Terme,0.0,0.0,1,FIX_006
+FIX_006@Tocco Caudio,AMB_ILS,0,Tocco Caudio,0.0,0.0,1,FIX_006
+FIX_006@Torrecuso,AMB_ILS,0,Torrecuso,0.0,0.0,1,FIX_006
+FIX_006@Vitulano,AMB_ILS,0,Vitulano,0.0,0.0,1,FIX_006
+FIX_007@Airola,AMB_ILS,0,Airola,0.0,0.0,1,FIX_007
+FIX_007@Amorosi,AMB_ILS,0,Amorosi,0.0,0.0,1,FIX_007
+FIX_007@Apice,AMB_ILS,0,Apice,0.0,0.0,1,FIX_007
+FIX_007@Apollosa,AMB_ILS,0,Apollosa,0.0,0.0,1,FIX_007
+FIX_007@Arpaia,AMB_ILS,0,Arpaia,0.0,0.0,1,FIX_007
+FIX_007@Arpaise,AMB_ILS,0,Arpaise,0.0,0.0,1,FIX_007
+FIX_007@Baselice,AMB_ILS,0,Baselice,0.0,0.0,1,FIX_007
+FIX_007@Benevento,AMB_ILS,0,Benevento,0.0,0.0,1,FIX_007
+FIX_007@Bonea,AMB_ILS,0,Bonea,0.0,0.0,1,FIX_007
+FIX_007@Bucciano,AMB_ILS,0,Bucciano,0.0,0.0,1,FIX_007
+FIX_007@Buonalbergo,AMB_ILS,0,Buonalbergo,0.0,0.0,1,FIX_007
+FIX_007@Calvi,AMB_ILS,0,Calvi,0.0,0.0,1,FIX_007
+FIX_007@Campolattaro,AMB_ILS,0,Campolattaro,0.0,0.0,1,FIX_007
+FIX_007@Campoli Del Monte Taburno,AMB_ILS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_007
+FIX_007@Casalduni,AMB_ILS,0,Casalduni,0.0,0.0,1,FIX_007
+FIX_007@Castelfranco In Miscano,AMB_ILS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_007
+FIX_007@Castelpagano,AMB_ILS,0,Castelpagano,0.0,0.0,1,FIX_007
+FIX_007@Castelpoto,AMB_ILS,0,Castelpoto,0.0,0.0,1,FIX_007
+FIX_007@Castelvenere,AMB_ILS,0,Castelvenere,0.0,0.0,1,FIX_007
+FIX_007@Castelvetere In Val Fortore,AMB_ILS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_007
+FIX_007@Cautano,AMB_ILS,0,Cautano,0.0,0.0,1,FIX_007
+FIX_007@Ceppaloni,AMB_ILS,0,Ceppaloni,0.0,0.0,1,FIX_007
+FIX_007@Cerreto Sannita,AMB_ILS,0,Cerreto Sannita,0.0,0.0,1,FIX_007
+FIX_007@Circello,AMB_ILS,0,Circello,0.0,0.0,1,FIX_007
+FIX_007@Colle Sannita,AMB_ILS,0,Colle Sannita,0.0,0.0,1,FIX_007
+FIX_007@Cusano Mutri,AMB_ILS,0,Cusano Mutri,0.0,0.0,1,FIX_007
+FIX_007@Dugenta,AMB_ILS,0,Dugenta,0.0,0.0,1,FIX_007
+FIX_007@Durazzano,AMB_ILS,0,Durazzano,0.0,0.0,1,FIX_007
+FIX_007@Faicchio,AMB_ILS,0,Faicchio,0.0,0.0,1,FIX_007
+FIX_007@Foglianise,AMB_ILS,0,Foglianise,0.0,0.0,1,FIX_007
+FIX_007@Foiano Di Val Fortore,AMB_ILS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_007
+FIX_007@Forchia,AMB_ILS,0,Forchia,0.0,0.0,1,FIX_007
+FIX_007@Fragneto L'Abate,AMB_ILS,0,Fragneto L'Abate,0.0,0.0,1,FIX_007
+FIX_007@Fragneto Monforte,AMB_ILS,0,Fragneto Monforte,0.0,0.0,1,FIX_007
+FIX_007@Frasso Telesino,AMB_ILS,0,Frasso Telesino,0.0,0.0,1,FIX_007
+FIX_007@Ginestra Degli Schiavoni,AMB_ILS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_007
+FIX_007@Guardia Sanframondi,AMB_ILS,0,Guardia Sanframondi,0.0,0.0,1,FIX_007
+FIX_007@Limatola,AMB_ILS,0,Limatola,0.0,0.0,1,FIX_007
+FIX_007@Melizzano,AMB_ILS,0,Melizzano,0.0,0.0,1,FIX_007
+FIX_007@Moiano,AMB_ILS,0,Moiano,0.0,0.0,1,FIX_007
+FIX_007@Molinara,AMB_ILS,0,Molinara,0.0,0.0,1,FIX_007
+FIX_007@Montefalcone Di Val Fortore,AMB_ILS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_007
+FIX_007@Montesarchio,AMB_ILS,0,Montesarchio,0.0,0.0,1,FIX_007
+FIX_007@Morcone,AMB_ILS,0,Morcone,0.0,0.0,1,FIX_007
+FIX_007@Paduli,AMB_ILS,0,Paduli,0.0,0.0,1,FIX_007
+FIX_007@Pago Veiano,AMB_ILS,0,Pago Veiano,0.0,0.0,1,FIX_007
+FIX_007@Pannarano,AMB_ILS,0,Pannarano,0.0,0.0,1,FIX_007
+FIX_007@Paolisi,AMB_ILS,0,Paolisi,0.0,0.0,1,FIX_007
+FIX_007@Paupisi,AMB_ILS,0,Paupisi,0.0,0.0,1,FIX_007
+FIX_007@Pesco Sannita,AMB_ILS,0,Pesco Sannita,0.0,0.0,1,FIX_007
+FIX_007@Pietraroja,AMB_ILS,0,Pietraroja,0.0,0.0,1,FIX_007
+FIX_007@Pietrelcina,AMB_ILS,0,Pietrelcina,0.0,0.0,1,FIX_007
+FIX_007@Ponte,AMB_ILS,0,Ponte,0.0,0.0,1,FIX_007
+FIX_007@Pontelandolfo,AMB_ILS,0,Pontelandolfo,0.0,0.0,1,FIX_007
+FIX_007@Puglianello,AMB_ILS,0,Puglianello,0.0,0.0,1,FIX_007
+FIX_007@Reino,AMB_ILS,0,Reino,0.0,0.0,1,FIX_007
+FIX_007@San Bartolomeo In Galdo,AMB_ILS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_007
+FIX_007@San Giorgio Del Sannio,AMB_ILS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_007
+FIX_007@San Giorgio La Molara,AMB_ILS,0,San Giorgio La Molara,0.0,0.0,1,FIX_007
+FIX_007@San Leucio Del Sannio,AMB_ILS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_007
+FIX_007@San Lorenzello,AMB_ILS,0,San Lorenzello,0.0,0.0,1,FIX_007
+FIX_007@San Lorenzo Maggiore,AMB_ILS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_007
+FIX_007@San Lupo,AMB_ILS,0,San Lupo,0.0,0.0,1,FIX_007
+FIX_007@San Marco Dei Cavoti,AMB_ILS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_007
+FIX_007@San Martino Sannita,AMB_ILS,0,San Martino Sannita,0.0,0.0,1,FIX_007
+FIX_007@San Nazzaro,AMB_ILS,0,San Nazzaro,0.0,0.0,1,FIX_007
+FIX_007@San Nicola Manfredi,AMB_ILS,0,San Nicola Manfredi,0.0,0.0,1,FIX_007
+FIX_007@San Salvatore Telesino,AMB_ILS,0,San Salvatore Telesino,0.0,0.0,1,FIX_007
+FIX_007@Sant'Agata De' Goti,AMB_ILS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_007
+FIX_007@Sant'Angelo A Cupolo,AMB_ILS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_007
+FIX_007@Sant'Arcangelo Trimonte,AMB_ILS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_007
+FIX_007@Santa Croce Del Sannio,AMB_ILS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_007
+FIX_007@Sassinoro,AMB_ILS,0,Sassinoro,0.0,0.0,1,FIX_007
+FIX_007@Solopaca,AMB_ILS,0,Solopaca,0.0,0.0,1,FIX_007
+FIX_007@Telese Terme,AMB_ILS,0,Telese Terme,0.0,0.0,1,FIX_007
+FIX_007@Tocco Caudio,AMB_ILS,0,Tocco Caudio,0.0,0.0,1,FIX_007
+FIX_007@Torrecuso,AMB_ILS,0,Torrecuso,0.0,0.0,1,FIX_007
+FIX_007@Vitulano,AMB_ILS,0,Vitulano,0.0,0.0,1,FIX_007
+FIX_008@Airola,AMB_ILS,0,Airola,0.0,0.0,1,FIX_008
+FIX_008@Amorosi,AMB_ILS,0,Amorosi,0.0,0.0,1,FIX_008
+FIX_008@Apice,AMB_ILS,0,Apice,0.0,0.0,1,FIX_008
+FIX_008@Apollosa,AMB_ILS,0,Apollosa,0.0,0.0,1,FIX_008
+FIX_008@Arpaia,AMB_ILS,0,Arpaia,0.0,0.0,1,FIX_008
+FIX_008@Arpaise,AMB_ILS,0,Arpaise,0.0,0.0,1,FIX_008
+FIX_008@Baselice,AMB_ILS,0,Baselice,0.0,0.0,1,FIX_008
+FIX_008@Benevento,AMB_ILS,0,Benevento,0.0,0.0,1,FIX_008
+FIX_008@Bonea,AMB_ILS,0,Bonea,0.0,0.0,1,FIX_008
+FIX_008@Bucciano,AMB_ILS,0,Bucciano,0.0,0.0,1,FIX_008
+FIX_008@Buonalbergo,AMB_ILS,0,Buonalbergo,0.0,0.0,1,FIX_008
+FIX_008@Calvi,AMB_ILS,0,Calvi,0.0,0.0,1,FIX_008
+FIX_008@Campolattaro,AMB_ILS,0,Campolattaro,0.0,0.0,1,FIX_008
+FIX_008@Campoli Del Monte Taburno,AMB_ILS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_008
+FIX_008@Casalduni,AMB_ILS,0,Casalduni,0.0,0.0,1,FIX_008
+FIX_008@Castelfranco In Miscano,AMB_ILS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_008
+FIX_008@Castelpagano,AMB_ILS,0,Castelpagano,0.0,0.0,1,FIX_008
+FIX_008@Castelpoto,AMB_ILS,0,Castelpoto,0.0,0.0,1,FIX_008
+FIX_008@Castelvenere,AMB_ILS,0,Castelvenere,0.0,0.0,1,FIX_008
+FIX_008@Castelvetere In Val Fortore,AMB_ILS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_008
+FIX_008@Cautano,AMB_ILS,0,Cautano,0.0,0.0,1,FIX_008
+FIX_008@Ceppaloni,AMB_ILS,0,Ceppaloni,0.0,0.0,1,FIX_008
+FIX_008@Cerreto Sannita,AMB_ILS,0,Cerreto Sannita,0.0,0.0,1,FIX_008
+FIX_008@Circello,AMB_ILS,0,Circello,0.0,0.0,1,FIX_008
+FIX_008@Colle Sannita,AMB_ILS,0,Colle Sannita,0.0,0.0,1,FIX_008
+FIX_008@Cusano Mutri,AMB_ILS,0,Cusano Mutri,0.0,0.0,1,FIX_008
+FIX_008@Dugenta,AMB_ILS,0,Dugenta,0.0,0.0,1,FIX_008
+FIX_008@Durazzano,AMB_ILS,0,Durazzano,0.0,0.0,1,FIX_008
+FIX_008@Faicchio,AMB_ILS,0,Faicchio,0.0,0.0,1,FIX_008
+FIX_008@Foglianise,AMB_ILS,0,Foglianise,0.0,0.0,1,FIX_008
+FIX_008@Foiano Di Val Fortore,AMB_ILS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_008
+FIX_008@Forchia,AMB_ILS,0,Forchia,0.0,0.0,1,FIX_008
+FIX_008@Fragneto L'Abate,AMB_ILS,0,Fragneto L'Abate,0.0,0.0,1,FIX_008
+FIX_008@Fragneto Monforte,AMB_ILS,0,Fragneto Monforte,0.0,0.0,1,FIX_008
+FIX_008@Frasso Telesino,AMB_ILS,0,Frasso Telesino,0.0,0.0,1,FIX_008
+FIX_008@Ginestra Degli Schiavoni,AMB_ILS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_008
+FIX_008@Guardia Sanframondi,AMB_ILS,0,Guardia Sanframondi,0.0,0.0,1,FIX_008
+FIX_008@Limatola,AMB_ILS,0,Limatola,0.0,0.0,1,FIX_008
+FIX_008@Melizzano,AMB_ILS,0,Melizzano,0.0,0.0,1,FIX_008
+FIX_008@Moiano,AMB_ILS,0,Moiano,0.0,0.0,1,FIX_008
+FIX_008@Molinara,AMB_ILS,0,Molinara,0.0,0.0,1,FIX_008
+FIX_008@Montefalcone Di Val Fortore,AMB_ILS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_008
+FIX_008@Montesarchio,AMB_ILS,0,Montesarchio,0.0,0.0,1,FIX_008
+FIX_008@Morcone,AMB_ILS,0,Morcone,0.0,0.0,1,FIX_008
+FIX_008@Paduli,AMB_ILS,0,Paduli,0.0,0.0,1,FIX_008
+FIX_008@Pago Veiano,AMB_ILS,0,Pago Veiano,0.0,0.0,1,FIX_008
+FIX_008@Pannarano,AMB_ILS,0,Pannarano,0.0,0.0,1,FIX_008
+FIX_008@Paolisi,AMB_ILS,0,Paolisi,0.0,0.0,1,FIX_008
+FIX_008@Paupisi,AMB_ILS,0,Paupisi,0.0,0.0,1,FIX_008
+FIX_008@Pesco Sannita,AMB_ILS,0,Pesco Sannita,0.0,0.0,1,FIX_008
+FIX_008@Pietraroja,AMB_ILS,0,Pietraroja,0.0,0.0,1,FIX_008
+FIX_008@Pietrelcina,AMB_ILS,0,Pietrelcina,0.0,0.0,1,FIX_008
+FIX_008@Ponte,AMB_ILS,0,Ponte,0.0,0.0,1,FIX_008
+FIX_008@Pontelandolfo,AMB_ILS,0,Pontelandolfo,0.0,0.0,1,FIX_008
+FIX_008@Puglianello,AMB_ILS,0,Puglianello,0.0,0.0,1,FIX_008
+FIX_008@Reino,AMB_ILS,0,Reino,0.0,0.0,1,FIX_008
+FIX_008@San Bartolomeo In Galdo,AMB_ILS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_008
+FIX_008@San Giorgio Del Sannio,AMB_ILS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_008
+FIX_008@San Giorgio La Molara,AMB_ILS,0,San Giorgio La Molara,0.0,0.0,1,FIX_008
+FIX_008@San Leucio Del Sannio,AMB_ILS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_008
+FIX_008@San Lorenzello,AMB_ILS,0,San Lorenzello,0.0,0.0,1,FIX_008
+FIX_008@San Lorenzo Maggiore,AMB_ILS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_008
+FIX_008@San Lupo,AMB_ILS,0,San Lupo,0.0,0.0,1,FIX_008
+FIX_008@San Marco Dei Cavoti,AMB_ILS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_008
+FIX_008@San Martino Sannita,AMB_ILS,0,San Martino Sannita,0.0,0.0,1,FIX_008
+FIX_008@San Nazzaro,AMB_ILS,0,San Nazzaro,0.0,0.0,1,FIX_008
+FIX_008@San Nicola Manfredi,AMB_ILS,0,San Nicola Manfredi,0.0,0.0,1,FIX_008
+FIX_008@San Salvatore Telesino,AMB_ILS,0,San Salvatore Telesino,0.0,0.0,1,FIX_008
+FIX_008@Sant'Agata De' Goti,AMB_ILS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_008
+FIX_008@Sant'Angelo A Cupolo,AMB_ILS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_008
+FIX_008@Sant'Arcangelo Trimonte,AMB_ILS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_008
+FIX_008@Santa Croce Del Sannio,AMB_ILS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_008
+FIX_008@Sassinoro,AMB_ILS,0,Sassinoro,0.0,0.0,1,FIX_008
+FIX_008@Solopaca,AMB_ILS,0,Solopaca,0.0,0.0,1,FIX_008
+FIX_008@Telese Terme,AMB_ILS,0,Telese Terme,0.0,0.0,1,FIX_008
+FIX_008@Tocco Caudio,AMB_ILS,0,Tocco Caudio,0.0,0.0,1,FIX_008
+FIX_008@Torrecuso,AMB_ILS,0,Torrecuso,0.0,0.0,1,FIX_008
+FIX_008@Vitulano,AMB_ILS,0,Vitulano,0.0,0.0,1,FIX_008
+FIX_009@Airola,AMB_ILS,0,Airola,0.0,0.0,1,FIX_009
+FIX_009@Amorosi,AMB_ILS,0,Amorosi,0.0,0.0,1,FIX_009
+FIX_009@Apice,AMB_ILS,0,Apice,0.0,0.0,1,FIX_009
+FIX_009@Apollosa,AMB_ILS,0,Apollosa,0.0,0.0,1,FIX_009
+FIX_009@Arpaia,AMB_ILS,0,Arpaia,0.0,0.0,1,FIX_009
+FIX_009@Arpaise,AMB_ILS,0,Arpaise,0.0,0.0,1,FIX_009
+FIX_009@Baselice,AMB_ILS,0,Baselice,0.0,0.0,1,FIX_009
+FIX_009@Benevento,AMB_ILS,0,Benevento,0.0,0.0,1,FIX_009
+FIX_009@Bonea,AMB_ILS,0,Bonea,0.0,0.0,1,FIX_009
+FIX_009@Bucciano,AMB_ILS,0,Bucciano,0.0,0.0,1,FIX_009
+FIX_009@Buonalbergo,AMB_ILS,0,Buonalbergo,0.0,0.0,1,FIX_009
+FIX_009@Calvi,AMB_ILS,0,Calvi,0.0,0.0,1,FIX_009
+FIX_009@Campolattaro,AMB_ILS,0,Campolattaro,0.0,0.0,1,FIX_009
+FIX_009@Campoli Del Monte Taburno,AMB_ILS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_009
+FIX_009@Casalduni,AMB_ILS,0,Casalduni,0.0,0.0,1,FIX_009
+FIX_009@Castelfranco In Miscano,AMB_ILS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_009
+FIX_009@Castelpagano,AMB_ILS,0,Castelpagano,0.0,0.0,1,FIX_009
+FIX_009@Castelpoto,AMB_ILS,0,Castelpoto,0.0,0.0,1,FIX_009
+FIX_009@Castelvenere,AMB_ILS,0,Castelvenere,0.0,0.0,1,FIX_009
+FIX_009@Castelvetere In Val Fortore,AMB_ILS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_009
+FIX_009@Cautano,AMB_ILS,0,Cautano,0.0,0.0,1,FIX_009
+FIX_009@Ceppaloni,AMB_ILS,0,Ceppaloni,0.0,0.0,1,FIX_009
+FIX_009@Cerreto Sannita,AMB_ILS,0,Cerreto Sannita,0.0,0.0,1,FIX_009
+FIX_009@Circello,AMB_ILS,0,Circello,0.0,0.0,1,FIX_009
+FIX_009@Colle Sannita,AMB_ILS,0,Colle Sannita,0.0,0.0,1,FIX_009
+FIX_009@Cusano Mutri,AMB_ILS,0,Cusano Mutri,0.0,0.0,1,FIX_009
+FIX_009@Dugenta,AMB_ILS,0,Dugenta,0.0,0.0,1,FIX_009
+FIX_009@Durazzano,AMB_ILS,0,Durazzano,0.0,0.0,1,FIX_009
+FIX_009@Faicchio,AMB_ILS,0,Faicchio,0.0,0.0,1,FIX_009
+FIX_009@Foglianise,AMB_ILS,0,Foglianise,0.0,0.0,1,FIX_009
+FIX_009@Foiano Di Val Fortore,AMB_ILS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_009
+FIX_009@Forchia,AMB_ILS,0,Forchia,0.0,0.0,1,FIX_009
+FIX_009@Fragneto L'Abate,AMB_ILS,0,Fragneto L'Abate,0.0,0.0,1,FIX_009
+FIX_009@Fragneto Monforte,AMB_ILS,0,Fragneto Monforte,0.0,0.0,1,FIX_009
+FIX_009@Frasso Telesino,AMB_ILS,0,Frasso Telesino,0.0,0.0,1,FIX_009
+FIX_009@Ginestra Degli Schiavoni,AMB_ILS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_009
+FIX_009@Guardia Sanframondi,AMB_ILS,0,Guardia Sanframondi,0.0,0.0,1,FIX_009
+FIX_009@Limatola,AMB_ILS,0,Limatola,0.0,0.0,1,FIX_009
+FIX_009@Melizzano,AMB_ILS,0,Melizzano,0.0,0.0,1,FIX_009
+FIX_009@Moiano,AMB_ILS,0,Moiano,0.0,0.0,1,FIX_009
+FIX_009@Molinara,AMB_ILS,0,Molinara,0.0,0.0,1,FIX_009
+FIX_009@Montefalcone Di Val Fortore,AMB_ILS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_009
+FIX_009@Montesarchio,AMB_ILS,0,Montesarchio,0.0,0.0,1,FIX_009
+FIX_009@Morcone,AMB_ILS,0,Morcone,0.0,0.0,1,FIX_009
+FIX_009@Paduli,AMB_ILS,0,Paduli,0.0,0.0,1,FIX_009
+FIX_009@Pago Veiano,AMB_ILS,0,Pago Veiano,0.0,0.0,1,FIX_009
+FIX_009@Pannarano,AMB_ILS,0,Pannarano,0.0,0.0,1,FIX_009
+FIX_009@Paolisi,AMB_ILS,0,Paolisi,0.0,0.0,1,FIX_009
+FIX_009@Paupisi,AMB_ILS,0,Paupisi,0.0,0.0,1,FIX_009
+FIX_009@Pesco Sannita,AMB_ILS,0,Pesco Sannita,0.0,0.0,1,FIX_009
+FIX_009@Pietraroja,AMB_ILS,0,Pietraroja,0.0,0.0,1,FIX_009
+FIX_009@Pietrelcina,AMB_ILS,0,Pietrelcina,0.0,0.0,1,FIX_009
+FIX_009@Ponte,AMB_ILS,0,Ponte,0.0,0.0,1,FIX_009
+FIX_009@Pontelandolfo,AMB_ILS,0,Pontelandolfo,0.0,0.0,1,FIX_009
+FIX_009@Puglianello,AMB_ILS,0,Puglianello,0.0,0.0,1,FIX_009
+FIX_009@Reino,AMB_ILS,0,Reino,0.0,0.0,1,FIX_009
+FIX_009@San Bartolomeo In Galdo,AMB_ILS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_009
+FIX_009@San Giorgio Del Sannio,AMB_ILS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_009
+FIX_009@San Giorgio La Molara,AMB_ILS,0,San Giorgio La Molara,0.0,0.0,1,FIX_009
+FIX_009@San Leucio Del Sannio,AMB_ILS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_009
+FIX_009@San Lorenzello,AMB_ILS,0,San Lorenzello,0.0,0.0,1,FIX_009
+FIX_009@San Lorenzo Maggiore,AMB_ILS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_009
+FIX_009@San Lupo,AMB_ILS,0,San Lupo,0.0,0.0,1,FIX_009
+FIX_009@San Marco Dei Cavoti,AMB_ILS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_009
+FIX_009@San Martino Sannita,AMB_ILS,0,San Martino Sannita,0.0,0.0,1,FIX_009
+FIX_009@San Nazzaro,AMB_ILS,0,San Nazzaro,0.0,0.0,1,FIX_009
+FIX_009@San Nicola Manfredi,AMB_ILS,0,San Nicola Manfredi,0.0,0.0,1,FIX_009
+FIX_009@San Salvatore Telesino,AMB_ILS,0,San Salvatore Telesino,0.0,0.0,1,FIX_009
+FIX_009@Sant'Agata De' Goti,AMB_ILS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_009
+FIX_009@Sant'Angelo A Cupolo,AMB_ILS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_009
+FIX_009@Sant'Arcangelo Trimonte,AMB_ILS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_009
+FIX_009@Santa Croce Del Sannio,AMB_ILS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_009
+FIX_009@Sassinoro,AMB_ILS,0,Sassinoro,0.0,0.0,1,FIX_009
+FIX_009@Solopaca,AMB_ILS,0,Solopaca,0.0,0.0,1,FIX_009
+FIX_009@Telese Terme,AMB_ILS,0,Telese Terme,0.0,0.0,1,FIX_009
+FIX_009@Tocco Caudio,AMB_ILS,0,Tocco Caudio,0.0,0.0,1,FIX_009
+FIX_009@Torrecuso,AMB_ILS,0,Torrecuso,0.0,0.0,1,FIX_009
+FIX_009@Vitulano,AMB_ILS,0,Vitulano,0.0,0.0,1,FIX_009
+FIX_010@Airola,AMB_ILS,0,Airola,0.0,0.0,1,FIX_010
+FIX_010@Amorosi,AMB_ILS,0,Amorosi,0.0,0.0,1,FIX_010
+FIX_010@Apice,AMB_ILS,0,Apice,0.0,0.0,1,FIX_010
+FIX_010@Apollosa,AMB_ILS,0,Apollosa,0.0,0.0,1,FIX_010
+FIX_010@Arpaia,AMB_ILS,0,Arpaia,0.0,0.0,1,FIX_010
+FIX_010@Arpaise,AMB_ILS,0,Arpaise,0.0,0.0,1,FIX_010
+FIX_010@Baselice,AMB_ILS,0,Baselice,0.0,0.0,1,FIX_010
+FIX_010@Benevento,AMB_ILS,0,Benevento,0.0,0.0,1,FIX_010
+FIX_010@Bonea,AMB_ILS,0,Bonea,0.0,0.0,1,FIX_010
+FIX_010@Bucciano,AMB_ILS,0,Bucciano,0.0,0.0,1,FIX_010
+FIX_010@Buonalbergo,AMB_ILS,0,Buonalbergo,0.0,0.0,1,FIX_010
+FIX_010@Calvi,AMB_ILS,0,Calvi,0.0,0.0,1,FIX_010
+FIX_010@Campolattaro,AMB_ILS,0,Campolattaro,0.0,0.0,1,FIX_010
+FIX_010@Campoli Del Monte Taburno,AMB_ILS,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_010
+FIX_010@Casalduni,AMB_ILS,0,Casalduni,0.0,0.0,1,FIX_010
+FIX_010@Castelfranco In Miscano,AMB_ILS,0,Castelfranco In Miscano,0.0,0.0,1,FIX_010
+FIX_010@Castelpagano,AMB_ILS,0,Castelpagano,0.0,0.0,1,FIX_010
+FIX_010@Castelpoto,AMB_ILS,0,Castelpoto,0.0,0.0,1,FIX_010
+FIX_010@Castelvenere,AMB_ILS,0,Castelvenere,0.0,0.0,1,FIX_010
+FIX_010@Castelvetere In Val Fortore,AMB_ILS,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_010
+FIX_010@Cautano,AMB_ILS,0,Cautano,0.0,0.0,1,FIX_010
+FIX_010@Ceppaloni,AMB_ILS,0,Ceppaloni,0.0,0.0,1,FIX_010
+FIX_010@Cerreto Sannita,AMB_ILS,0,Cerreto Sannita,0.0,0.0,1,FIX_010
+FIX_010@Circello,AMB_ILS,0,Circello,0.0,0.0,1,FIX_010
+FIX_010@Colle Sannita,AMB_ILS,0,Colle Sannita,0.0,0.0,1,FIX_010
+FIX_010@Cusano Mutri,AMB_ILS,0,Cusano Mutri,0.0,0.0,1,FIX_010
+FIX_010@Dugenta,AMB_ILS,0,Dugenta,0.0,0.0,1,FIX_010
+FIX_010@Durazzano,AMB_ILS,0,Durazzano,0.0,0.0,1,FIX_010
+FIX_010@Faicchio,AMB_ILS,0,Faicchio,0.0,0.0,1,FIX_010
+FIX_010@Foglianise,AMB_ILS,0,Foglianise,0.0,0.0,1,FIX_010
+FIX_010@Foiano Di Val Fortore,AMB_ILS,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_010
+FIX_010@Forchia,AMB_ILS,0,Forchia,0.0,0.0,1,FIX_010
+FIX_010@Fragneto L'Abate,AMB_ILS,0,Fragneto L'Abate,0.0,0.0,1,FIX_010
+FIX_010@Fragneto Monforte,AMB_ILS,0,Fragneto Monforte,0.0,0.0,1,FIX_010
+FIX_010@Frasso Telesino,AMB_ILS,0,Frasso Telesino,0.0,0.0,1,FIX_010
+FIX_010@Ginestra Degli Schiavoni,AMB_ILS,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_010
+FIX_010@Guardia Sanframondi,AMB_ILS,0,Guardia Sanframondi,0.0,0.0,1,FIX_010
+FIX_010@Limatola,AMB_ILS,0,Limatola,0.0,0.0,1,FIX_010
+FIX_010@Melizzano,AMB_ILS,0,Melizzano,0.0,0.0,1,FIX_010
+FIX_010@Moiano,AMB_ILS,0,Moiano,0.0,0.0,1,FIX_010
+FIX_010@Molinara,AMB_ILS,0,Molinara,0.0,0.0,1,FIX_010
+FIX_010@Montefalcone Di Val Fortore,AMB_ILS,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_010
+FIX_010@Montesarchio,AMB_ILS,0,Montesarchio,0.0,0.0,1,FIX_010
+FIX_010@Morcone,AMB_ILS,0,Morcone,0.0,0.0,1,FIX_010
+FIX_010@Paduli,AMB_ILS,0,Paduli,0.0,0.0,1,FIX_010
+FIX_010@Pago Veiano,AMB_ILS,0,Pago Veiano,0.0,0.0,1,FIX_010
+FIX_010@Pannarano,AMB_ILS,0,Pannarano,0.0,0.0,1,FIX_010
+FIX_010@Paolisi,AMB_ILS,0,Paolisi,0.0,0.0,1,FIX_010
+FIX_010@Paupisi,AMB_ILS,0,Paupisi,0.0,0.0,1,FIX_010
+FIX_010@Pesco Sannita,AMB_ILS,0,Pesco Sannita,0.0,0.0,1,FIX_010
+FIX_010@Pietraroja,AMB_ILS,0,Pietraroja,0.0,0.0,1,FIX_010
+FIX_010@Pietrelcina,AMB_ILS,0,Pietrelcina,0.0,0.0,1,FIX_010
+FIX_010@Ponte,AMB_ILS,0,Ponte,0.0,0.0,1,FIX_010
+FIX_010@Pontelandolfo,AMB_ILS,0,Pontelandolfo,0.0,0.0,1,FIX_010
+FIX_010@Puglianello,AMB_ILS,0,Puglianello,0.0,0.0,1,FIX_010
+FIX_010@Reino,AMB_ILS,0,Reino,0.0,0.0,1,FIX_010
+FIX_010@San Bartolomeo In Galdo,AMB_ILS,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_010
+FIX_010@San Giorgio Del Sannio,AMB_ILS,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_010
+FIX_010@San Giorgio La Molara,AMB_ILS,0,San Giorgio La Molara,0.0,0.0,1,FIX_010
+FIX_010@San Leucio Del Sannio,AMB_ILS,0,San Leucio Del Sannio,0.0,0.0,1,FIX_010
+FIX_010@San Lorenzello,AMB_ILS,0,San Lorenzello,0.0,0.0,1,FIX_010
+FIX_010@San Lorenzo Maggiore,AMB_ILS,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_010
+FIX_010@San Lupo,AMB_ILS,0,San Lupo,0.0,0.0,1,FIX_010
+FIX_010@San Marco Dei Cavoti,AMB_ILS,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_010
+FIX_010@San Martino Sannita,AMB_ILS,0,San Martino Sannita,0.0,0.0,1,FIX_010
+FIX_010@San Nazzaro,AMB_ILS,0,San Nazzaro,0.0,0.0,1,FIX_010
+FIX_010@San Nicola Manfredi,AMB_ILS,0,San Nicola Manfredi,0.0,0.0,1,FIX_010
+FIX_010@San Salvatore Telesino,AMB_ILS,0,San Salvatore Telesino,0.0,0.0,1,FIX_010
+FIX_010@Sant'Agata De' Goti,AMB_ILS,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_010
+FIX_010@Sant'Angelo A Cupolo,AMB_ILS,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_010
+FIX_010@Sant'Arcangelo Trimonte,AMB_ILS,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_010
+FIX_010@Santa Croce Del Sannio,AMB_ILS,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_010
+FIX_010@Sassinoro,AMB_ILS,0,Sassinoro,0.0,0.0,1,FIX_010
+FIX_010@Solopaca,AMB_ILS,0,Solopaca,0.0,0.0,1,FIX_010
+FIX_010@Telese Terme,AMB_ILS,0,Telese Terme,0.0,0.0,1,FIX_010
+FIX_010@Tocco Caudio,AMB_ILS,0,Tocco Caudio,0.0,0.0,1,FIX_010
+FIX_010@Torrecuso,AMB_ILS,0,Torrecuso,0.0,0.0,1,FIX_010
+FIX_010@Vitulano,AMB_ILS,0,Vitulano,0.0,0.0,1,FIX_010
+FIX_011@Airola,AUTO_MED,0,Airola,0.0,0.0,1,FIX_011
+FIX_011@Amorosi,AUTO_MED,0,Amorosi,0.0,0.0,1,FIX_011
+FIX_011@Apice,AUTO_MED,0,Apice,0.0,0.0,1,FIX_011
+FIX_011@Apollosa,AUTO_MED,0,Apollosa,0.0,0.0,1,FIX_011
+FIX_011@Arpaia,AUTO_MED,0,Arpaia,0.0,0.0,1,FIX_011
+FIX_011@Arpaise,AUTO_MED,0,Arpaise,0.0,0.0,1,FIX_011
+FIX_011@Baselice,AUTO_MED,0,Baselice,0.0,0.0,1,FIX_011
+FIX_011@Benevento,AUTO_MED,0,Benevento,0.0,0.0,1,FIX_011
+FIX_011@Bonea,AUTO_MED,0,Bonea,0.0,0.0,1,FIX_011
+FIX_011@Bucciano,AUTO_MED,0,Bucciano,0.0,0.0,1,FIX_011
+FIX_011@Buonalbergo,AUTO_MED,0,Buonalbergo,0.0,0.0,1,FIX_011
+FIX_011@Calvi,AUTO_MED,0,Calvi,0.0,0.0,1,FIX_011
+FIX_011@Campolattaro,AUTO_MED,0,Campolattaro,0.0,0.0,1,FIX_011
+FIX_011@Campoli Del Monte Taburno,AUTO_MED,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_011
+FIX_011@Casalduni,AUTO_MED,0,Casalduni,0.0,0.0,1,FIX_011
+FIX_011@Castelfranco In Miscano,AUTO_MED,0,Castelfranco In Miscano,0.0,0.0,1,FIX_011
+FIX_011@Castelpagano,AUTO_MED,0,Castelpagano,0.0,0.0,1,FIX_011
+FIX_011@Castelpoto,AUTO_MED,0,Castelpoto,0.0,0.0,1,FIX_011
+FIX_011@Castelvenere,AUTO_MED,0,Castelvenere,0.0,0.0,1,FIX_011
+FIX_011@Castelvetere In Val Fortore,AUTO_MED,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_011
+FIX_011@Cautano,AUTO_MED,0,Cautano,0.0,0.0,1,FIX_011
+FIX_011@Ceppaloni,AUTO_MED,0,Ceppaloni,0.0,0.0,1,FIX_011
+FIX_011@Cerreto Sannita,AUTO_MED,0,Cerreto Sannita,0.0,0.0,1,FIX_011
+FIX_011@Circello,AUTO_MED,0,Circello,0.0,0.0,1,FIX_011
+FIX_011@Colle Sannita,AUTO_MED,0,Colle Sannita,0.0,0.0,1,FIX_011
+FIX_011@Cusano Mutri,AUTO_MED,0,Cusano Mutri,0.0,0.0,1,FIX_011
+FIX_011@Dugenta,AUTO_MED,0,Dugenta,0.0,0.0,1,FIX_011
+FIX_011@Durazzano,AUTO_MED,0,Durazzano,0.0,0.0,1,FIX_011
+FIX_011@Faicchio,AUTO_MED,0,Faicchio,0.0,0.0,1,FIX_011
+FIX_011@Foglianise,AUTO_MED,0,Foglianise,0.0,0.0,1,FIX_011
+FIX_011@Foiano Di Val Fortore,AUTO_MED,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_011
+FIX_011@Forchia,AUTO_MED,0,Forchia,0.0,0.0,1,FIX_011
+FIX_011@Fragneto L'Abate,AUTO_MED,0,Fragneto L'Abate,0.0,0.0,1,FIX_011
+FIX_011@Fragneto Monforte,AUTO_MED,0,Fragneto Monforte,0.0,0.0,1,FIX_011
+FIX_011@Frasso Telesino,AUTO_MED,0,Frasso Telesino,0.0,0.0,1,FIX_011
+FIX_011@Ginestra Degli Schiavoni,AUTO_MED,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_011
+FIX_011@Guardia Sanframondi,AUTO_MED,0,Guardia Sanframondi,0.0,0.0,1,FIX_011
+FIX_011@Limatola,AUTO_MED,0,Limatola,0.0,0.0,1,FIX_011
+FIX_011@Melizzano,AUTO_MED,0,Melizzano,0.0,0.0,1,FIX_011
+FIX_011@Moiano,AUTO_MED,0,Moiano,0.0,0.0,1,FIX_011
+FIX_011@Molinara,AUTO_MED,0,Molinara,0.0,0.0,1,FIX_011
+FIX_011@Montefalcone Di Val Fortore,AUTO_MED,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_011
+FIX_011@Montesarchio,AUTO_MED,0,Montesarchio,0.0,0.0,1,FIX_011
+FIX_011@Morcone,AUTO_MED,0,Morcone,0.0,0.0,1,FIX_011
+FIX_011@Paduli,AUTO_MED,0,Paduli,0.0,0.0,1,FIX_011
+FIX_011@Pago Veiano,AUTO_MED,0,Pago Veiano,0.0,0.0,1,FIX_011
+FIX_011@Pannarano,AUTO_MED,0,Pannarano,0.0,0.0,1,FIX_011
+FIX_011@Paolisi,AUTO_MED,0,Paolisi,0.0,0.0,1,FIX_011
+FIX_011@Paupisi,AUTO_MED,0,Paupisi,0.0,0.0,1,FIX_011
+FIX_011@Pesco Sannita,AUTO_MED,0,Pesco Sannita,0.0,0.0,1,FIX_011
+FIX_011@Pietraroja,AUTO_MED,0,Pietraroja,0.0,0.0,1,FIX_011
+FIX_011@Pietrelcina,AUTO_MED,0,Pietrelcina,0.0,0.0,1,FIX_011
+FIX_011@Ponte,AUTO_MED,0,Ponte,0.0,0.0,1,FIX_011
+FIX_011@Pontelandolfo,AUTO_MED,0,Pontelandolfo,0.0,0.0,1,FIX_011
+FIX_011@Puglianello,AUTO_MED,0,Puglianello,0.0,0.0,1,FIX_011
+FIX_011@Reino,AUTO_MED,0,Reino,0.0,0.0,1,FIX_011
+FIX_011@San Bartolomeo In Galdo,AUTO_MED,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_011
+FIX_011@San Giorgio Del Sannio,AUTO_MED,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_011
+FIX_011@San Giorgio La Molara,AUTO_MED,0,San Giorgio La Molara,0.0,0.0,1,FIX_011
+FIX_011@San Leucio Del Sannio,AUTO_MED,0,San Leucio Del Sannio,0.0,0.0,1,FIX_011
+FIX_011@San Lorenzello,AUTO_MED,0,San Lorenzello,0.0,0.0,1,FIX_011
+FIX_011@San Lorenzo Maggiore,AUTO_MED,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_011
+FIX_011@San Lupo,AUTO_MED,0,San Lupo,0.0,0.0,1,FIX_011
+FIX_011@San Marco Dei Cavoti,AUTO_MED,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_011
+FIX_011@San Martino Sannita,AUTO_MED,0,San Martino Sannita,0.0,0.0,1,FIX_011
+FIX_011@San Nazzaro,AUTO_MED,0,San Nazzaro,0.0,0.0,1,FIX_011
+FIX_011@San Nicola Manfredi,AUTO_MED,0,San Nicola Manfredi,0.0,0.0,1,FIX_011
+FIX_011@San Salvatore Telesino,AUTO_MED,0,San Salvatore Telesino,0.0,0.0,1,FIX_011
+FIX_011@Sant'Agata De' Goti,AUTO_MED,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_011
+FIX_011@Sant'Angelo A Cupolo,AUTO_MED,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_011
+FIX_011@Sant'Arcangelo Trimonte,AUTO_MED,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_011
+FIX_011@Santa Croce Del Sannio,AUTO_MED,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_011
+FIX_011@Sassinoro,AUTO_MED,0,Sassinoro,0.0,0.0,1,FIX_011
+FIX_011@Solopaca,AUTO_MED,0,Solopaca,0.0,0.0,1,FIX_011
+FIX_011@Telese Terme,AUTO_MED,0,Telese Terme,0.0,0.0,1,FIX_011
+FIX_011@Tocco Caudio,AUTO_MED,0,Tocco Caudio,0.0,0.0,1,FIX_011
+FIX_011@Torrecuso,AUTO_MED,0,Torrecuso,0.0,0.0,1,FIX_011
+FIX_011@Vitulano,AUTO_MED,0,Vitulano,0.0,0.0,1,FIX_011
+FIX_012@Airola,AUTO_MED,0,Airola,0.0,0.0,1,FIX_012
+FIX_012@Amorosi,AUTO_MED,0,Amorosi,0.0,0.0,1,FIX_012
+FIX_012@Apice,AUTO_MED,0,Apice,0.0,0.0,1,FIX_012
+FIX_012@Apollosa,AUTO_MED,0,Apollosa,0.0,0.0,1,FIX_012
+FIX_012@Arpaia,AUTO_MED,0,Arpaia,0.0,0.0,1,FIX_012
+FIX_012@Arpaise,AUTO_MED,0,Arpaise,0.0,0.0,1,FIX_012
+FIX_012@Baselice,AUTO_MED,0,Baselice,0.0,0.0,1,FIX_012
+FIX_012@Benevento,AUTO_MED,0,Benevento,0.0,0.0,1,FIX_012
+FIX_012@Bonea,AUTO_MED,0,Bonea,0.0,0.0,1,FIX_012
+FIX_012@Bucciano,AUTO_MED,0,Bucciano,0.0,0.0,1,FIX_012
+FIX_012@Buonalbergo,AUTO_MED,0,Buonalbergo,0.0,0.0,1,FIX_012
+FIX_012@Calvi,AUTO_MED,0,Calvi,0.0,0.0,1,FIX_012
+FIX_012@Campolattaro,AUTO_MED,0,Campolattaro,0.0,0.0,1,FIX_012
+FIX_012@Campoli Del Monte Taburno,AUTO_MED,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_012
+FIX_012@Casalduni,AUTO_MED,0,Casalduni,0.0,0.0,1,FIX_012
+FIX_012@Castelfranco In Miscano,AUTO_MED,0,Castelfranco In Miscano,0.0,0.0,1,FIX_012
+FIX_012@Castelpagano,AUTO_MED,0,Castelpagano,0.0,0.0,1,FIX_012
+FIX_012@Castelpoto,AUTO_MED,0,Castelpoto,0.0,0.0,1,FIX_012
+FIX_012@Castelvenere,AUTO_MED,0,Castelvenere,0.0,0.0,1,FIX_012
+FIX_012@Castelvetere In Val Fortore,AUTO_MED,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_012
+FIX_012@Cautano,AUTO_MED,0,Cautano,0.0,0.0,1,FIX_012
+FIX_012@Ceppaloni,AUTO_MED,0,Ceppaloni,0.0,0.0,1,FIX_012
+FIX_012@Cerreto Sannita,AUTO_MED,0,Cerreto Sannita,0.0,0.0,1,FIX_012
+FIX_012@Circello,AUTO_MED,0,Circello,0.0,0.0,1,FIX_012
+FIX_012@Colle Sannita,AUTO_MED,0,Colle Sannita,0.0,0.0,1,FIX_012
+FIX_012@Cusano Mutri,AUTO_MED,0,Cusano Mutri,0.0,0.0,1,FIX_012
+FIX_012@Dugenta,AUTO_MED,0,Dugenta,0.0,0.0,1,FIX_012
+FIX_012@Durazzano,AUTO_MED,0,Durazzano,0.0,0.0,1,FIX_012
+FIX_012@Faicchio,AUTO_MED,0,Faicchio,0.0,0.0,1,FIX_012
+FIX_012@Foglianise,AUTO_MED,0,Foglianise,0.0,0.0,1,FIX_012
+FIX_012@Foiano Di Val Fortore,AUTO_MED,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_012
+FIX_012@Forchia,AUTO_MED,0,Forchia,0.0,0.0,1,FIX_012
+FIX_012@Fragneto L'Abate,AUTO_MED,0,Fragneto L'Abate,0.0,0.0,1,FIX_012
+FIX_012@Fragneto Monforte,AUTO_MED,0,Fragneto Monforte,0.0,0.0,1,FIX_012
+FIX_012@Frasso Telesino,AUTO_MED,0,Frasso Telesino,0.0,0.0,1,FIX_012
+FIX_012@Ginestra Degli Schiavoni,AUTO_MED,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_012
+FIX_012@Guardia Sanframondi,AUTO_MED,0,Guardia Sanframondi,0.0,0.0,1,FIX_012
+FIX_012@Limatola,AUTO_MED,0,Limatola,0.0,0.0,1,FIX_012
+FIX_012@Melizzano,AUTO_MED,0,Melizzano,0.0,0.0,1,FIX_012
+FIX_012@Moiano,AUTO_MED,0,Moiano,0.0,0.0,1,FIX_012
+FIX_012@Molinara,AUTO_MED,0,Molinara,0.0,0.0,1,FIX_012
+FIX_012@Montefalcone Di Val Fortore,AUTO_MED,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_012
+FIX_012@Montesarchio,AUTO_MED,0,Montesarchio,0.0,0.0,1,FIX_012
+FIX_012@Morcone,AUTO_MED,0,Morcone,0.0,0.0,1,FIX_012
+FIX_012@Paduli,AUTO_MED,0,Paduli,0.0,0.0,1,FIX_012
+FIX_012@Pago Veiano,AUTO_MED,0,Pago Veiano,0.0,0.0,1,FIX_012
+FIX_012@Pannarano,AUTO_MED,0,Pannarano,0.0,0.0,1,FIX_012
+FIX_012@Paolisi,AUTO_MED,0,Paolisi,0.0,0.0,1,FIX_012
+FIX_012@Paupisi,AUTO_MED,0,Paupisi,0.0,0.0,1,FIX_012
+FIX_012@Pesco Sannita,AUTO_MED,0,Pesco Sannita,0.0,0.0,1,FIX_012
+FIX_012@Pietraroja,AUTO_MED,0,Pietraroja,0.0,0.0,1,FIX_012
+FIX_012@Pietrelcina,AUTO_MED,0,Pietrelcina,0.0,0.0,1,FIX_012
+FIX_012@Ponte,AUTO_MED,0,Ponte,0.0,0.0,1,FIX_012
+FIX_012@Pontelandolfo,AUTO_MED,0,Pontelandolfo,0.0,0.0,1,FIX_012
+FIX_012@Puglianello,AUTO_MED,0,Puglianello,0.0,0.0,1,FIX_012
+FIX_012@Reino,AUTO_MED,0,Reino,0.0,0.0,1,FIX_012
+FIX_012@San Bartolomeo In Galdo,AUTO_MED,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_012
+FIX_012@San Giorgio Del Sannio,AUTO_MED,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_012
+FIX_012@San Giorgio La Molara,AUTO_MED,0,San Giorgio La Molara,0.0,0.0,1,FIX_012
+FIX_012@San Leucio Del Sannio,AUTO_MED,0,San Leucio Del Sannio,0.0,0.0,1,FIX_012
+FIX_012@San Lorenzello,AUTO_MED,0,San Lorenzello,0.0,0.0,1,FIX_012
+FIX_012@San Lorenzo Maggiore,AUTO_MED,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_012
+FIX_012@San Lupo,AUTO_MED,0,San Lupo,0.0,0.0,1,FIX_012
+FIX_012@San Marco Dei Cavoti,AUTO_MED,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_012
+FIX_012@San Martino Sannita,AUTO_MED,0,San Martino Sannita,0.0,0.0,1,FIX_012
+FIX_012@San Nazzaro,AUTO_MED,0,San Nazzaro,0.0,0.0,1,FIX_012
+FIX_012@San Nicola Manfredi,AUTO_MED,0,San Nicola Manfredi,0.0,0.0,1,FIX_012
+FIX_012@San Salvatore Telesino,AUTO_MED,0,San Salvatore Telesino,0.0,0.0,1,FIX_012
+FIX_012@Sant'Agata De' Goti,AUTO_MED,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_012
+FIX_012@Sant'Angelo A Cupolo,AUTO_MED,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_012
+FIX_012@Sant'Arcangelo Trimonte,AUTO_MED,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_012
+FIX_012@Santa Croce Del Sannio,AUTO_MED,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_012
+FIX_012@Sassinoro,AUTO_MED,0,Sassinoro,0.0,0.0,1,FIX_012
+FIX_012@Solopaca,AUTO_MED,0,Solopaca,0.0,0.0,1,FIX_012
+FIX_012@Telese Terme,AUTO_MED,0,Telese Terme,0.0,0.0,1,FIX_012
+FIX_012@Tocco Caudio,AUTO_MED,0,Tocco Caudio,0.0,0.0,1,FIX_012
+FIX_012@Torrecuso,AUTO_MED,0,Torrecuso,0.0,0.0,1,FIX_012
+FIX_012@Vitulano,AUTO_MED,0,Vitulano,0.0,0.0,1,FIX_012
+FIX_013@Airola,AUTO_MED,0,Airola,0.0,0.0,1,FIX_013
+FIX_013@Amorosi,AUTO_MED,0,Amorosi,0.0,0.0,1,FIX_013
+FIX_013@Apice,AUTO_MED,0,Apice,0.0,0.0,1,FIX_013
+FIX_013@Apollosa,AUTO_MED,0,Apollosa,0.0,0.0,1,FIX_013
+FIX_013@Arpaia,AUTO_MED,0,Arpaia,0.0,0.0,1,FIX_013
+FIX_013@Arpaise,AUTO_MED,0,Arpaise,0.0,0.0,1,FIX_013
+FIX_013@Baselice,AUTO_MED,0,Baselice,0.0,0.0,1,FIX_013
+FIX_013@Benevento,AUTO_MED,0,Benevento,0.0,0.0,1,FIX_013
+FIX_013@Bonea,AUTO_MED,0,Bonea,0.0,0.0,1,FIX_013
+FIX_013@Bucciano,AUTO_MED,0,Bucciano,0.0,0.0,1,FIX_013
+FIX_013@Buonalbergo,AUTO_MED,0,Buonalbergo,0.0,0.0,1,FIX_013
+FIX_013@Calvi,AUTO_MED,0,Calvi,0.0,0.0,1,FIX_013
+FIX_013@Campolattaro,AUTO_MED,0,Campolattaro,0.0,0.0,1,FIX_013
+FIX_013@Campoli Del Monte Taburno,AUTO_MED,0,Campoli Del Monte Taburno,0.0,0.0,1,FIX_013
+FIX_013@Casalduni,AUTO_MED,0,Casalduni,0.0,0.0,1,FIX_013
+FIX_013@Castelfranco In Miscano,AUTO_MED,0,Castelfranco In Miscano,0.0,0.0,1,FIX_013
+FIX_013@Castelpagano,AUTO_MED,0,Castelpagano,0.0,0.0,1,FIX_013
+FIX_013@Castelpoto,AUTO_MED,0,Castelpoto,0.0,0.0,1,FIX_013
+FIX_013@Castelvenere,AUTO_MED,0,Castelvenere,0.0,0.0,1,FIX_013
+FIX_013@Castelvetere In Val Fortore,AUTO_MED,0,Castelvetere In Val Fortore,0.0,0.0,1,FIX_013
+FIX_013@Cautano,AUTO_MED,0,Cautano,0.0,0.0,1,FIX_013
+FIX_013@Ceppaloni,AUTO_MED,0,Ceppaloni,0.0,0.0,1,FIX_013
+FIX_013@Cerreto Sannita,AUTO_MED,0,Cerreto Sannita,0.0,0.0,1,FIX_013
+FIX_013@Circello,AUTO_MED,0,Circello,0.0,0.0,1,FIX_013
+FIX_013@Colle Sannita,AUTO_MED,0,Colle Sannita,0.0,0.0,1,FIX_013
+FIX_013@Cusano Mutri,AUTO_MED,0,Cusano Mutri,0.0,0.0,1,FIX_013
+FIX_013@Dugenta,AUTO_MED,0,Dugenta,0.0,0.0,1,FIX_013
+FIX_013@Durazzano,AUTO_MED,0,Durazzano,0.0,0.0,1,FIX_013
+FIX_013@Faicchio,AUTO_MED,0,Faicchio,0.0,0.0,1,FIX_013
+FIX_013@Foglianise,AUTO_MED,0,Foglianise,0.0,0.0,1,FIX_013
+FIX_013@Foiano Di Val Fortore,AUTO_MED,0,Foiano Di Val Fortore,0.0,0.0,1,FIX_013
+FIX_013@Forchia,AUTO_MED,0,Forchia,0.0,0.0,1,FIX_013
+FIX_013@Fragneto L'Abate,AUTO_MED,0,Fragneto L'Abate,0.0,0.0,1,FIX_013
+FIX_013@Fragneto Monforte,AUTO_MED,0,Fragneto Monforte,0.0,0.0,1,FIX_013
+FIX_013@Frasso Telesino,AUTO_MED,0,Frasso Telesino,0.0,0.0,1,FIX_013
+FIX_013@Ginestra Degli Schiavoni,AUTO_MED,0,Ginestra Degli Schiavoni,0.0,0.0,1,FIX_013
+FIX_013@Guardia Sanframondi,AUTO_MED,0,Guardia Sanframondi,0.0,0.0,1,FIX_013
+FIX_013@Limatola,AUTO_MED,0,Limatola,0.0,0.0,1,FIX_013
+FIX_013@Melizzano,AUTO_MED,0,Melizzano,0.0,0.0,1,FIX_013
+FIX_013@Moiano,AUTO_MED,0,Moiano,0.0,0.0,1,FIX_013
+FIX_013@Molinara,AUTO_MED,0,Molinara,0.0,0.0,1,FIX_013
+FIX_013@Montefalcone Di Val Fortore,AUTO_MED,0,Montefalcone Di Val Fortore,0.0,0.0,1,FIX_013
+FIX_013@Montesarchio,AUTO_MED,0,Montesarchio,0.0,0.0,1,FIX_013
+FIX_013@Morcone,AUTO_MED,0,Morcone,0.0,0.0,1,FIX_013
+FIX_013@Paduli,AUTO_MED,0,Paduli,0.0,0.0,1,FIX_013
+FIX_013@Pago Veiano,AUTO_MED,0,Pago Veiano,0.0,0.0,1,FIX_013
+FIX_013@Pannarano,AUTO_MED,0,Pannarano,0.0,0.0,1,FIX_013
+FIX_013@Paolisi,AUTO_MED,0,Paolisi,0.0,0.0,1,FIX_013
+FIX_013@Paupisi,AUTO_MED,0,Paupisi,0.0,0.0,1,FIX_013
+FIX_013@Pesco Sannita,AUTO_MED,0,Pesco Sannita,0.0,0.0,1,FIX_013
+FIX_013@Pietraroja,AUTO_MED,0,Pietraroja,0.0,0.0,1,FIX_013
+FIX_013@Pietrelcina,AUTO_MED,0,Pietrelcina,0.0,0.0,1,FIX_013
+FIX_013@Ponte,AUTO_MED,0,Ponte,0.0,0.0,1,FIX_013
+FIX_013@Pontelandolfo,AUTO_MED,0,Pontelandolfo,0.0,0.0,1,FIX_013
+FIX_013@Puglianello,AUTO_MED,0,Puglianello,0.0,0.0,1,FIX_013
+FIX_013@Reino,AUTO_MED,0,Reino,0.0,0.0,1,FIX_013
+FIX_013@San Bartolomeo In Galdo,AUTO_MED,0,San Bartolomeo In Galdo,0.0,0.0,1,FIX_013
+FIX_013@San Giorgio Del Sannio,AUTO_MED,0,San Giorgio Del Sannio,0.0,0.0,1,FIX_013
+FIX_013@San Giorgio La Molara,AUTO_MED,0,San Giorgio La Molara,0.0,0.0,1,FIX_013
+FIX_013@San Leucio Del Sannio,AUTO_MED,0,San Leucio Del Sannio,0.0,0.0,1,FIX_013
+FIX_013@San Lorenzello,AUTO_MED,0,San Lorenzello,0.0,0.0,1,FIX_013
+FIX_013@San Lorenzo Maggiore,AUTO_MED,0,San Lorenzo Maggiore,0.0,0.0,1,FIX_013
+FIX_013@San Lupo,AUTO_MED,0,San Lupo,0.0,0.0,1,FIX_013
+FIX_013@San Marco Dei Cavoti,AUTO_MED,0,San Marco Dei Cavoti,0.0,0.0,1,FIX_013
+FIX_013@San Martino Sannita,AUTO_MED,0,San Martino Sannita,0.0,0.0,1,FIX_013
+FIX_013@San Nazzaro,AUTO_MED,0,San Nazzaro,0.0,0.0,1,FIX_013
+FIX_013@San Nicola Manfredi,AUTO_MED,0,San Nicola Manfredi,0.0,0.0,1,FIX_013
+FIX_013@San Salvatore Telesino,AUTO_MED,0,San Salvatore Telesino,0.0,0.0,1,FIX_013
+FIX_013@Sant'Agata De' Goti,AUTO_MED,0,Sant'Agata De' Goti,0.0,0.0,1,FIX_013
+FIX_013@Sant'Angelo A Cupolo,AUTO_MED,0,Sant'Angelo A Cupolo,0.0,0.0,1,FIX_013
+FIX_013@Sant'Arcangelo Trimonte,AUTO_MED,0,Sant'Arcangelo Trimonte,0.0,0.0,1,FIX_013
+FIX_013@Santa Croce Del Sannio,AUTO_MED,0,Santa Croce Del Sannio,0.0,0.0,1,FIX_013
+FIX_013@Sassinoro,AUTO_MED,0,Sassinoro,0.0,0.0,1,FIX_013
+FIX_013@Solopaca,AUTO_MED,0,Solopaca,0.0,0.0,1,FIX_013
+FIX_013@Telese Terme,AUTO_MED,0,Telese Terme,0.0,0.0,1,FIX_013
+FIX_013@Tocco Caudio,AUTO_MED,0,Tocco Caudio,0.0,0.0,1,FIX_013
+FIX_013@Torrecuso,AUTO_MED,0,Torrecuso,0.0,0.0,1,FIX_013
+FIX_013@Vitulano,AUTO_MED,0,Vitulano,0.0,0.0,1,FIX_013
+MOB_014,AMB_ILS,0,Airola,0.0,0.0,0,
+MOB_015,AMB_ILS,0,Amorosi,0.0,0.0,0,
+MOB_016,AMB_ILS,0,Apice,0.0,0.0,0,
+MOB_017,AMB_ILS,0,Apollosa,0.0,0.0,0,
+MOB_018,AMB_ILS,0,Arpaia,0.0,0.0,0,
+MOB_019,AMB_ILS,0,Arpaise,0.0,0.0,0,
+MOB_020,AMB_ILS,0,Baselice,0.0,0.0,0,
+MOB_021,AMB_ILS,0,Benevento,0.0,0.0,0,
+MOB_022,AMB_ILS,0,Bonea,0.0,0.0,0,
+MOB_023,AMB_ILS,0,Bucciano,0.0,0.0,0,
+MOB_024,AMB_ILS,0,Buonalbergo,0.0,0.0,0,
+MOB_025,AMB_ILS,0,Calvi,0.0,0.0,0,
+MOB_026,AMB_ILS,0,Campolattaro,0.0,0.0,0,
+MOB_027,AMB_ILS,0,Campoli Del Monte Taburno,0.0,0.0,0,
+MOB_028,AMB_ILS,0,Casalduni,0.0,0.0,0,
+MOB_029,AMB_ILS,0,Castelfranco In Miscano,0.0,0.0,0,
+MOB_030,AMB_ILS,0,Castelpagano,0.0,0.0,0,
+MOB_031,AMB_ILS,0,Castelpoto,0.0,0.0,0,
+MOB_032,AMB_ILS,0,Castelvenere,0.0,0.0,0,
+MOB_033,AMB_ILS,0,Castelvetere In Val Fortore,0.0,0.0,0,
+MOB_034,AMB_ILS,0,Cautano,0.0,0.0,0,
+MOB_035,AMB_ILS,0,Ceppaloni,0.0,0.0,0,
+MOB_036,AMB_ILS,0,Circello,0.0,0.0,0,
+MOB_037,AMB_ILS,0,Colle Sannita,0.0,0.0,0,
+MOB_038,AMB_ILS,0,Cusano Mutri,0.0,0.0,0,
+MOB_039,AMB_ILS,0,Dugenta,0.0,0.0,0,
+MOB_040,AMB_ILS,0,Durazzano,0.0,0.0,0,
+MOB_041,AMB_ILS,0,Faicchio,0.0,0.0,0,
+MOB_042,AMB_ILS,0,Foglianise,0.0,0.0,0,
+MOB_043,AMB_ILS,0,Foiano Di Val Fortore,0.0,0.0,0,
+MOB_044,AMB_ILS,0,Forchia,0.0,0.0,0,
+MOB_045,AMB_ILS,0,Fragneto Monforte,0.0,0.0,0,
+MOB_046,AMB_ILS,0,Fragneto L'Abate,0.0,0.0,0,
+MOB_047,AMB_ILS,0,Frasso Telesino,0.0,0.0,0,
+MOB_048,AMB_ILS,0,Ginestra Degli Schiavoni,0.0,0.0,0,
+MOB_049,AMB_ILS,0,Guardia Sanframondi,0.0,0.0,0,
+MOB_050,AMB_ILS,0,Limatola,0.0,0.0,0,
+MOB_051,AMB_ILS,0,Melizzano,0.0,0.0,0,
+MOB_052,AMB_ILS,0,Moiano,0.0,0.0,0,
+MOB_053,AMB_ILS,0,Molinara,0.0,0.0,0,
+MOB_054,AMB_ILS,0,Montefalcone Di Val Fortore,0.0,0.0,0,
+MOB_055,AMB_ILS,0,Montesarchio,0.0,0.0,0,
+MOB_056,AMB_ILS,0,Morcone,0.0,0.0,0,
+MOB_057,AMB_ILS,0,Paduli,0.0,0.0,0,
+MOB_058,AMB_ILS,0,Pago Veiano,0.0,0.0,0,
+MOB_059,AMB_ILS,0,Pannarano,0.0,0.0,0,
+MOB_060,AMB_ILS,0,Paolisi,0.0,0.0,0,
+MOB_061,AMB_ILS,0,Paupisi,0.0,0.0,0,
+MOB_062,AMB_ILS,0,Pesco Sannita,0.0,0.0,0,
+MOB_063,AMB_ILS,0,Pietraroja,0.0,0.0,0,
+MOB_064,AMB_ILS,0,Pietrelcina,0.0,0.0,0,
+MOB_065,AMB_ILS,0,Ponte,0.0,0.0,0,
+MOB_066,AMB_ILS,0,Pontelandolfo,0.0,0.0,0,
+MOB_067,AMB_ILS,0,Puglianello,0.0,0.0,0,
+MOB_068,AMB_ILS,0,Reino,0.0,0.0,0,
+MOB_069,AMB_ILS,0,San Bartolomeo In Galdo,0.0,0.0,0,
+MOB_070,AMB_ILS,0,San Giorgio La Molara,0.0,0.0,0,
+MOB_071,AMB_ILS,0,San Giorgio Del Sannio,0.0,0.0,0,
+MOB_072,AMB_ILS,0,San Leucio Del Sannio,0.0,0.0,0,
+MOB_073,AMB_ILS,0,San Lorenzello,0.0,0.0,0,
+MOB_074,AMB_ILS,0,San Lorenzo Maggiore,0.0,0.0,0,
+MOB_075,AMB_ILS,0,San Lupo,0.0,0.0,0,
+MOB_076,AMB_ILS,0,San Marco Dei Cavoti,0.0,0.0,0,
+MOB_077,AMB_ILS,0,San Martino Sannita,0.0,0.0,0,
+MOB_078,AMB_ILS,0,San Nazzaro,0.0,0.0,0,
+MOB_079,AMB_ILS,0,San Nicola Manfredi,0.0,0.0,0,
+MOB_080,AMB_ILS,0,San Salvatore Telesino,0.0,0.0,0,
+MOB_081,AMB_ILS,0,Sant'Agata De' Goti,0.0,0.0,0,
+MOB_082,AMB_ILS,0,Sant'Angelo A Cupolo,0.0,0.0,0,
+MOB_083,AMB_ILS,0,Sant'Arcangelo Trimonte,0.0,0.0,0,
+MOB_084,AMB_ILS,0,Santa Croce Del Sannio,0.0,0.0,0,
+MOB_085,AMB_ILS,0,Sassinoro,0.0,0.0,0,
+MOB_086,AMB_ILS,0,Solopaca,0.0,0.0,0,
+MOB_087,AMB_ILS,0,Telese Terme,0.0,0.0,0,
+MOB_088,AMB_ILS,0,Tocco Caudio,0.0,0.0,0,
+MOB_089,AMB_ILS,0,Torrecuso,0.0,0.0,0,
+MOB_090,AMB_ILS,0,Vitulano,0.0,0.0,0,
